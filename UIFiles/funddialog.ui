@@ -1,42 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>FundDialog</class>
  <widget class="QDialog" name="FundDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>700</width>
+    <height>378</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>700</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>240</y>
-     <width>341</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QGroupBox" name="gbFundTransactionDetails">
+     <property name="title">
+      <string>Fund Transaction Details</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lblCode">
+        <property name="text">
+         <string>Code :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="leCode"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="lblName">
+        <property name="text">
+         <string>Name :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="leName"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="lblOperationType">
+        <property name="text">
+         <string>Operation Type :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="cbOperationType"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="lblPrice">
+        <property name="text">
+         <string>Price :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QDoubleSpinBox" name="dsbPrice"/>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="lblCount">
+        <property name="text">
+         <string>Count :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QSpinBox" name="sbCount"/>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="lblOrderDate">
+        <property name="text">
+         <string>Order Date :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QDateEdit" name="deOrderDate"/>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="lblOperationDate">
+        <property name="text">
+         <string>Operation Date :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QDateEdit" name="deOperationDate"/>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="lblGoalPrice">
+        <property name="text">
+         <string>Goal Price :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QDoubleSpinBox" name="dsbGoalPrice"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="bbTransactionApproval">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="vlStatusBar"/>
+   </item>
+  </layout>
  </widget>
- <pixmapfunction/>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>bbTransactionApproval</sender>
    <signal>accepted()</signal>
    <receiver>FundDialog</receiver>
    <slot>accept()</slot>
@@ -52,7 +143,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>bbTransactionApproval</sender>
    <signal>rejected()</signal>
    <receiver>FundDialog</receiver>
    <slot>reject()</slot>
