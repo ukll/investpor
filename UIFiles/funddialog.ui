@@ -34,7 +34,14 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="leCode"/>
+       <widget class="QLineEdit" name="leCode">
+        <property name="maxLength">
+         <number>5</number>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="lblName">
@@ -44,7 +51,14 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="leName"/>
+       <widget class="QLineEdit" name="leName">
+        <property name="maxLength">
+         <number>250</number>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="lblOperationType">
@@ -64,7 +78,14 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QDoubleSpinBox" name="dsbPrice"/>
+       <widget class="QDoubleSpinBox" name="dsbPrice">
+        <property name="decimals">
+         <number>6</number>
+        </property>
+        <property name="maximum">
+         <double>1000000.000000000000000</double>
+        </property>
+       </widget>
       </item>
       <item row="4" column="0">
        <widget class="QLabel" name="lblCount">
@@ -74,7 +95,20 @@
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QSpinBox" name="sbCount"/>
+       <widget class="QSpinBox" name="sbCount">
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+        <property name="minimum">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <number>10000000</number>
+        </property>
+        <property name="value">
+         <number>0</number>
+        </property>
+       </widget>
       </item>
       <item row="5" column="0">
        <widget class="QLabel" name="lblOrderDate">
@@ -84,7 +118,28 @@
        </widget>
       </item>
       <item row="5" column="1">
-       <widget class="QDateEdit" name="deOrderDate"/>
+       <widget class="QDateEdit" name="deOrderDate">
+        <property name="maximumDate">
+         <date>
+          <year>2250</year>
+          <month>12</month>
+          <day>31</day>
+         </date>
+        </property>
+        <property name="minimumDate">
+         <date>
+          <year>2000</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
+        </property>
+        <property name="displayFormat">
+         <string>yyyy-MM-dd</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="6" column="0">
        <widget class="QLabel" name="lblOperationDate">
@@ -94,7 +149,28 @@
        </widget>
       </item>
       <item row="6" column="1">
-       <widget class="QDateEdit" name="deOperationDate"/>
+       <widget class="QDateEdit" name="deOperationDate">
+        <property name="maximumDate">
+         <date>
+          <year>2250</year>
+          <month>12</month>
+          <day>31</day>
+         </date>
+        </property>
+        <property name="minimumDate">
+         <date>
+          <year>2000</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
+        </property>
+        <property name="displayFormat">
+         <string>yyyy-MM-dd</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="7" column="0">
        <widget class="QLabel" name="lblGoalPrice">
@@ -104,7 +180,14 @@
        </widget>
       </item>
       <item row="7" column="1">
-       <widget class="QDoubleSpinBox" name="dsbGoalPrice"/>
+       <widget class="QDoubleSpinBox" name="dsbGoalPrice">
+        <property name="decimals">
+         <number>6</number>
+        </property>
+        <property name="maximum">
+         <double>1000000.000000000000000</double>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -133,8 +216,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>227</x>
+     <y>347</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -149,8 +232,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>295</x>
+     <y>353</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
