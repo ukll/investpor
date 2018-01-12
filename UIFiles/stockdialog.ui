@@ -31,6 +31,9 @@
         <property name="text">
          <string>Market :</string>
         </property>
+        <property name="buddy">
+         <cstring>cbMarket</cstring>
+        </property>
        </widget>
       </item>
       <item row="0" column="1">
@@ -41,25 +44,42 @@
         <property name="text">
          <string>Symbol :</string>
         </property>
+        <property name="buddy">
+         <cstring>leSymbol</cstring>
+        </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="leSymbol"/>
+       <widget class="QLineEdit" name="leSymbol">
+        <property name="maxLength">
+         <number>7</number>
+        </property>
+       </widget>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="lblName">
         <property name="text">
          <string>Name :</string>
         </property>
+        <property name="buddy">
+         <cstring>leName</cstring>
+        </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="leName"/>
+       <widget class="QLineEdit" name="leName">
+        <property name="maxLength">
+         <number>100</number>
+        </property>
+       </widget>
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="lblOperationType">
         <property name="text">
          <string>Operation Type :</string>
+        </property>
+        <property name="buddy">
+         <cstring>cbOperationType</cstring>
         </property>
        </widget>
       </item>
@@ -71,50 +91,121 @@
         <property name="text">
          <string>Price :</string>
         </property>
+        <property name="buddy">
+         <cstring>dsbPrice</cstring>
+        </property>
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QDoubleSpinBox" name="dsbPrice"/>
+       <widget class="QDoubleSpinBox" name="dsbPrice">
+        <property name="prefix">
+         <string/>
+        </property>
+        <property name="decimals">
+         <number>6</number>
+        </property>
+        <property name="maximum">
+         <double>1000000.000000000000000</double>
+        </property>
+       </widget>
       </item>
       <item row="5" column="0">
        <widget class="QLabel" name="lblCount">
         <property name="text">
          <string>Count :</string>
         </property>
+        <property name="buddy">
+         <cstring>sbCount</cstring>
+        </property>
        </widget>
       </item>
       <item row="5" column="1">
-       <widget class="QSpinBox" name="sbCount"/>
+       <widget class="QSpinBox" name="sbCount">
+        <property name="maximum">
+         <number>1000000000</number>
+        </property>
+       </widget>
       </item>
       <item row="6" column="0">
        <widget class="QLabel" name="lblCommissionRate">
         <property name="text">
          <string>Commission Rate :</string>
         </property>
+        <property name="buddy">
+         <cstring>dsbCommissionRate</cstring>
+        </property>
        </widget>
       </item>
       <item row="6" column="1">
-       <widget class="QDoubleSpinBox" name="dsbCommissionRate"/>
+       <widget class="QDoubleSpinBox" name="dsbCommissionRate">
+        <property name="decimals">
+         <number>6</number>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
       </item>
       <item row="7" column="0">
        <widget class="QLabel" name="lblDateTime">
         <property name="text">
          <string>Date and Time :</string>
         </property>
+        <property name="buddy">
+         <cstring>dteDateTime</cstring>
+        </property>
        </widget>
       </item>
       <item row="7" column="1">
-       <widget class="QDateTimeEdit" name="dteDateTime"/>
+       <widget class="QDateTimeEdit" name="dteDateTime">
+        <property name="date">
+         <date>
+          <year>2000</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
+        </property>
+        <property name="maximumDate">
+         <date>
+          <year>2250</year>
+          <month>12</month>
+          <day>31</day>
+         </date>
+        </property>
+        <property name="minimumDate">
+         <date>
+          <year>2000</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
+        </property>
+        <property name="displayFormat">
+         <string>yyyy-MM-dd hh:mm:ss</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="8" column="0">
        <widget class="QLabel" name="lblGoalPrice">
         <property name="text">
          <string>Goal Price :</string>
         </property>
+        <property name="buddy">
+         <cstring>dsbGoalPrice</cstring>
+        </property>
        </widget>
       </item>
       <item row="8" column="1">
-       <widget class="QDoubleSpinBox" name="dsbGoalPrice"/>
+       <widget class="QDoubleSpinBox" name="dsbGoalPrice">
+        <property name="decimals">
+         <number>6</number>
+        </property>
+        <property name="maximum">
+         <double>1000000.000000000000000</double>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
