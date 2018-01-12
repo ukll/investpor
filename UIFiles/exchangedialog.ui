@@ -54,7 +54,14 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QDoubleSpinBox" name="dsbPrice"/>
+       <widget class="QDoubleSpinBox" name="dsbPrice">
+        <property name="decimals">
+         <number>6</number>
+        </property>
+        <property name="maximum">
+         <double>1000000000.000000000000000</double>
+        </property>
+       </widget>
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="lblAmount">
@@ -64,12 +71,43 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QSpinBox" name="sbAmount"/>
+       <widget class="QDoubleSpinBox" name="dsbAmount">
+        <property name="decimals">
+         <number>6</number>
+        </property>
+        <property name="maximum">
+         <double>10000000.000000000000000</double>
+        </property>
+       </widget>
       </item>
       <item row="4" column="0">
        <widget class="QLabel" name="lblDateTime">
         <property name="text">
          <string>Date and Time :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QDateTimeEdit" name="dteDateTime">
+        <property name="maximumDate">
+         <date>
+          <year>2250</year>
+          <month>12</month>
+          <day>31</day>
+         </date>
+        </property>
+        <property name="minimumDate">
+         <date>
+          <year>2000</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
+        </property>
+        <property name="displayFormat">
+         <string>yyyy-MM-dd hh:mm:ss</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -81,10 +119,14 @@
        </widget>
       </item>
       <item row="5" column="1">
-       <widget class="QDoubleSpinBox" name="dsbGoalPrice"/>
-      </item>
-      <item row="4" column="1">
-       <widget class="QDateTimeEdit" name="dteDateTime"/>
+       <widget class="QDoubleSpinBox" name="dsbGoalPrice">
+        <property name="decimals">
+         <number>6</number>
+        </property>
+        <property name="maximum">
+         <double>1000000000.000000000000000</double>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -113,8 +155,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>227</x>
+     <y>278</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -129,8 +171,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>295</x>
+     <y>284</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
