@@ -25,10 +25,28 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         SourceFiles/main.cpp \
-        SourceFiles/mainwindow.cpp
+        SourceFiles/mainwindow.cpp \
+    SourceFiles/stockdialog.cpp \
+    SourceFiles/bonddialog.cpp \
+    SourceFiles/cryptocurrencydialog.cpp \
+    SourceFiles/exchangedialog.cpp \
+    SourceFiles/funddialog.cpp \
+    SourceFiles/golddialog.cpp
 
 HEADERS += \
-        HeaderFiles/mainwindow.h
+        HeaderFiles/mainwindow.h \
+    HeaderFiles/stockdialog.h \
+    HeaderFiles/bonddialog.h \
+    HeaderFiles/cryptocurrencydialog.h \
+    HeaderFiles/exchangedialog.h \
+    HeaderFiles/funddialog.h \
+    HeaderFiles/golddialog.h
 
 FORMS += \
-        UIFiles/mainwindow.ui
+        UIFiles/mainwindow.ui \
+    UIFiles/stockdialog.ui \
+    UIFiles/bonddialog.ui \
+    UIFiles/cryptocurrencydialog.ui \
+    UIFiles/exchangedialog.ui \
+    UIFiles/funddialog.ui \
+    UIFiles/golddialog.ui
