@@ -18,397 +18,397 @@
     <item>
      <widget class="QTabWidget" name="twOperations">
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="bondTab">
        <attribute name="title">
         <string>Bond</string>
        </attribute>
-       <widget class="QWidget" name="verticalLayoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>80</y>
-          <width>961</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="vlBondTransactions"/>
-       </widget>
-       <widget class="QWidget" name="">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>20</y>
-          <width>961</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QLabel" name="lblTotalBondBuys">
-           <property name="text">
-            <string>Total Bond Buys :</string>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="lblTotalBondBuys">
+            <property name="text">
+             <string>Total Bond Buys :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalBondBuys">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblTotalBondSells">
+            <property name="text">
+             <string>Total Bond Sells :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalBondSells">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnNewBondTransaction">
+            <property name="text">
+             <string>New Bond Transaction</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="saBondTransactions">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_6">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1005</width>
+             <height>364</height>
+            </rect>
            </property>
           </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leTotalBondBuys">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lblTotalBondSells">
-           <property name="text">
-            <string>Total Bond Sells :</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leTotalBondSells">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnNewBondTransaction">
-           <property name="text">
-            <string>New Bond Transaction</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="cryptoCurrencyTab">
        <attribute name="title">
         <string>Cryptocurrency</string>
        </attribute>
-       <widget class="QWidget" name="verticalLayoutWidget_2">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>100</y>
-          <width>941</width>
-          <height>80</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="vlCryptocurrencyTransactions"/>
-       </widget>
-       <widget class="QWidget" name="">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>20</y>
-          <width>941</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="hlCryptocurrencyTotals">
-         <item>
-          <widget class="QLabel" name="lblTotalCryptocurrencyBuys">
-           <property name="text">
-            <string>Total Cryptocurrency Buys :</string>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <layout class="QHBoxLayout" name="hlCryptocurrencyTotals">
+          <item>
+           <widget class="QLabel" name="lblTotalCryptocurrencyBuys">
+            <property name="text">
+             <string>Total Cryptocurrency Buys :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalCryptocurrencyBuys">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblTotalCryptocurrencySells">
+            <property name="text">
+             <string>Total Cryptocurrency Sells :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalCryptocurrencySells">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnNewCryptocurrencyTransaction">
+            <property name="text">
+             <string>New Cryptocurrency Transaction</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="saCryptocurrencyTransactions">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_5">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1005</width>
+             <height>364</height>
+            </rect>
            </property>
           </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leTotalCryptocurrencyBuys">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lblTotalCryptocurrencySells">
-           <property name="text">
-            <string>Total Cryptocurrency Sells :</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leTotalCryptocurrencySells">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnNewCryptocurrencyTransaction">
-           <property name="text">
-            <string>New Cryptocurrency Transaction</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="exchangeTab">
        <attribute name="title">
         <string>Exchange</string>
        </attribute>
-       <widget class="QWidget" name="verticalLayoutWidget_3">
-        <property name="geometry">
-         <rect>
-          <x>90</x>
-          <y>90</y>
-          <width>911</width>
-          <height>80</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="vlExchangeTransactions"/>
-       </widget>
-       <widget class="QWidget" name="">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>10</y>
-          <width>971</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="hlExchangeTotals">
-         <item>
-          <widget class="QLabel" name="lblTotalExchangeBuys">
-           <property name="text">
-            <string>Total Exchange Buys :</string>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <layout class="QHBoxLayout" name="hlExchangeTotals">
+          <item>
+           <widget class="QLabel" name="lblTotalExchangeBuys">
+            <property name="text">
+             <string>Total Exchange Buys :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalExchangeBuys">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblTotalExchangeSells">
+            <property name="text">
+             <string>Total Exchange Sells :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalExchangeSells">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnNewExchangeTransaction">
+            <property name="text">
+             <string>New Exchange Transaction</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="saExchangeTransactions">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_4">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1005</width>
+             <height>364</height>
+            </rect>
            </property>
           </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leTotalExchangeBuys">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lblTotalExchangeSells">
-           <property name="text">
-            <string>Total Exchange Sells :</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leTotalExchangeSells">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnNewExchangeTransaction">
-           <property name="text">
-            <string>New Exchange Transaction</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="fundTab">
        <attribute name="title">
         <string>Fund</string>
        </attribute>
-       <widget class="QWidget" name="verticalLayoutWidget_4">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>70</y>
-          <width>881</width>
-          <height>80</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="vlFundTransactions"/>
-       </widget>
-       <widget class="QWidget" name="">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>20</y>
-          <width>891</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="hlFundTotals">
-         <item>
-          <widget class="QLabel" name="lblTotalFundBuys">
-           <property name="text">
-            <string>Total Fund Buys :</string>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <layout class="QHBoxLayout" name="hlFundTotals">
+          <item>
+           <widget class="QLabel" name="lblTotalFundBuys">
+            <property name="text">
+             <string>Total Fund Buys :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalFundBuys">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblTotalFundSells">
+            <property name="text">
+             <string>Total Fund Sells :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalFundSells">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnNewFundTransaction">
+            <property name="text">
+             <string>New Fund Transaction</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="saFundTransactions">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_3">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1005</width>
+             <height>364</height>
+            </rect>
            </property>
           </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leTotalFundBuys">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lblTotalFundSells">
-           <property name="text">
-            <string>Total Fund Sells :</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leTotalFundSells">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnNewFundTransaction">
-           <property name="text">
-            <string>New Fund Transaction</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="goldTab">
        <attribute name="title">
         <string>Gold</string>
        </attribute>
-       <widget class="QWidget" name="verticalLayoutWidget_5">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>80</y>
-          <width>971</width>
-          <height>80</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="vlGoldTransactions"/>
-       </widget>
-       <widget class="QWidget" name="">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>20</y>
-          <width>961</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="hlGoldTotals">
-         <item>
-          <widget class="QLabel" name="lblTotalGoldBuys">
-           <property name="text">
-            <string>Total Gold Buys :</string>
-           </property>
-           <property name="buddy">
-            <cstring>leTotalGoldBuys</cstring>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QHBoxLayout" name="hlGoldTotals">
+          <item>
+           <widget class="QLabel" name="lblTotalGoldBuys">
+            <property name="text">
+             <string>Total Gold Buys :</string>
+            </property>
+            <property name="buddy">
+             <cstring>leTotalGoldBuys</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalGoldBuys">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblTotalGoldSells">
+            <property name="text">
+             <string>Total Gold Sells :</string>
+            </property>
+            <property name="buddy">
+             <cstring>leTotalGoldSells</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalGoldSells">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnNewGoldTransaction">
+            <property name="text">
+             <string>New Gold Transaction</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="saGoldTransactions">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1005</width>
+             <height>364</height>
+            </rect>
            </property>
           </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leTotalGoldBuys">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lblTotalGoldSells">
-           <property name="text">
-            <string>Total Gold Sells :</string>
-           </property>
-           <property name="buddy">
-            <cstring>leTotalGoldSells</cstring>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leTotalGoldSells">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnNewGoldTransaction">
-           <property name="text">
-            <string>New Gold Transaction</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="stockTab">
        <attribute name="title">
         <string>Stock</string>
        </attribute>
-       <widget class="QWidget" name="verticalLayoutWidget_6">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>70</y>
-          <width>971</width>
-          <height>80</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="vlStockTransactions"/>
-       </widget>
-       <widget class="QWidget" name="">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>10</y>
-          <width>971</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="hlStockTotals">
-         <item>
-          <widget class="QLabel" name="lblTotalStockBuys">
-           <property name="text">
-            <string>Total Stock Buys :</string>
-           </property>
-           <property name="buddy">
-            <cstring>leTotalStockBuys</cstring>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <layout class="QHBoxLayout" name="hlStockTotals">
+          <item>
+           <widget class="QLabel" name="lblTotalStockBuys">
+            <property name="text">
+             <string>Total Stock Buys :</string>
+            </property>
+            <property name="buddy">
+             <cstring>leTotalStockBuys</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalStockBuys">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblTotalStockSells">
+            <property name="text">
+             <string>Total Stock Sells :</string>
+            </property>
+            <property name="buddy">
+             <cstring>leTotalStockSells</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalStockSells">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnNewStockTransaction">
+            <property name="text">
+             <string>New Stock Transaction</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="saStockTransactions">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1005</width>
+             <height>364</height>
+            </rect>
            </property>
           </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leTotalStockBuys">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lblTotalStockSells">
-           <property name="text">
-            <string>Total Stock Sells :</string>
-           </property>
-           <property name="buddy">
-            <cstring>leTotalStockSells</cstring>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leTotalStockSells">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnNewStockTransaction">
-           <property name="text">
-            <string>New Stock Transaction</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
