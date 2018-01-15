@@ -1,5 +1,5 @@
 Note that the GPL below is copyrighted by the Free Software Foundation, 
-but the instance of code that it refers to (PortfolioTracker is copyrighted by me.
+but the instance of code that it refers to (Investpor) is copyrighted by me.
 
 Ugur Kaleli
 
