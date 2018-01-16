@@ -26,34 +26,24 @@
       <string>Cryptocurrency Transaction Details</string>
      </property>
      <layout class="QFormLayout" name="formLayout">
-      <item row="0" column="0">
+      <item row="1" column="0">
        <widget class="QLabel" name="lblCryptocurrency">
         <property name="text">
          <string>Cryptocurrency :</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
+      <item row="1" column="1">
        <widget class="QComboBox" name="cbCryptocurrency"/>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="lblOperationType">
-        <property name="text">
-         <string>Operation Type :</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="cbOperationType"/>
-      </item>
-      <item row="2" column="0">
+      <item row="3" column="0">
        <widget class="QLabel" name="lblPrice">
         <property name="text">
          <string>Price :</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
+      <item row="3" column="1">
        <widget class="QDoubleSpinBox" name="dsbPrice">
         <property name="decimals">
          <number>6</number>
@@ -63,14 +53,14 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
+      <item row="4" column="0">
        <widget class="QLabel" name="lblAmount">
         <property name="text">
          <string>Amount :</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="4" column="1">
        <widget class="QDoubleSpinBox" name="dsbAmount">
         <property name="decimals">
          <number>10</number>
@@ -80,14 +70,14 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
+      <item row="5" column="0">
        <widget class="QLabel" name="lblDateTime">
         <property name="text">
          <string>Date and Time :</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
+      <item row="5" column="1">
        <widget class="QDateTimeEdit" name="dteDateTime">
         <property name="maximumDate">
          <date>
@@ -111,14 +101,14 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="0">
+      <item row="6" column="0">
        <widget class="QLabel" name="lblGoalPrice">
         <property name="text">
          <string>Goal Price :</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
+      <item row="6" column="1">
        <widget class="QDoubleSpinBox" name="dsbGoalPrice">
         <property name="decimals">
          <number>6</number>
@@ -127,6 +117,16 @@
          <double>1000000.000000000000000</double>
         </property>
        </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="lblOperationType">
+        <property name="text">
+         <string>Operation Type :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="cbOperationType"/>
       </item>
      </layout>
     </widget>

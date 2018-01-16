@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>700</width>
-    <height>295</height>
+    <height>309</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -23,17 +23,17 @@
    <item>
     <widget class="QGroupBox" name="gbBondTransactionDetails">
      <property name="title">
-      <string>Bond Transaction Details</string>
+      <string>Discount Bond Transaction Details</string>
      </property>
      <layout class="QFormLayout" name="formLayout">
-      <item row="0" column="0">
+      <item row="1" column="0">
        <widget class="QLabel" name="lblCode">
         <property name="text">
-         <string>Code :</string>
+         <string>ISIN Code :</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
+      <item row="1" column="1">
        <widget class="QLineEdit" name="leCode">
         <property name="maxLength">
          <number>50</number>
@@ -43,25 +43,32 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="lblOperationType">
+      <item row="3" column="0">
+       <widget class="QLabel" name="lblTerm">
         <property name="text">
-         <string>Operation Type :</string>
+         <string>Term :</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="cbOperationType"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="lblPrice">
-        <property name="text">
-         <string>Price :</string>
+      <item row="3" column="1">
+       <widget class="QDateEdit" name="deTerm">
+        <property name="displayFormat">
+         <string>yyyy-MM-dd</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QDoubleSpinBox" name="dsbPrice">
+      <item row="4" column="0">
+       <widget class="QLabel" name="lblNominalValue">
+        <property name="text">
+         <string>Nominal Value :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QDoubleSpinBox" name="dsbNominalValue">
         <property name="decimals">
          <number>6</number>
         </property>
@@ -70,14 +77,31 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="lblDate">
+      <item row="5" column="0">
+       <widget class="QLabel" name="lblDiscountSalePrice">
         <property name="text">
-         <string>Date :</string>
+         <string>Discount Sale Price :</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="5" column="1">
+       <widget class="QDoubleSpinBox" name="dsbDiscountSalePrice">
+        <property name="decimals">
+         <number>6</number>
+        </property>
+        <property name="maximum">
+         <double>10000000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="lblOperationDate">
+        <property name="text">
+         <string>Operation Date :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
        <widget class="QDateEdit" name="deDate">
         <property name="maximumDate">
          <date>
@@ -101,22 +125,15 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="lblGoalPrice">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lblOperationType">
         <property name="text">
-         <string>Goal Price :</string>
+         <string>Operation Type :</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
-       <widget class="QDoubleSpinBox" name="dsbGoalPrice">
-        <property name="decimals">
-         <number>6</number>
-        </property>
-        <property name="maximum">
-         <double>1000000000.000000000000000</double>
-        </property>
-       </widget>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="cbOperationType"/>
       </item>
      </layout>
     </widget>

@@ -26,7 +26,7 @@
       <string>Stock Transaction Details</string>
      </property>
      <layout class="QFormLayout" name="formLayout">
-      <item row="0" column="0">
+      <item row="1" column="0">
        <widget class="QLabel" name="lblMarket">
         <property name="text">
          <string>Market :</string>
@@ -36,10 +36,10 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
+      <item row="1" column="1">
        <widget class="QComboBox" name="cbMarket"/>
       </item>
-      <item row="1" column="0">
+      <item row="2" column="0">
        <widget class="QLabel" name="lblSymbol">
         <property name="text">
          <string>Symbol :</string>
@@ -49,7 +49,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="2" column="1">
        <widget class="QLineEdit" name="leSymbol">
         <property name="maxLength">
          <number>7</number>
@@ -59,7 +59,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
+      <item row="3" column="0">
        <widget class="QLabel" name="lblName">
         <property name="text">
          <string>Name :</string>
@@ -69,7 +69,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
+      <item row="3" column="1">
        <widget class="QLineEdit" name="leName">
         <property name="maxLength">
          <number>100</number>
@@ -79,20 +79,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="lblOperationType">
-        <property name="text">
-         <string>Operation Type :</string>
-        </property>
-        <property name="buddy">
-         <cstring>cbOperationType</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QComboBox" name="cbOperationType"/>
-      </item>
-      <item row="4" column="0">
+      <item row="5" column="0">
        <widget class="QLabel" name="lblPrice">
         <property name="text">
          <string>Price :</string>
@@ -102,7 +89,7 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
+      <item row="5" column="1">
        <widget class="QDoubleSpinBox" name="dsbPrice">
         <property name="prefix">
          <string/>
@@ -115,7 +102,7 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="0">
+      <item row="6" column="0">
        <widget class="QLabel" name="lblCount">
         <property name="text">
          <string>Count :</string>
@@ -125,14 +112,14 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
+      <item row="6" column="1">
        <widget class="QSpinBox" name="sbCount">
         <property name="maximum">
          <number>1000000000</number>
         </property>
        </widget>
       </item>
-      <item row="6" column="0">
+      <item row="7" column="0">
        <widget class="QLabel" name="lblCommissionRate">
         <property name="text">
          <string>Commission Rate :</string>
@@ -142,7 +129,7 @@
         </property>
        </widget>
       </item>
-      <item row="6" column="1">
+      <item row="7" column="1">
        <widget class="QDoubleSpinBox" name="dsbCommissionRate">
         <property name="decimals">
          <number>6</number>
@@ -152,7 +139,7 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="0">
+      <item row="8" column="0">
        <widget class="QLabel" name="lblDateTime">
         <property name="text">
          <string>Date and Time :</string>
@@ -162,7 +149,7 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="1">
+      <item row="8" column="1">
        <widget class="QDateTimeEdit" name="dteDateTime">
         <property name="date">
          <date>
@@ -193,7 +180,7 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="0">
+      <item row="9" column="0">
        <widget class="QLabel" name="lblGoalPrice">
         <property name="text">
          <string>Goal Price :</string>
@@ -203,7 +190,7 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="1">
+      <item row="9" column="1">
        <widget class="QDoubleSpinBox" name="dsbGoalPrice">
         <property name="decimals">
          <number>6</number>
@@ -212,6 +199,19 @@
          <double>1000000.000000000000000</double>
         </property>
        </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="lblOperationType">
+        <property name="text">
+         <string>Operation Type :</string>
+        </property>
+        <property name="buddy">
+         <cstring>cbOperationType</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="cbOperationType"/>
       </item>
      </layout>
     </widget>
