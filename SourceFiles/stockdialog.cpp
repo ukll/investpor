@@ -33,7 +33,7 @@ StockDialog::~StockDialog()
 
 void StockDialog::rearrangeDialog(int index)
 {
-    if(index == 0) {
+    if(index == Operation::BUY) {
         ui->lblName->setVisible(true);
         ui->leName->setVisible(true);
         ui->lblGoalPrice->setVisible(true);

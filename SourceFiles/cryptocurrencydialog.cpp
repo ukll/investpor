@@ -34,7 +34,7 @@ CryptocurrencyDialog::~CryptocurrencyDialog()
 
 void CryptocurrencyDialog::rearrangeDialog(int index)
 {
-    if(index == 0) {
+    if(index == Operation::BUY) {
         ui->lblGoalPrice->setVisible(true);
         ui->dsbGoalPrice->setVisible(true);
     } else {

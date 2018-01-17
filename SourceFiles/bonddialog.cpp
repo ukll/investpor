@@ -27,7 +27,7 @@ BondDialog::~BondDialog()
 
 void BondDialog::rearrangeDialog(int index)
 {
-    if(index == 0) {
+    if(index == Operation::BUY) {
         ui->lblTerm->setVisible(true);
         ui->deTerm->setVisible(true);
         ui->lblNominalValue->setVisible(true);
