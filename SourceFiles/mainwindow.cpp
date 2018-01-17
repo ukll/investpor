@@ -3,6 +3,7 @@
 
 #include "HeaderFiles/bonddialog.h"
 #include "HeaderFiles/cryptocurrencydialog.h"
+#include "HeaderFiles/exchangedialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,6 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
     //CryptocurrencyDialog connections
     QObject::connect(ui->btnNewCryptocurrencyTransaction, &QPushButton::clicked, ui->actionCryptocurrency, &QAction::trigger);
     QObject::connect(ui->actionCryptocurrency, &QAction::triggered, this, &MainWindow::cryptoCurrencyTransaction);
+
+    //ExchangeDialog connections
+    QObject::connect(ui->btnNewExchangeTransaction, &QPushButton::clicked, ui->actionExchange, &QAction::trigger);
+    QObject::connect(ui->actionExchange, &QAction::triggered, this, &MainWindow::exchangeTransaction);
 }
 
 MainWindow::~MainWindow()
@@ -34,4 +39,10 @@ void MainWindow::cryptoCurrencyTransaction()
 {
     CryptocurrencyDialog cd;
     cd.exec();
+}
+
+void MainWindow::exchangeTransaction()
+{
+    ExchangeDialog ed;
+    ed.exec();
 }

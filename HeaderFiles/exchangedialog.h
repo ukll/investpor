@@ -17,6 +17,8 @@ public:
 
 private:
     Ui::ExchangeDialog *ui;
+
+    void rearrangeDialog(int index);
 };
 
 #endif // EXCHANGEDIALOG_H
