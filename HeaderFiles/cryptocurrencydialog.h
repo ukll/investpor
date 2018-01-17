@@ -17,6 +17,8 @@ public:
 
 private:
     Ui::CryptocurrencyDialog *ui;
+
+    void rearrangeDialog(int index);
 };
 
 #endif // CRYPTOCURRENCYDIALOG_H

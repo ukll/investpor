@@ -16,6 +16,7 @@ public:
     ~MainWindow();
 
     void bondTransaction();
+    void cryptoCurrencyTransaction();
 
 private:
     Ui::MainWindow *ui;
