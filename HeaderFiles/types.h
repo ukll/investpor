@@ -4,11 +4,11 @@
 namespace Investpor {
 
     enum Cryptocurrency {
-        BTC = 0, ETC, ETH, LTC, MIOTA, XRP
+       ETC = 0, ETH, LTC, IOT, XBT, XRP
     };
 
     enum Currency {
-        AUD = 0, CAD, CNY, EUR, TL, USD
+        AUD = 0, CAD, CNY, EUR, TRY, USD
     };
 
     enum Gold {

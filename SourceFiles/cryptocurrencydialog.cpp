@@ -16,7 +16,7 @@ CryptocurrencyDialog::CryptocurrencyDialog(QWidget *parent) :
     ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
     ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
 
-    for(int i = Cryptocurrency::BTC; i <= Cryptocurrency::XRP; ++i)
+    for(int i = Cryptocurrency::ETC; i <= Cryptocurrency::XRP; ++i)
     {
         ui->cbCryptocurrency->addItem(QString("%1 - %2").arg(Util::cryptoCurrencySymbol(Cryptocurrency(i)).toUpper())
                                                         .arg(Util::cryptoCurrencyName(Cryptocurrency(i)))

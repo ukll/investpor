@@ -9,16 +9,16 @@ namespace Investpor {
     const QString Util::cryptoCurrencySymbol(Cryptocurrency ccurrency)
     {
         switch (ccurrency) {
-        case Cryptocurrency::BTC:
-            return "btc";
         case Cryptocurrency::ETC:
             return "etc";
         case Cryptocurrency::ETH:
             return "eth";
         case Cryptocurrency::LTC:
             return "ltc";
-        case Cryptocurrency::MIOTA:
-            return "miota";
+        case Cryptocurrency::IOT:
+            return "iot";
+        case Cryptocurrency::XBT:
+            return "xbt";
         case Cryptocurrency::XRP:
             return "xrp";
         default:
@@ -29,16 +29,16 @@ namespace Investpor {
     const QString Util::cryptoCurrencyName(Cryptocurrency ccurrency)
     {
         switch (ccurrency) {
-        case Cryptocurrency::BTC:
-            return QObject::tr("Bitcoin");
         case Cryptocurrency::ETC:
             return QObject::tr("Ethereum Classic");
         case Cryptocurrency::ETH:
             return QObject::tr("Ethereum");
         case Cryptocurrency::LTC:
             return QObject::tr("Litecoin");
-        case Cryptocurrency::MIOTA:
+        case Cryptocurrency::IOT:
             return QObject::tr("IOTA");
+        case Cryptocurrency::XBT:
+            return QObject::tr("Bitcoin");
         case Cryptocurrency::XRP:
             return QObject::tr("Ripple");
         default:
@@ -57,8 +57,8 @@ namespace Investpor {
             return "cny";
         case Currency::EUR:
             return "eur";
-        case Currency::TL:
-            return "tl";
+        case Currency::TRY:
+            return "try";
         case Currency::USD:
             return "usd";
         default:
@@ -77,7 +77,7 @@ namespace Investpor {
             return QObject::tr("Chinese Yuan Renminbi");
         case Currency::EUR:
             return QObject::tr("Euro");
-        case Currency::TL:
+        case Currency::TRY:
             return QObject::tr("Turkish Lira");
         case Currency::USD:
             return QObject::tr("United States Dollar");
