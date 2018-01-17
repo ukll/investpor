@@ -17,6 +17,8 @@ public:
 
 private:
     Ui::FundDialog *ui;
+
+    void rearrangeDialog(int index);
 };
 
 #endif // FUNDDIALOG_H
