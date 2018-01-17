@@ -17,6 +17,8 @@ public:
 
 private:
     Ui::StockDialog *ui;
+
+    void rearrangeDialog(int index);
 };
 
 #endif // STOCKDIALOG_H

@@ -6,6 +6,7 @@
 #include "HeaderFiles/exchangedialog.h"
 #include "HeaderFiles/funddialog.h"
 #include "HeaderFiles/golddialog.h"
+#include "HeaderFiles/stockdialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -32,6 +33,10 @@ MainWindow::MainWindow(QWidget *parent) :
     //GoldDialog connections
     QObject::connect(ui->btnNewGoldTransaction, &QPushButton::clicked, ui->actionGold, &QAction::trigger);
     QObject::connect(ui->actionGold, &QAction::triggered, this, &MainWindow::goldTransaction);
+
+    //StockDialog connections
+    QObject::connect(ui->btnNewStockTransaction, &QPushButton::clicked, ui->actionStock, &QAction::trigger);
+    QObject::connect(ui->actionStock, &QAction::triggered, this, &MainWindow::stockTransaction);
 }
 
 MainWindow::~MainWindow()
@@ -67,4 +72,10 @@ void MainWindow::goldTransaction()
 {
     GoldDialog gd;
     gd.exec();
+}
+
+void MainWindow::stockTransaction()
+{
+    StockDialog sd;
+    sd.exec();
 }

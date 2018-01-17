@@ -20,6 +20,7 @@ public:
     void exchangeTransaction();
     void fundTransaction();
     void goldTransaction();
+    void stockTransaction();
 
 private:
     Ui::MainWindow *ui;
