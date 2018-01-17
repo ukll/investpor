@@ -19,6 +19,7 @@ public:
     void cryptoCurrencyTransaction();
     void exchangeTransaction();
     void fundTransaction();
+    void goldTransaction();
 
 private:
     Ui::MainWindow *ui;

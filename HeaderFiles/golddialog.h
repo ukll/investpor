@@ -17,6 +17,8 @@ public:
 
 private:
     Ui::GoldDialog *ui;
+
+    void rearrangeDialog(int index);
 };
 
 #endif // GOLDDIALOG_H

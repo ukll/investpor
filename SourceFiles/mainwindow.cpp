@@ -5,6 +5,7 @@
 #include "HeaderFiles/cryptocurrencydialog.h"
 #include "HeaderFiles/exchangedialog.h"
 #include "HeaderFiles/funddialog.h"
+#include "HeaderFiles/golddialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -27,6 +28,10 @@ MainWindow::MainWindow(QWidget *parent) :
     //FundDialog connections
     QObject::connect(ui->btnNewFundTransaction, &QPushButton::clicked, ui->actionFund, &QAction::trigger);
     QObject::connect(ui->actionFund, &QAction::triggered, this, &MainWindow::fundTransaction);
+
+    //GoldDialog connections
+    QObject::connect(ui->btnNewGoldTransaction, &QPushButton::clicked, ui->actionGold, &QAction::trigger);
+    QObject::connect(ui->actionGold, &QAction::triggered, this, &MainWindow::goldTransaction);
 }
 
 MainWindow::~MainWindow()
@@ -56,4 +61,10 @@ void MainWindow::fundTransaction()
 {
     FundDialog fd;
     fd.exec();
+}
+
+void MainWindow::goldTransaction()
+{
+    GoldDialog gd;
+    gd.exec();
 }
