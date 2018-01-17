@@ -18,8 +18,8 @@ StockDialog::StockDialog(QWidget *parent) :
 
     for(uint i = StockMarket::BIST; i <= StockMarket::NYSE; ++i)
     {
-        ui->cbMarket->addItem(QString("%1 - %2").arg(Util::stockMarketSymbol(StockMarket(i))).toUpper()
-                                                .arg(Util::stockMarketName(StockMarket(i))));
+        ui->cbMarket->addItem(QString("%1 - %2").arg(Util::stockMarketSymbol(static_cast<StockMarket>(i))).toUpper()
+                                                .arg(Util::stockMarketName(static_cast<StockMarket>(i))));
     }
 
     QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),

@@ -18,8 +18,8 @@ CryptocurrencyDialog::CryptocurrencyDialog(QWidget *parent) :
 
     for(int i = Cryptocurrency::ETC; i <= Cryptocurrency::XRP; ++i)
     {
-        ui->cbCryptocurrency->addItem(QString("%1 - %2").arg(Util::cryptoCurrencySymbol(Cryptocurrency(i)).toUpper())
-                                                        .arg(Util::cryptoCurrencyName(Cryptocurrency(i)))
+        ui->cbCryptocurrency->addItem(QString("%1 - %2").arg(Util::cryptoCurrencySymbol(static_cast<Cryptocurrency>(i)).toUpper())
+                                                        .arg(Util::cryptoCurrencyName(static_cast<Cryptocurrency>(i)))
                                         );
     }
 

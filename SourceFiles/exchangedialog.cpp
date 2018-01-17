@@ -18,8 +18,8 @@ ExchangeDialog::ExchangeDialog(QWidget *parent) :
 
     for(uint i = Currency::AUD; i <= Currency::USD; ++i)
     {
-        ui->cbCurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(Currency(i)).toUpper())
-                                                  .arg(Util::currencyName(Currency(i))));
+        ui->cbCurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Currency>(i)).toUpper())
+                                                  .arg(Util::currencyName(static_cast<Currency>(i))));
     }
 
     QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),

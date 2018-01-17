@@ -18,7 +18,7 @@ GoldDialog::GoldDialog(QWidget *parent) :
 
     for(uint i = Gold::GRAMS; i <= Gold::ONS; ++i)
     {
-        ui->cbGoldType->addItem(Util::goldName(Gold(i)));
+        ui->cbGoldType->addItem(Util::goldName(static_cast<Gold>(i)));
     }
 
     QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
