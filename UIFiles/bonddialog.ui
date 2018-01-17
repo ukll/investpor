@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>700</width>
-    <height>309</height>
+    <height>315</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -78,14 +78,14 @@
        </widget>
       </item>
       <item row="5" column="0">
-       <widget class="QLabel" name="lblDiscountSalePrice">
+       <widget class="QLabel" name="lblSalePrice">
         <property name="text">
-         <string>Discount Sale Price :</string>
+         <string>Sale Price :</string>
         </property>
        </widget>
       </item>
       <item row="5" column="1">
-       <widget class="QDoubleSpinBox" name="dsbDiscountSalePrice">
+       <widget class="QDoubleSpinBox" name="dsbSalePrice">
         <property name="decimals">
          <number>6</number>
         </property>

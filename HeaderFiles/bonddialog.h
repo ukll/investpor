@@ -17,6 +17,8 @@ public:
 
 private:
     Ui::BondDialog *ui;
+
+    void rearrangeDialog(int index);
 };
 
 #endif // BONDDIALOG_H
