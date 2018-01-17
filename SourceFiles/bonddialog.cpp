@@ -17,8 +17,7 @@ BondDialog::BondDialog(QWidget *parent) :
 
     QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
                      [this](int index){ rearrangeDialog(index); });
-    QObject::connect(ui->deTerm, &QDateEdit::dateChanged,
-                     [this](QDate date){ ui->deDate->setMaximumDate(date); });
+    QObject::connect(ui->deTerm, &QDateEdit::dateChanged, ui->deDate, &QDateEdit::setMaximumDate);
 }
 
 BondDialog::~BondDialog()
