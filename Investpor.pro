@@ -31,7 +31,8 @@ SOURCES += \
     SourceFiles/cryptocurrencydialog.cpp \
     SourceFiles/exchangedialog.cpp \
     SourceFiles/funddialog.cpp \
-    SourceFiles/golddialog.cpp
+    SourceFiles/golddialog.cpp \
+    SourceFiles/util.cpp
 
 HEADERS += \
         HeaderFiles/mainwindow.h \
@@ -40,7 +41,9 @@ HEADERS += \
     HeaderFiles/cryptocurrencydialog.h \
     HeaderFiles/exchangedialog.h \
     HeaderFiles/funddialog.h \
-    HeaderFiles/golddialog.h
+    HeaderFiles/golddialog.h \
+    HeaderFiles/types.h \
+    HeaderFiles/util.h
 
 FORMS += \
         UIFiles/mainwindow.ui \
