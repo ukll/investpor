@@ -3,6 +3,7 @@
 #include "../HeaderFiles/types.h"
 
 #include <QObject>
+#include <QRegExp>
 
 namespace investpor {
 
@@ -162,6 +163,36 @@ namespace investpor {
             default:
                 return "";
             }
+        }
+
+        const QRegExp Util::bondISINRegExp()
+        {
+            QRegExp exp("^[a-z]{2}[a-zA-Z0-9]{9}[0-9]{1,3}$");
+            return exp;
+        }
+
+        const QRegExp Util::fundCodeRegExp()
+        {
+            QRegExp exp("^[a-zA-Z0-9]{3,5}$");
+            return exp;
+        }
+
+        const QRegExp Util::fundNameRegExp()
+        {
+            QRegExp exp("^([a-zA-Z0-9]+\\.? )+$");
+            return exp;
+        }
+
+        const QRegExp Util::stockSymbolRegExp()
+        {
+            QRegExp exp("^[a-zA-Z]+$");
+            return exp;
+        }
+
+        const QRegExp Util::stockNameRegExp()
+        {
+            QRegExp exp("^([a-zA-Z0-9]+\\.? )+$");
+            return exp;
         }
 
     }

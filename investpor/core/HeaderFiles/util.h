@@ -4,6 +4,7 @@
 #include "types.h"
 
 class QString;
+class QRegExp;
 
 namespace investpor {
 
@@ -22,6 +23,12 @@ namespace investpor {
             static const QString operationName(Operation operation);
             static const QString stockMarketSymbol(StockMarket market);
             static const QString stockMarketName(StockMarket market);
+
+            static const QRegExp bondISINRegExp();
+            static const QRegExp fundCodeRegExp();
+            static const QRegExp fundNameRegExp();
+            static const QRegExp stockSymbolRegExp();
+            static const QRegExp stockNameRegExp();
 
         private:
             Util() = delete;
