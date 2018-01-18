@@ -31,7 +31,7 @@ namespace investpor {
 
         void BondDialog::rearrangeDialog(int index)
         {
-            if(index == Operation::BUY) {
+            if(Operation::BUY == index) {
                 ui->lblTerm->setVisible(true);
                 ui->deTerm->setVisible(true);
                 ui->lblNominalValue->setVisible(true);

@@ -31,7 +31,7 @@ namespace investpor {
 
         void FundDialog::rearrangeDialog(int index)
         {
-            if(index == Operation::BUY) {
+            if(Operation::BUY == index) {
                 ui->lblName->setVisible(true);
                 ui->leName->setVisible(true);
                 ui->lblGoalPrice->setVisible(true);
