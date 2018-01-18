@@ -1,5 +1,7 @@
-#include "../HeaderFiles/mainwindow.h"
+#include "investpor/gui/HeaderFiles/mainwindow.h"
 #include <QApplication>
+
+using investpor::gui::MainWindow;
 
 int main(int argc, char *argv[])
 {

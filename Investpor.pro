@@ -24,32 +24,32 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        SourceFiles/main.cpp \
-        SourceFiles/mainwindow.cpp \
-    SourceFiles/stockdialog.cpp \
-    SourceFiles/bonddialog.cpp \
-    SourceFiles/cryptocurrencydialog.cpp \
-    SourceFiles/exchangedialog.cpp \
-    SourceFiles/funddialog.cpp \
-    SourceFiles/golddialog.cpp \
-    SourceFiles/util.cpp
+    main.cpp \
+    investpor/gui/SourceFiles/mainwindow.cpp \
+    investpor/gui/SourceFiles/stockdialog.cpp \
+    investpor/gui/SourceFiles/bonddialog.cpp \
+    investpor/gui/SourceFiles/cryptocurrencydialog.cpp \
+    investpor/gui/SourceFiles/exchangedialog.cpp \
+    investpor/gui/SourceFiles/funddialog.cpp \
+    investpor/gui/SourceFiles/golddialog.cpp \
+    investpor/core/SourceFiles/util.cpp
 
 HEADERS += \
-        HeaderFiles/mainwindow.h \
-    HeaderFiles/stockdialog.h \
-    HeaderFiles/bonddialog.h \
-    HeaderFiles/cryptocurrencydialog.h \
-    HeaderFiles/exchangedialog.h \
-    HeaderFiles/funddialog.h \
-    HeaderFiles/golddialog.h \
-    HeaderFiles/types.h \
-    HeaderFiles/util.h
+    investpor/gui/HeaderFiles/mainwindow.h \
+    investpor/gui/HeaderFiles/stockdialog.h \
+    investpor/gui/HeaderFiles/bonddialog.h \
+    investpor/gui/HeaderFiles/cryptocurrencydialog.h \
+    investpor/gui/HeaderFiles/exchangedialog.h \
+    investpor/gui/HeaderFiles/funddialog.h \
+    investpor/gui/HeaderFiles/golddialog.h \
+    investpor/core/HeaderFiles/types.h \
+    investpor/core/HeaderFiles/util.h
 
 FORMS += \
-        UIFiles/mainwindow.ui \
-    UIFiles/stockdialog.ui \
-    UIFiles/bonddialog.ui \
-    UIFiles/cryptocurrencydialog.ui \
-    UIFiles/exchangedialog.ui \
-    UIFiles/funddialog.ui \
-    UIFiles/golddialog.ui
+    investpor/gui/UIFiles/mainwindow.ui \
+    investpor/gui/UIFiles/stockdialog.ui \
+    investpor/gui/UIFiles/bonddialog.ui \
+    investpor/gui/UIFiles/cryptocurrencydialog.ui \
+    investpor/gui/UIFiles/exchangedialog.ui \
+    investpor/gui/UIFiles/funddialog.ui \
+    investpor/gui/UIFiles/golddialog.ui
