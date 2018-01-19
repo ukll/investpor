@@ -167,7 +167,7 @@ namespace investpor {
 
         const QRegExp Util::bondISINRegExp()
         {
-            QRegExp exp("^[a-z]{2}[a-zA-Z0-9]{9}[0-9]{1,3}$");
+            QRegExp exp("^[a-zA-Z]{2}[a-zA-Z0-9]{9}[0-9]{1,3}$");
             return exp;
         }
 
