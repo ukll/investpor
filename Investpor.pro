@@ -34,7 +34,8 @@ SOURCES += \
     investpor/gui/SourceFiles/golddialog.cpp \
     investpor/core/SourceFiles/util.cpp \
     investpor/core/SourceFiles/transaction.cpp \
-    investpor/core/SourceFiles/discountbondtransaction.cpp
+    investpor/core/SourceFiles/discountbondtransaction.cpp \
+    investpor/core/SourceFiles/cryptocurrencytransaction.cpp
 
 HEADERS += \
     investpor/gui/HeaderFiles/mainwindow.h \
@@ -47,7 +48,8 @@ HEADERS += \
     investpor/core/HeaderFiles/types.h \
     investpor/core/HeaderFiles/util.h \
     investpor/core/HeaderFiles/transaction.h \
-    investpor/core/HeaderFiles/discountbondtransaction.h
+    investpor/core/HeaderFiles/discountbondtransaction.h \
+    investpor/core/HeaderFiles/cryptocurrencytransaction.h
 
 FORMS += \
     investpor/gui/UIFiles/mainwindow.ui \

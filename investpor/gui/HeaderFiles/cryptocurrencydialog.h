@@ -1,11 +1,16 @@
 #ifndef CRYPTOCURRENCYDIALOG_H
 #define CRYPTOCURRENCYDIALOG_H
 
+#include "../../core/HeaderFiles/cryptocurrencytransaction.h"
+
 #include <QDialog>
+#include <QStatusBar>
 
 namespace Ui {
     class CryptocurrencyDialog;
 }
+
+using investpor::core::CryptocurrencyTransaction;
 
 namespace investpor {
 
@@ -19,10 +24,15 @@ namespace investpor {
             explicit CryptocurrencyDialog(QWidget *parent = 0);
             ~CryptocurrencyDialog();
 
+            CryptocurrencyTransaction getTransaction();
+
         private:
             Ui::CryptocurrencyDialog *ui;
+            QStatusBar statusBar;
+            CryptocurrencyTransaction transaction;
 
             void rearrangeDialog(int index);
+            virtual void accept() override;
         };
 
     }

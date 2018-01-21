@@ -56,7 +56,7 @@ namespace investpor {
                 if(bd.getTransaction().getTransactionId() == 0)
                 {
                     //New transaction
-                    ui->statusBar->showMessage("OK", 3000);
+                    ui->statusBar->showMessage("BondDialog is OK!", 3000);
                 }
             }
         }
@@ -64,7 +64,13 @@ namespace investpor {
         void MainWindow::cryptoCurrencyTransaction()
         {
             CryptocurrencyDialog cd;
-            cd.exec();
+            if(cd.exec() == QDialog::Accepted)
+            {
+                if(cd.getTransaction().getTransactionId() == 0)
+                {
+                    ui->statusBar->showMessage("CryptocurrencyDialog is OK!", 3000);
+                }
+            }
         }
 
         void MainWindow::exchangeTransaction()

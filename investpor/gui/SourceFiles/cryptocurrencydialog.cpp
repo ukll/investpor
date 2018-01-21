@@ -3,10 +3,12 @@
 
 #include "../../core/HeaderFiles/types.h"
 #include "../../core/HeaderFiles/util.h"
+#include "../../core/HeaderFiles/cryptocurrencytransaction.h"
 
 using investpor::core::Operation;
 using investpor::core::Cryptocurrency;
 using investpor::core::Util;
+using investpor::core::CryptocurrencyTransaction;
 
 namespace investpor {
 
@@ -17,6 +19,7 @@ namespace investpor {
             ui(new Ui::CryptocurrencyDialog)
         {
             ui->setupUi(this);
+            ui->vlStatusBar->addWidget(&statusBar);
             ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
             ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
 
@@ -36,6 +39,11 @@ namespace investpor {
             delete ui;
         }
 
+        core::CryptocurrencyTransaction CryptocurrencyDialog::getTransaction()
+        {
+            return transaction;
+        }
+
         void CryptocurrencyDialog::rearrangeDialog(int index)
         {
             if(Operation::BUY == index) {
@@ -45,6 +53,56 @@ namespace investpor {
                 ui->lblGoalPrice->setVisible(false);
                 ui->dsbGoalPrice->setVisible(false);
             }
+        }
+
+        void CryptocurrencyDialog::accept()
+        {
+            QStringList errorMessageList;
+
+            if(ui->dsbPrice->text().simplified().isEmpty()) {
+                errorMessageList << tr("Price cannot be empty!");
+            } else if(!ui->dsbPrice->hasAcceptableInput()) {
+                errorMessageList << tr("Price is invalid!");
+            } else if(Util::doublesEqual(ui->dsbPrice->value(), 0.0)) {
+                errorMessageList << tr("Price cannot be 0!");
+            } else if(ui->dsbAmount->text().simplified().isEmpty()) {
+                errorMessageList << tr("Amount cannot be empty!");
+            } else if(!ui->dsbAmount->hasAcceptableInput()) {
+                errorMessageList << tr("Amount is invalid!");
+            } else if(Util::doublesEqual(ui->dsbAmount->value(), 0.0)) {
+                errorMessageList << tr("Amount cannot be 0!");
+            } else if(ui->dteDateTime->text().simplified().isEmpty()) {
+                errorMessageList << tr("Operation datetime cannot be emtpy!");
+            } else if(!ui->dteDateTime->hasAcceptableInput()) {
+                errorMessageList << tr("Operation datetime is not valid!");
+            }
+
+
+            if(ui->cbOperationType->currentIndex() == Operation::BUY)
+            {
+                if(ui->dsbGoalPrice->text().simplified().isEmpty()) {
+                    errorMessageList << tr("Goal price cannot be empty!");
+                } else if(!ui->dsbGoalPrice->hasAcceptableInput()) {
+                    errorMessageList << tr("Goal price is invalid!");
+                } else if(Util::doublesEqual(ui->dsbGoalPrice->value(), 0.0)) {
+                    errorMessageList << tr("Goal price cannot be 0!");
+                }
+            }
+
+            //If there is an error, warn the user.
+            if(!errorMessageList.isEmpty())
+            {
+                statusBar.showMessage(errorMessageList.at(0), 3000);
+                return;
+            }
+
+            transaction = CryptocurrencyTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex()),
+                                                    static_cast<Cryptocurrency>(ui->cbCryptocurrency->currentIndex()),
+                                                    ui->dsbPrice->value(), ui->dsbAmount->value(), ui->dteDateTime->dateTime(),
+                                                    ui->dsbGoalPrice->value());
+
+            //Values are valid.
+            QDialog::accept();
         }
 
     }
