@@ -51,7 +51,14 @@ namespace investpor {
         void MainWindow::bondTransaction()
         {
             BondDialog bd;
-            bd.exec();
+            if(bd.exec() == QDialog::Accepted)
+            {
+                if(bd.getTransaction().getTransactionId() == 0)
+                {
+                    //New transaction
+                    ui->statusBar->showMessage("OK", 3000);
+                }
+            }
         }
 
         void MainWindow::cryptoCurrencyTransaction()

@@ -32,7 +32,9 @@ SOURCES += \
     investpor/gui/SourceFiles/exchangedialog.cpp \
     investpor/gui/SourceFiles/funddialog.cpp \
     investpor/gui/SourceFiles/golddialog.cpp \
-    investpor/core/SourceFiles/util.cpp
+    investpor/core/SourceFiles/util.cpp \
+    investpor/core/SourceFiles/transaction.cpp \
+    investpor/core/SourceFiles/discountbondtransaction.cpp
 
 HEADERS += \
     investpor/gui/HeaderFiles/mainwindow.h \
@@ -43,7 +45,9 @@ HEADERS += \
     investpor/gui/HeaderFiles/funddialog.h \
     investpor/gui/HeaderFiles/golddialog.h \
     investpor/core/HeaderFiles/types.h \
-    investpor/core/HeaderFiles/util.h
+    investpor/core/HeaderFiles/util.h \
+    investpor/core/HeaderFiles/transaction.h \
+    investpor/core/HeaderFiles/discountbondtransaction.h
 
 FORMS += \
     investpor/gui/UIFiles/mainwindow.ui \
