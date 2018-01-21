@@ -32,6 +32,8 @@ namespace investpor {
 
             QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
                              [this](int index){ rearrangeDialog(index); });
+
+            QObject::connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &CryptocurrencyDialog::accept);
         }
 
         CryptocurrencyDialog::~CryptocurrencyDialog()
@@ -84,8 +86,6 @@ namespace investpor {
                     errorMessageList << tr("Goal price cannot be empty!");
                 } else if(!ui->dsbGoalPrice->hasAcceptableInput()) {
                     errorMessageList << tr("Goal price is invalid!");
-                } else if(Util::doublesEqual(ui->dsbGoalPrice->value(), 0.0)) {
-                    errorMessageList << tr("Goal price cannot be 0!");
                 }
             }
 
