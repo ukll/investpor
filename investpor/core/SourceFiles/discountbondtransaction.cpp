@@ -7,14 +7,14 @@ namespace investpor {
 
     namespace core {
 
-        DiscountBondTransaction::DiscountBondTransaction(int id) :
+        DiscountBondTransaction::DiscountBondTransaction(quint16 id) :
             Transaction(id)
         {
 
         }
 
         DiscountBondTransaction::DiscountBondTransaction(Operation op, QString isin, QDate term,
-            double nomValue, double sPrice, QDate opDate, int id) :
+            double nomValue, double sPrice, QDate opDate, quint16 id) :
             Transaction(id), operation(op), ISIN(isin), termDate(term),
             nominalValue(nomValue), salePrice(sPrice), operationDate(opDate)
         {
