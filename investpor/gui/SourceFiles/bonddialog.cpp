@@ -87,9 +87,9 @@ namespace investpor {
                 return;
             }
 
-            transaction = DiscountBondTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex()), ui->leISINCode->text(),
-                                                      ui->deTerm->date(), ui->dsbNominalValue->value(), ui->dsbSalePrice->value(),
-                                                      ui->deDate->date());
+            transaction = DiscountBondTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex()),
+                                                  ui->leISINCode->text(), ui->deTerm->date(), ui->dsbNominalValue->value(),
+                                                  ui->dsbSalePrice->value(), ui->deDate->date());
             //Passed the validation
             QDialog::accept();
         }
