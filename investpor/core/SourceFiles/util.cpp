@@ -13,7 +13,7 @@ namespace investpor {
 
         bool Util::doublesEqual(double d1, double d2)
         {
-            static const double EPSILON = 0.000001;
+            static const double EPSILON = 0.0000001;
 
             if(std::abs(d1 - d2) <= EPSILON || std::abs(d1 - d2) <= EPSILON * std::max(std::abs(d1), std::abs(d2))) {
                 return true;
