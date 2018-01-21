@@ -4,7 +4,7 @@ namespace investpor {
 
     namespace core {
 
-        Transaction::Transaction(int id) :
+        Transaction::Transaction(quint16 id) :
             transactionID(id)
         {
 
@@ -20,7 +20,7 @@ namespace investpor {
             return transactionID;
         }
 
-        void Transaction::setTransactionId(int id)
+        void Transaction::setTransactionId(quint16 id)
         {
             transactionID = id;
         }
