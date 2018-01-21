@@ -15,7 +15,7 @@ namespace investpor {
 
         }
 
-        int Transaction::getTransactionId()
+        quint16 Transaction::getTransactionId()
         {
             return transactionID;
         }

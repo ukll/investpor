@@ -13,11 +13,11 @@ namespace investpor {
             explicit Transaction(quint16 id);
             virtual ~Transaction() = 0;
 
-            int getTransactionId();
+            quint16 getTransactionId();
             void setTransactionId(quint16 id);
 
         private:
-            int transactionID;
+            quint16 transactionID;
         };
 
     }
