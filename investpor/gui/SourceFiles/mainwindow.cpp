@@ -76,7 +76,13 @@ namespace investpor {
         void MainWindow::exchangeTransaction()
         {
             ExchangeDialog ed;
-            ed.exec();
+            if(ed.exec() == QDialog::Accepted)
+            {
+                if(ed.getTransaction().getTransactionId() == 0)
+                {
+                    ui->statusBar->showMessage("ExchangeDialog is OK!", 3000);
+                }
+            }
         }
 
         void MainWindow::fundTransaction()

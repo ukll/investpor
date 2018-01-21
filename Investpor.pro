@@ -35,7 +35,8 @@ SOURCES += \
     investpor/core/SourceFiles/util.cpp \
     investpor/core/SourceFiles/transaction.cpp \
     investpor/core/SourceFiles/discountbondtransaction.cpp \
-    investpor/core/SourceFiles/cryptocurrencytransaction.cpp
+    investpor/core/SourceFiles/cryptocurrencytransaction.cpp \
+    investpor/core/SourceFiles/exchangetransaction.cpp
 
 HEADERS += \
     investpor/gui/HeaderFiles/mainwindow.h \
@@ -49,7 +50,8 @@ HEADERS += \
     investpor/core/HeaderFiles/util.h \
     investpor/core/HeaderFiles/transaction.h \
     investpor/core/HeaderFiles/discountbondtransaction.h \
-    investpor/core/HeaderFiles/cryptocurrencytransaction.h
+    investpor/core/HeaderFiles/cryptocurrencytransaction.h \
+    investpor/core/HeaderFiles/exchangetransaction.h
 
 FORMS += \
     investpor/gui/UIFiles/mainwindow.ui \
