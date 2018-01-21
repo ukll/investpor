@@ -13,6 +13,8 @@ namespace investpor {
         class Util
         {
         public:
+            static bool doublesEqual(double d1, double d2);
+
             static const QString cryptoCurrencySymbol(Cryptocurrency ccurrency);
             static const QString cryptoCurrencyName(Cryptocurrency ccurrency);
             static const QString currencySymbol(Currency currency);

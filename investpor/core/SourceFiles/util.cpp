@@ -2,12 +2,25 @@
 
 #include "../HeaderFiles/types.h"
 
+#include <cmath>
+
 #include <QObject>
 #include <QRegExp>
 
 namespace investpor {
 
     namespace core {
+
+        bool Util::doublesEqual(double d1, double d2)
+        {
+            static const double EPSILON = 0.000001;
+
+            if(std::abs(d1 - d2) <= EPSILON || std::abs(d1 - d2) <= EPSILON * std::max(std::abs(d1), std::abs(d2))) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
         const QString Util::cryptoCurrencySymbol(Cryptocurrency ccurrency)
         {
