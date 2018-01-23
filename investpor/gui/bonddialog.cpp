@@ -43,6 +43,21 @@ namespace investpor {
             return transaction;
         }
 
+        void BondDialog::rearrangeDialog(int index)
+        {
+            if(Operation::BUY == index) {
+                ui->lblTerm->setVisible(true);
+                ui->deTerm->setVisible(true);
+                ui->lblNominalValue->setVisible(true);
+                ui->dsbNominalValue->setVisible(true);
+            } else {
+                ui->lblTerm->setVisible(false);
+                ui->deTerm->setVisible(false);
+                ui->lblNominalValue->setVisible(false);
+                ui->dsbNominalValue->setVisible(false);
+            }
+        }
+
         void BondDialog::accept()
         {
             QStringList errorMessageList;
@@ -92,21 +107,6 @@ namespace investpor {
                                                   ui->dsbSalePrice->value(), ui->deDate->date());
             //Passed the validation
             QDialog::accept();
-        }
-
-        void BondDialog::rearrangeDialog(int index)
-        {
-            if(Operation::BUY == index) {
-                ui->lblTerm->setVisible(true);
-                ui->deTerm->setVisible(true);
-                ui->lblNominalValue->setVisible(true);
-                ui->dsbNominalValue->setVisible(true);
-            } else {
-                ui->lblTerm->setVisible(false);
-                ui->deTerm->setVisible(false);
-                ui->lblNominalValue->setVisible(false);
-                ui->dsbNominalValue->setVisible(false);
-            }
         }
 
     }
