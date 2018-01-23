@@ -192,7 +192,7 @@ namespace investpor {
 
         const QRegExp Util::fundNameRegExp()
         {
-            QRegExp exp("^([a-zA-Z0-9]+\\.? )+$");
+            QRegExp exp("^([a-zA-Z0-9]+\\.? ?)+$");
             return exp;
         }
 
@@ -204,7 +204,7 @@ namespace investpor {
 
         const QRegExp Util::stockNameRegExp()
         {
-            QRegExp exp("^([a-zA-Z0-9]+\\.? )+$");
+            QRegExp exp("^([a-zA-Z0-9]+\\.? ?)+$");
             return exp;
         }
 
