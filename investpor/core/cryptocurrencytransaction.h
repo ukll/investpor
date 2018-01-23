@@ -1,8 +1,8 @@
 #ifndef HEADERFILESCRYPTOCURRENCYTRANSACTION_H
 #define HEADERFILESCRYPTOCURRENCYTRANSACTION_H
 
-#include "types.h"
-#include "transaction.h"
+#include "investpor/core/types.h"
+#include "investpor/core/transaction.h"
 
 #include <QDateTime>
 

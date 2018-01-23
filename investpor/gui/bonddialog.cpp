@@ -1,9 +1,9 @@
-#include "../HeaderFiles/bonddialog.h"
+#include "investpor/gui/bonddialog.h"
 #include "ui_bonddialog.h"
 
-#include "../../core/HeaderFiles/types.h"
-#include "../../core/HeaderFiles/util.h"
-#include "../../core/HeaderFiles/discountbondtransaction.h"
+#include "investpor/core/types.h"
+#include "investpor/core/util.h"
+#include "investpor/core/discountbondtransaction.h"
 
 #include <QStatusBar>
 

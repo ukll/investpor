@@ -1,12 +1,12 @@
-#include "../HeaderFiles/mainwindow.h"
+#include "investpor/gui/mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "../HeaderFiles/bonddialog.h"
-#include "../HeaderFiles/cryptocurrencydialog.h"
-#include "../HeaderFiles/exchangedialog.h"
-#include "../HeaderFiles/funddialog.h"
-#include "../HeaderFiles/golddialog.h"
-#include "../HeaderFiles/stockdialog.h"
+#include "investpor/gui/bonddialog.h"
+#include "investpor/gui/cryptocurrencydialog.h"
+#include "investpor/gui/exchangedialog.h"
+#include "investpor/gui/funddialog.h"
+#include "investpor/gui/golddialog.h"
+#include "investpor/gui/stockdialog.h"
 
 namespace investpor {
 

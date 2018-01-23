@@ -1,8 +1,8 @@
 #ifndef DISCOUNTBONDTRANSACTION_H
 #define DISCOUNTBONDTRANSACTION_H
 
-#include "types.h"
-#include "transaction.h"
+#include "investpor/core/types.h"
+#include "investpor/core/transaction.h"
 
 #include <QString>
 #include <QDate>

@@ -1,7 +1,7 @@
 #ifndef BONDDIALOG_H
 #define BONDDIALOG_H
 
-#include "../../core/HeaderFiles/discountbondtransaction.h"
+#include "investpor/core/discountbondtransaction.h"
 
 #include <QDialog>
 #include <QStatusBar>

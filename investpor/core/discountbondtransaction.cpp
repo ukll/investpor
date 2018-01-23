@@ -1,4 +1,4 @@
-#include "investpor/core/HeaderFiles/discountbondtransaction.h"
+#include "investpor/core/discountbondtransaction.h"
 
 #include <QString>
 #include <QDate>

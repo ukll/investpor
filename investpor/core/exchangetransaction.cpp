@@ -1,6 +1,6 @@
-#include "investpor/core/HeaderFiles/exchangetransaction.h"
+#include "investpor/core/exchangetransaction.h"
 
-#include "investpor/core/HeaderFiles/types.h"
+#include "investpor/core/types.h"
 
 ExchangeTransaction::ExchangeTransaction(quint16 id) :
     Transaction(id)

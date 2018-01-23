@@ -1,9 +1,9 @@
-#include "investpor/gui/HeaderFiles/exchangedialog.h"
+#include "investpor/gui/exchangedialog.h"
 #include "ui_exchangedialog.h"
 
-#include "investpor/core/HeaderFiles/types.h"
-#include "investpor/core/HeaderFiles/util.h"
-#include "investpor/core/HeaderFiles/exchangetransaction.h"
+#include "investpor/core/types.h"
+#include "investpor/core/util.h"
+#include "investpor/core/exchangetransaction.h"
 
 using investpor::core::Currency;
 using investpor::core::Operation;

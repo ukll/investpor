@@ -1,7 +1,7 @@
 #ifndef EXCHANGEDIALOG_H
 #define EXCHANGEDIALOG_H
 
-#include "investpor/core/HeaderFiles/exchangetransaction.h"
+#include "investpor/core/exchangetransaction.h"
 
 #include <QDialog>
 #include <QStatusBar>

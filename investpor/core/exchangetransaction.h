@@ -1,8 +1,8 @@
 #ifndef EXCHANGETRANSACTION_H
 #define EXCHANGETRANSACTION_H
 
-#include "investpor/core/HeaderFiles/types.h"
-#include "investpor/core/HeaderFiles/transaction.h"
+#include "investpor/core/types.h"
+#include "investpor/core/transaction.h"
 
 #include <QDateTime>
 

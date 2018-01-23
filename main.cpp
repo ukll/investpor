@@ -1,4 +1,4 @@
-#include "investpor/gui/HeaderFiles/mainwindow.h"
+#include "investpor/gui/mainwindow.h"
 #include <QApplication>
 
 using investpor::gui::MainWindow;

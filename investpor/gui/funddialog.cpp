@@ -1,41 +1,35 @@
-#include "../HeaderFiles/stockdialog.h"
-#include "ui_stockdialog.h"
+#include "investpor/gui/funddialog.h"
+#include "ui_funddialog.h"
 
-#include "../../core/HeaderFiles/types.h"
-#include "../../core/HeaderFiles/util.h"
+#include "investpor/core/types.h"
+#include "investpor/core/util.h"
 
 using investpor::core::Operation;
-using investpor::core::StockMarket;
 using investpor::core::Util;
 
 namespace investpor {
 
     namespace gui {
 
-        StockDialog::StockDialog(QWidget *parent) :
+        FundDialog::FundDialog(QWidget *parent) :
             QDialog(parent),
-            ui(new Ui::StockDialog)
+            ui(new Ui::FundDialog)
         {
             ui->setupUi(this);
             ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
             ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
 
-            for(uint i = StockMarket::BIST; i <= StockMarket::NYSE; ++i)
-            {
-                ui->cbMarket->addItem(QString("%1 - %2").arg(Util::stockMarketSymbol(static_cast<StockMarket>(i))).toUpper()
-                                      .arg(Util::stockMarketName(static_cast<StockMarket>(i))));
-            }
-
             QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
                              [this](int index){ rearrangeDialog(index); });
+            QObject::connect(ui->deOrderDate, &QDateEdit::dateChanged, ui->deOperationDate, &QDateEdit::setMinimumDate);
         }
 
-        StockDialog::~StockDialog()
+        FundDialog::~FundDialog()
         {
             delete ui;
         }
 
-        void StockDialog::rearrangeDialog(int index)
+        void FundDialog::rearrangeDialog(int index)
         {
             if(Operation::BUY == index) {
                 ui->lblName->setVisible(true);

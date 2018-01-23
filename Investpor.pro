@@ -25,39 +25,39 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 
 SOURCES += \
     main.cpp \
-    investpor/gui/SourceFiles/mainwindow.cpp \
-    investpor/gui/SourceFiles/stockdialog.cpp \
-    investpor/gui/SourceFiles/bonddialog.cpp \
-    investpor/gui/SourceFiles/cryptocurrencydialog.cpp \
-    investpor/gui/SourceFiles/exchangedialog.cpp \
-    investpor/gui/SourceFiles/funddialog.cpp \
-    investpor/gui/SourceFiles/golddialog.cpp \
-    investpor/core/SourceFiles/util.cpp \
-    investpor/core/SourceFiles/transaction.cpp \
-    investpor/core/SourceFiles/discountbondtransaction.cpp \
-    investpor/core/SourceFiles/cryptocurrencytransaction.cpp \
-    investpor/core/SourceFiles/exchangetransaction.cpp
+    investpor/gui/mainwindow.cpp \
+    investpor/gui/stockdialog.cpp \
+    investpor/gui/bonddialog.cpp \
+    investpor/gui/cryptocurrencydialog.cpp \
+    investpor/gui/exchangedialog.cpp \
+    investpor/gui/funddialog.cpp \
+    investpor/gui/golddialog.cpp \
+    investpor/core/util.cpp \
+    investpor/core/transaction.cpp \
+    investpor/core/discountbondtransaction.cpp \
+    investpor/core/cryptocurrencytransaction.cpp \
+    investpor/core/exchangetransaction.cpp
 
 HEADERS += \
-    investpor/gui/HeaderFiles/mainwindow.h \
-    investpor/gui/HeaderFiles/stockdialog.h \
-    investpor/gui/HeaderFiles/bonddialog.h \
-    investpor/gui/HeaderFiles/cryptocurrencydialog.h \
-    investpor/gui/HeaderFiles/exchangedialog.h \
-    investpor/gui/HeaderFiles/funddialog.h \
-    investpor/gui/HeaderFiles/golddialog.h \
-    investpor/core/HeaderFiles/types.h \
-    investpor/core/HeaderFiles/util.h \
-    investpor/core/HeaderFiles/transaction.h \
-    investpor/core/HeaderFiles/discountbondtransaction.h \
-    investpor/core/HeaderFiles/cryptocurrencytransaction.h \
-    investpor/core/HeaderFiles/exchangetransaction.h
+    investpor/gui/mainwindow.h \
+    investpor/gui/stockdialog.h \
+    investpor/gui/bonddialog.h \
+    investpor/gui/cryptocurrencydialog.h \
+    investpor/gui/exchangedialog.h \
+    investpor/gui/funddialog.h \
+    investpor/gui/golddialog.h \
+    investpor/core/types.h \
+    investpor/core/util.h \
+    investpor/core/transaction.h \
+    investpor/core/discountbondtransaction.h \
+    investpor/core/cryptocurrencytransaction.h \
+    investpor/core/exchangetransaction.h
 
 FORMS += \
-    investpor/gui/UIFiles/mainwindow.ui \
-    investpor/gui/UIFiles/stockdialog.ui \
-    investpor/gui/UIFiles/bonddialog.ui \
-    investpor/gui/UIFiles/cryptocurrencydialog.ui \
-    investpor/gui/UIFiles/exchangedialog.ui \
-    investpor/gui/UIFiles/funddialog.ui \
-    investpor/gui/UIFiles/golddialog.ui
+    investpor/gui/mainwindow.ui \
+    investpor/gui/stockdialog.ui \
+    investpor/gui/bonddialog.ui \
+    investpor/gui/cryptocurrencydialog.ui \
+    investpor/gui/exchangedialog.ui \
+    investpor/gui/funddialog.ui \
+    investpor/gui/golddialog.ui

@@ -1,8 +1,8 @@
-#include "../HeaderFiles/golddialog.h"
+#include "investpor/gui/golddialog.h"
 #include "ui_golddialog.h"
 
-#include "../../core/HeaderFiles/types.h"
-#include "../../core/HeaderFiles/util.h"
+#include "investpor/core/types.h"
+#include "investpor/core/util.h"
 
 using investpor::core::Gold;
 using investpor::core::Operation;

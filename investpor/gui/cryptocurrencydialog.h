@@ -1,7 +1,7 @@
 #ifndef CRYPTOCURRENCYDIALOG_H
 #define CRYPTOCURRENCYDIALOG_H
 
-#include "../../core/HeaderFiles/cryptocurrencytransaction.h"
+#include "investpor/core/cryptocurrencytransaction.h"
 
 #include <QDialog>
 #include <QStatusBar>

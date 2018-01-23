@@ -1,4 +1,4 @@
-#include "investpor/core/HeaderFiles/cryptocurrencytransaction.h"
+#include "investpor/core/cryptocurrencytransaction.h"
 
 namespace investpor {
 

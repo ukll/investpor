@@ -1,9 +1,9 @@
-#include "../HeaderFiles/cryptocurrencydialog.h"
+#include "investpor/gui/cryptocurrencydialog.h"
 #include "ui_cryptocurrencydialog.h"
 
-#include "../../core/HeaderFiles/types.h"
-#include "../../core/HeaderFiles/util.h"
-#include "../../core/HeaderFiles/cryptocurrencytransaction.h"
+#include "investpor/core/types.h"
+#include "investpor/core/util.h"
+#include "investpor/core/cryptocurrencytransaction.h"
 
 using investpor::core::Operation;
 using investpor::core::Cryptocurrency;
