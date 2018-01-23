@@ -16,10 +16,10 @@ namespace investpor {
         class CryptocurrencyTransaction : public Transaction
         {
         public:
-            CryptocurrencyTransaction(quint16 id = 0);
+            CryptocurrencyTransaction(quint16 id = 0) : Transaction(id) { }
             CryptocurrencyTransaction(Operation op, Cryptocurrency ccurrency,
                                       double prc, double amnt, QDateTime opDateTime, double gPrice, quint16 id = 0);
-            virtual ~CryptocurrencyTransaction();
+            virtual ~CryptocurrencyTransaction() { }
 
             Operation getOperationType() { return operationType; }
             void setOperationType(Operation op) { operationType = op; }

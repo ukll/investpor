@@ -38,11 +38,6 @@ namespace investpor {
             delete ui;
         }
 
-        ExchangeTransaction ExchangeDialog::getTransaction()
-        {
-            return transaction;
-        }
-
         void ExchangeDialog::rearrangeDialog(int index)
         {
             if(Operation::BUY == index) {

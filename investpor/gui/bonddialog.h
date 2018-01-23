@@ -25,7 +25,7 @@ namespace investpor {
             explicit BondDialog(QWidget *parent = 0);
             ~BondDialog();
 
-            DiscountBondTransaction getTransaction();
+            DiscountBondTransaction getTransaction() { return transaction; }
 
         private:
             Ui::BondDialog *ui;

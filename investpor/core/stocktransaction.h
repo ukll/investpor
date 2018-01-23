@@ -16,7 +16,7 @@ namespace investpor {
         class StockTransaction : public Transaction
         {
         public:
-            StockTransaction(quint16 id = 0);
+            StockTransaction(quint16 id = 0) : Transaction(id) { }
             StockTransaction(Operation op, StockMarket sMarket, QString symbol, QString name, double prc,
                              quint32 cnt, double cRate, QDateTime opDateTime, double gPrice, quint16 id = 0);
             virtual ~StockTransaction() { }

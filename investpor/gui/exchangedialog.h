@@ -10,6 +10,8 @@ namespace Ui {
     class ExchangeDialog;
 }
 
+using investpor::core::ExchangeTransaction;
+
 namespace investpor {
 
     namespace gui {
@@ -22,7 +24,7 @@ namespace investpor {
             explicit ExchangeDialog(QWidget *parent = 0);
             ~ExchangeDialog();
 
-            ExchangeTransaction getTransaction();
+            ExchangeTransaction getTransaction() { return transaction; }
 
         private:
             Ui::ExchangeDialog *ui;
@@ -30,7 +32,7 @@ namespace investpor {
             ExchangeTransaction transaction;
 
             void rearrangeDialog(int index);
-            virtual void accept();
+            virtual void accept() override;
         };
 
     }

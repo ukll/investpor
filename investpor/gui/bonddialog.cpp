@@ -38,11 +38,6 @@ namespace investpor {
             delete ui;
         }
 
-        DiscountBondTransaction BondDialog::getTransaction()
-        {
-            return transaction;
-        }
-
         void BondDialog::rearrangeDialog(int index)
         {
             if(Operation::BUY == index) {

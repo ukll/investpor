@@ -41,11 +41,6 @@ namespace investpor {
             delete ui;
         }
 
-        core::CryptocurrencyTransaction CryptocurrencyDialog::getTransaction()
-        {
-            return transaction;
-        }
-
         void CryptocurrencyDialog::rearrangeDialog(int index)
         {
             if(Operation::BUY == index) {

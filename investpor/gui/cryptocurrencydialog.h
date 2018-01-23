@@ -24,7 +24,7 @@ namespace investpor {
             explicit CryptocurrencyDialog(QWidget *parent = 0);
             ~CryptocurrencyDialog();
 
-            CryptocurrencyTransaction getTransaction();
+            CryptocurrencyTransaction getTransaction() { return transaction; }
 
         private:
             Ui::CryptocurrencyDialog *ui;

@@ -15,10 +15,10 @@ namespace investpor {
         class FundTransaction : public Transaction
         {
         public:
-            FundTransaction(quint16 id = 0);
+            FundTransaction(quint16 id = 0) : Transaction(id) { }
             FundTransaction(Operation op, QString fCode, QString fName, double prc, quint32 cnt,
                             QDate orDate, QDate opDate, double gPrice, quint16 id = 0);
-            virtual ~FundTransaction();
+            virtual ~FundTransaction() { }
 
             Operation getOperationType() { return operationType; }
             void setOperationType(Operation op) { operationType = op; }

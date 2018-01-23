@@ -14,25 +14,25 @@ namespace investpor {
         class DiscountBondTransaction : public Transaction
         {
         public:
-            DiscountBondTransaction(quint16 id = 0);
+            DiscountBondTransaction(quint16 id = 0) : Transaction(id) { }
             DiscountBondTransaction(Operation op, QString isin, QDate term, double nomValue, double sPrice, QDate opDate, quint16 id = 0);
-            virtual ~DiscountBondTransaction();
+            virtual ~DiscountBondTransaction() { }
 
-            Operation getOperationType();
-            void setOperationType(Operation op);
-            QString getISIN();
-            void setISIN(QString isin);
-            QDate getTerm();
-            void setTerm(QDate term);
-            double getNominalValue();
-            void setNominalValue(double nomValue);
-            double getSalePrice();
-            void setSalePrice(double sPrice);
-            QDate getOperationDate();
-            void setOperationDate(QDate opDate);
+            Operation getOperationType() { return operationType; }
+            void setOperationType(Operation op) { operationType = op; }
+            QString getISIN() { return ISIN; }
+            void setISIN(QString isin) { ISIN = isin; }
+            QDate getTerm() { return termDate; }
+            void setTerm(QDate term) { termDate = term; }
+            double getNominalValue() { return nominalValue; }
+            void setNominalValue(double nomValue) { nominalValue = nomValue; }
+            double getSalePrice() { return salePrice; }
+            void setSalePrice(double sPrice) { salePrice = sPrice; }
+            QDate getOperationDate() { return operationDate; }
+            void setOperationDate(QDate opDate) { operationDate = opDate; }
 
         private:
-            Operation operation;
+            Operation operationType;
             QString ISIN;
             QDate termDate;
             double nominalValue;

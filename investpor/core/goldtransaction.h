@@ -16,9 +16,9 @@ namespace investpor {
         class GoldTransaction : public Transaction
         {
         public:
-            GoldTransaction(quint16 id = 0);
+            GoldTransaction(quint16 id = 0) : Transaction(id) { }
             GoldTransaction(Operation op, Gold gType, double prc, double amnt, QDateTime dt, double gPrice, quint16 id = 0);
-            virtual ~GoldTransaction();
+            virtual ~GoldTransaction() { }
 
             Operation getOperationType() { return operationType; }
             void setOperationType(Operation op) { operationType = op; }

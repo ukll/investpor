@@ -33,7 +33,7 @@ namespace investpor {
             GoldTransaction transaction;
 
             void rearrangeDialog(int index);
-            virtual void accept();
+            virtual void accept() override;
         };
 
     }
