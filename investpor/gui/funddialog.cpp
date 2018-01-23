@@ -90,7 +90,7 @@ namespace investpor {
                 errorMessageList << tr("Operation date is invalid!");
             }
 
-            //Goal price cannot be invalid if it is not empty.
+            //If it is a buy operation, check the validity of goal price.
             if(ui->cbOperationType->currentIndex() == Operation::BUY)
             {
                 if(!ui->dsbGoalPrice->text().simplified().isEmpty() && !ui->dsbGoalPrice->hasAcceptableInput()) {
