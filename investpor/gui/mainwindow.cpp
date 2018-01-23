@@ -56,7 +56,7 @@ namespace investpor {
                 if(bd.getTransaction().getTransactionId() == 0)
                 {
                     //New transaction
-                    ui->statusBar->showMessage("BondDialog is OK!", 3000);
+                    ui->statusBar->showMessage(tr("BondDialog is OK!"), 3000);
                 }
             }
         }
@@ -68,7 +68,7 @@ namespace investpor {
             {
                 if(cd.getTransaction().getTransactionId() == 0)
                 {
-                    ui->statusBar->showMessage("CryptocurrencyDialog is OK!", 3000);
+                    ui->statusBar->showMessage(tr("CryptocurrencyDialog is OK!"), 3000);
                 }
             }
         }
@@ -80,7 +80,7 @@ namespace investpor {
             {
                 if(ed.getTransaction().getTransactionId() == 0)
                 {
-                    ui->statusBar->showMessage("ExchangeDialog is OK!", 3000);
+                    ui->statusBar->showMessage(tr("ExchangeDialog is OK!"), 3000);
                 }
             }
         }
@@ -88,19 +88,37 @@ namespace investpor {
         void MainWindow::fundTransaction()
         {
             FundDialog fd;
-            fd.exec();
+            if(fd.exec() == QDialog::Accepted)
+            {
+                if(fd.getTransaction().getTransactionId() == 0)
+                {
+                    ui->statusBar->showMessage(tr("FundDialog is OK!"), 3000);
+                }
+            }
         }
 
         void MainWindow::goldTransaction()
         {
             GoldDialog gd;
-            gd.exec();
+            if(gd.exec() == QDialog::Accepted)
+            {
+                if(gd.getTransaction().getTransactionId() == 0)
+                {
+                    ui->statusBar->showMessage(tr("GoldDialog is OK!"), 3000);
+                }
+            }
         }
 
         void MainWindow::stockTransaction()
         {
             StockDialog sd;
-            sd.exec();
+            if(sd.exec() == QDialog::Accepted)
+            {
+                if(sd.getTransaction().getTransactionId() == 0)
+                {
+                    ui->statusBar->showMessage(tr("StockDialog is OK!"), 3000);
+                }
+            }
         }
 
     }
