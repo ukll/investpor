@@ -38,7 +38,8 @@ SOURCES += \
     investpor/core/cryptocurrencytransaction.cpp \
     investpor/core/exchangetransaction.cpp \
     investpor/core/fundtransaction.cpp \
-    investpor/core/goldtransaction.cpp
+    investpor/core/goldtransaction.cpp \
+    investpor/core/stocktransaction.cpp
 
 HEADERS += \
     investpor/gui/mainwindow.h \
@@ -55,7 +56,8 @@ HEADERS += \
     investpor/core/cryptocurrencytransaction.h \
     investpor/core/exchangetransaction.h \
     investpor/core/fundtransaction.h \
-    investpor/core/goldtransaction.h
+    investpor/core/goldtransaction.h \
+    investpor/core/stocktransaction.h
 
 FORMS += \
     investpor/gui/mainwindow.ui \
