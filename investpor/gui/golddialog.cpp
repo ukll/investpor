@@ -79,6 +79,13 @@ namespace investpor {
                 }
             }
 
+
+            if(!errorMessageList.isEmpty())
+            {
+                statusBar.showMessage(errorMessageList.at(0), 3000);
+                return;
+            }
+
             //Passed the validation.
             QDialog::accept();
         }
