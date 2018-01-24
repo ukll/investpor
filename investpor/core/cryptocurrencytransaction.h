@@ -21,17 +21,17 @@ namespace investpor {
                                       double prc, double amnt, QDateTime opDateTime, double gPrice, quint16 id = 0);
             virtual ~CryptocurrencyTransaction() { }
 
-            Operation getOperationType() { return operationType; }
+            Operation getOperationType() const { return operationType; }
             void setOperationType(Operation op) { operationType = op; }
-            Cryptocurrency getCryptocurrency() { return cryptoCurrency; }
+            Cryptocurrency getCryptocurrency() const { return cryptoCurrency; }
             void setCryptocurrency(Cryptocurrency ccurrency) { cryptoCurrency = ccurrency; }
-            double getPrice() { return price; }
+            double getPrice() const { return price; }
             void setPrice(double prc) { price = prc; }
-            double getAmount() { return amount; }
+            double getAmount() const { return amount; }
             void setAmount(double amnt) { amount = amnt; }
-            QDateTime getOperationDateTime() { return operationDateTime; }
+            QDateTime getOperationDateTime() const { return operationDateTime; }
             void setOperationDateTime(QDateTime opDateTime) { operationDateTime = opDateTime; }
-            double getGoalPrice() { return goalPrice; }
+            double getGoalPrice() const { return goalPrice; }
             void setGoalPrice(double gp) { goalPrice = gp; }
 
         private:

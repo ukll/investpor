@@ -21,23 +21,23 @@ namespace investpor {
                              quint32 cnt, double cRate, QDateTime opDateTime, double gPrice, quint16 id = 0);
             virtual ~StockTransaction() { }
 
-            Operation getOperationType() { return operationType; }
+            Operation getOperationType() const { return operationType; }
             void setOperationType(Operation op) { operationType = op; }
-            StockMarket getStockMarket() { return stockMarket; }
+            StockMarket getStockMarket() const { return stockMarket; }
             void setStockMarket(StockMarket sMarket) { stockMarket = sMarket; }
-            QString getStockSymbol() { return stockSymbol; }
+            QString getStockSymbol() const { return stockSymbol; }
             void setStockSymbol(QString symbol) { stockSymbol = symbol; }
-            QString getStockName() { return stockName; }
+            QString getStockName() const { return stockName; }
             void setStockName(QString name) { stockName = name; }
-            double getPrice() { return price; }
+            double getPrice() const { return price; }
             void setPrice(double prc) { price = prc; }
-            quint32 getCount() { return count; }
+            quint32 getCount() const { return count; }
             void setCount(quint32 cnt) { count = cnt; }
-            double getCommissionRate() { return commissionRate; }
+            double getCommissionRate() const { return commissionRate; }
             void setCommissionRate(double cRate) { commissionRate = cRate; }
-            QDateTime getOperationDateTime() { return operationDateTime; }
+            QDateTime getOperationDateTime() const { return operationDateTime; }
             void setOperationDateTime(QDateTime opDateTime) { operationDateTime = opDateTime; }
-            double getGoalPrice() { return goalPrice; }
+            double getGoalPrice() const { return goalPrice; }
             void setGoalPrice(double gPrice) { goalPrice = gPrice; }
 
         private:

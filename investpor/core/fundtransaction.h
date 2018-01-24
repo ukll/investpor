@@ -20,21 +20,21 @@ namespace investpor {
                             QDate orDate, QDate opDate, double gPrice, quint16 id = 0);
             virtual ~FundTransaction() { }
 
-            Operation getOperationType() { return operationType; }
+            Operation getOperationType() const { return operationType; }
             void setOperationType(Operation op) { operationType = op; }
-            QString getFundCode() { return fundCode; }
+            QString getFundCode() const { return fundCode; }
             void setFundCode(QString fCode) { fundCode = fCode; }
-            QString getFundName() { return fundName; }
+            QString getFundName() const { return fundName; }
             void setFundName(QString fName) { fundName = fName; }
-            double getPrice() { return price; }
+            double getPrice() const { return price; }
             void setPrice(double prc) { price = prc; }
-            quint32 getCount() { return count; }
+            quint32 getCount() const { return count; }
             void setCount(quint32 cnt) { count = cnt; }
-            QDate getOrderDate() { return orderDate; }
+            QDate getOrderDate() const { return orderDate; }
             void setOrderDate(QDate orDate) { orderDate = orDate; }
-            QDate getOperationDate() { return operationDate; }
+            QDate getOperationDate() const { return operationDate; }
             void setOperationDate(QDate opDate) { operationDate = opDate; }
-            double getGoalPrice() { return goalPrice; }
+            double getGoalPrice() const { return goalPrice; }
             void setGoalPrice(double gPrice) { goalPrice = gPrice; }
 
         private:

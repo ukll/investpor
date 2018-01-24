@@ -25,7 +25,7 @@ namespace investpor {
             explicit FundDialog(QWidget *parent = 0);
             ~FundDialog();
 
-            FundTransaction getTransaction() { return transaction; }
+            FundTransaction getTransaction() const { return transaction; }
 
         private:
             Ui::FundDialog *ui;

@@ -25,7 +25,7 @@ namespace investpor {
             explicit GoldDialog(QWidget *parent = 0);
             ~GoldDialog();
 
-            GoldTransaction getTransaction() { return transaction; }
+            GoldTransaction getTransaction() const { return transaction; }
 
         private:
             Ui::GoldDialog *ui;

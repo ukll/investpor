@@ -13,7 +13,7 @@ namespace investpor {
             explicit Transaction(quint16 id) { transactionID = id; }
             virtual ~Transaction() = 0;
 
-            quint16 getTransactionId() { return transactionID; }
+            quint16 getTransactionId() const { return transactionID; }
             void setTransactionId(quint16 id) { transactionID = id; }
 
         private:

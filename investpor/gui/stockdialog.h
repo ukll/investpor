@@ -25,7 +25,7 @@ namespace investpor {
             explicit StockDialog(QWidget *parent = 0);
             ~StockDialog();
 
-            StockTransaction getTransaction() { return transaction; }
+            StockTransaction getTransaction() const { return transaction; }
 
         private:
             Ui::StockDialog *ui;

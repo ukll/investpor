@@ -24,7 +24,7 @@ namespace investpor {
             explicit ExchangeDialog(QWidget *parent = 0);
             ~ExchangeDialog();
 
-            ExchangeTransaction getTransaction() { return transaction; }
+            ExchangeTransaction getTransaction() const { return transaction; }
 
         private:
             Ui::ExchangeDialog *ui;
