@@ -6,8 +6,8 @@ namespace investpor {
 
     namespace core {
 
-        StockTransaction::StockTransaction(Operation op, StockMarket sMarket, QString symbol, QString name, double prc,
-            quint32 cnt, double cRate, QDateTime opDateTime, double gPrice, quint16 id) :
+        StockTransaction::StockTransaction(const Operation &op, const StockMarket &sMarket, const QString &symbol, const QString &name,
+            const double &prc, const quint32 &cnt, const double &cRate, const QDateTime &opDateTime, const double &gPrice, const quint16 &id) :
             Transaction(id), operationType(op), stockMarket(sMarket), stockSymbol(symbol), stockName(name), price(prc),
             count(cnt), commissionRate(cRate), operationDateTime(opDateTime), goalPrice(gPrice)
         {

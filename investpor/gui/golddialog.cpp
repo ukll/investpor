@@ -37,7 +37,7 @@ namespace investpor {
             delete ui;
         }
 
-        void GoldDialog::rearrangeDialog(int index)
+        void GoldDialog::rearrangeDialog(int &index)
         {
             if(Operation::BUY == index) {
                 ui->lblGoalPrice->setVisible(true);

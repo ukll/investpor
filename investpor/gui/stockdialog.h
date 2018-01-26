@@ -34,7 +34,7 @@ namespace investpor {
             QRegExpValidator nameValidator;
             StockTransaction transaction;
 
-            void rearrangeDialog(int index);
+            void rearrangeDialog(int &index);
             virtual void accept() override;
         };
 

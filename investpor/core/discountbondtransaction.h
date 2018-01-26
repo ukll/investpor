@@ -14,22 +14,23 @@ namespace investpor {
         class DiscountBondTransaction : public Transaction
         {
         public:
-            DiscountBondTransaction(quint16 id = 0) : Transaction(id) { }
-            DiscountBondTransaction(Operation op, QString isin, QDate term, double nomValue, double sPrice, QDate opDate, quint16 id = 0);
+            DiscountBondTransaction(const quint16 &id = 0) : Transaction(id) { }
+            DiscountBondTransaction(const Operation &op, const QString &isin, const QDate &term, const double &nomValue,
+                const double &sPrice, const QDate &opDate, const quint16 &id = 0);
             virtual ~DiscountBondTransaction() { }
 
             Operation getOperationType() const { return operationType; }
-            void setOperationType(Operation op) { operationType = op; }
+            void setOperationType(const Operation &op) { operationType = op; }
             QString getISIN() const { return ISIN; }
-            void setISIN(QString isin) { ISIN = isin; }
+            void setISIN(const QString &isin) { ISIN = isin; }
             QDate getTerm() const { return termDate; }
-            void setTerm(QDate term) { termDate = term; }
+            void setTerm(const QDate &term) { termDate = term; }
             double getNominalValue() const { return nominalValue; }
-            void setNominalValue(double nomValue) { nominalValue = nomValue; }
+            void setNominalValue(const double &nomValue) { nominalValue = nomValue; }
             double getSalePrice() const { return salePrice; }
-            void setSalePrice(double sPrice) { salePrice = sPrice; }
+            void setSalePrice(const double &sPrice) { salePrice = sPrice; }
             QDate getOperationDate() const { return operationDate; }
-            void setOperationDate(QDate opDate) { operationDate = opDate; }
+            void setOperationDate(const QDate &opDate) { operationDate = opDate; }
 
         private:
             Operation operationType;

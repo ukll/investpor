@@ -16,22 +16,23 @@ namespace investpor {
         class GoldTransaction : public Transaction
         {
         public:
-            GoldTransaction(quint16 id = 0) : Transaction(id) { }
-            GoldTransaction(Operation op, Gold gType, double prc, double amnt, QDateTime dt, double gPrice, quint16 id = 0);
+            GoldTransaction(const quint16 &id = 0) : Transaction(id) { }
+            GoldTransaction(const Operation &op, const Gold &gType, const double &prc, const double &amnt,
+                const QDateTime &dt, const double &gPrice, const quint16 &id = 0);
             virtual ~GoldTransaction() { }
 
             Operation getOperationType() const { return operationType; }
-            void setOperationType(Operation op) { operationType = op; }
+            void setOperationType(const Operation &op) { operationType = op; }
             Gold getGoldType() const { return goldType; }
-            void setGoldType(Gold gType) { goldType = gType; }
+            void setGoldType(const Gold &gType) { goldType = gType; }
             double getPrice() const { return price; }
-            void setPrice(double prc) { price = prc; }
+            void setPrice(const double &prc) { price = prc; }
             double getAmount() const { return amount; }
-            void setAmount(double amnt) { amount = amnt; }
+            void setAmount(const double &amnt) { amount = amnt; }
             QDateTime getOperationDateTime() const { return operationDateTime; }
-            void setOperationDateTime(QDateTime dt) { operationDateTime = dt; }
+            void setOperationDateTime(const QDateTime &dt) { operationDateTime = dt; }
             double getGoalPrice() const { return goalPrice; }
-            void setGoalPrice(double gPrice) { goalPrice = gPrice;}
+            void setGoalPrice(const double &gPrice) { goalPrice = gPrice;}
 
         private:
             Operation operationType;

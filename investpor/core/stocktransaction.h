@@ -16,29 +16,29 @@ namespace investpor {
         class StockTransaction : public Transaction
         {
         public:
-            StockTransaction(quint16 id = 0) : Transaction(id) { }
-            StockTransaction(Operation op, StockMarket sMarket, QString symbol, QString name, double prc,
-                             quint32 cnt, double cRate, QDateTime opDateTime, double gPrice, quint16 id = 0);
+            StockTransaction(const quint16 &id = 0) : Transaction(id) { }
+            StockTransaction(const Operation &op, const StockMarket &sMarket, const QString &symbol, const QString &name, const double &prc,
+                             const quint32 &cnt, const double &cRate, const QDateTime &opDateTime, const double &gPrice, const quint16 &id = 0);
             virtual ~StockTransaction() { }
 
             Operation getOperationType() const { return operationType; }
-            void setOperationType(Operation op) { operationType = op; }
+            void setOperationType(const Operation &op) { operationType = op; }
             StockMarket getStockMarket() const { return stockMarket; }
-            void setStockMarket(StockMarket sMarket) { stockMarket = sMarket; }
+            void setStockMarket(const StockMarket &sMarket) { stockMarket = sMarket; }
             QString getStockSymbol() const { return stockSymbol; }
-            void setStockSymbol(QString symbol) { stockSymbol = symbol; }
+            void setStockSymbol(const QString &symbol) { stockSymbol = symbol; }
             QString getStockName() const { return stockName; }
-            void setStockName(QString name) { stockName = name; }
+            void setStockName(const QString &name) { stockName = name; }
             double getPrice() const { return price; }
-            void setPrice(double prc) { price = prc; }
+            void setPrice(const double &prc) { price = prc; }
             quint32 getCount() const { return count; }
-            void setCount(quint32 cnt) { count = cnt; }
+            void setCount(const quint32 &cnt) { count = cnt; }
             double getCommissionRate() const { return commissionRate; }
-            void setCommissionRate(double cRate) { commissionRate = cRate; }
+            void setCommissionRate(const double &cRate) { commissionRate = cRate; }
             QDateTime getOperationDateTime() const { return operationDateTime; }
-            void setOperationDateTime(QDateTime opDateTime) { operationDateTime = opDateTime; }
+            void setOperationDateTime(const QDateTime &opDateTime) { operationDateTime = opDateTime; }
             double getGoalPrice() const { return goalPrice; }
-            void setGoalPrice(double gPrice) { goalPrice = gPrice; }
+            void setGoalPrice(const double &gPrice) { goalPrice = gPrice; }
 
         private:
             Operation operationType;

@@ -35,7 +35,7 @@ namespace investpor {
             delete ui;
         }
 
-        void FundDialog::rearrangeDialog(int index)
+        void FundDialog::rearrangeDialog(int &index)
         {
             if(Operation::BUY == index) {
                 ui->lblName->setVisible(true);

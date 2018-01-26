@@ -7,8 +7,8 @@ namespace investpor {
 
     namespace core {
 
-        DiscountBondTransaction::DiscountBondTransaction(Operation op, QString isin, QDate term,
-            double nomValue, double sPrice, QDate opDate, quint16 id) :
+        DiscountBondTransaction::DiscountBondTransaction(const Operation &op, const QString &isin, const QDate &term,
+            const double &nomValue, const double &sPrice, const QDate &opDate, const quint16 &id) :
             Transaction(id), operationType(op), ISIN(isin), termDate(term),
             nominalValue(nomValue), salePrice(sPrice), operationDate(opDate)
         {

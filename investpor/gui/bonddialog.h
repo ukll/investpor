@@ -33,7 +33,7 @@ namespace investpor {
             QStatusBar statusBar;
             QRegExpValidator ISINValidator;
 
-            void rearrangeDialog(int index);
+            void rearrangeDialog(int &index);
             virtual void accept() override;
         };
 

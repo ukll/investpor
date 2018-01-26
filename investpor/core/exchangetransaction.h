@@ -17,22 +17,23 @@ namespace investpor {
         class ExchangeTransaction : public Transaction
         {
         public:
-            ExchangeTransaction(quint16 id = 0) : Transaction(id) { }
-            ExchangeTransaction(Operation op, Currency cur, double prc, double amnt, QDateTime dt, double gPrice, quint16 id = 0);
+            ExchangeTransaction(const quint16 &id = 0) : Transaction(id) { }
+            ExchangeTransaction(const Operation &op, const Currency &cur, const double &prc, const double &amnt,
+                const QDateTime &dt, const double &gPrice, const quint16 &id = 0);
             virtual ~ExchangeTransaction() { }
 
             Operation getOperationType() const { return operationType; }
-            void setOperationType(Operation op) { operationType = op; }
+            void setOperationType(const Operation &op) { operationType = op; }
             Currency getCurrency() const { return currency; }
-            void setCurrency(Currency cur) { currency = cur; }
+            void setCurrency(const Currency &cur) { currency = cur; }
             double getPrice() const { return price; }
-            void setPrice(double prc) { price = prc; }
+            void setPrice(const double &prc) { price = prc; }
             double getAmount() const { return amount; }
-            void setAmount(double amnt) { amount = amnt; }
+            void setAmount(const double &amnt) { amount = amnt; }
             QDateTime getOperationDateTime() const { return dateTime; }
-            void setOperationDateTime(QDateTime dt) { dateTime = dt; }
+            void setOperationDateTime(const QDateTime &dt) { dateTime = dt; }
             double getGoalPrice() const { return goalPrice; }
-            void setGoalPrice(double gPrice) { goalPrice = gPrice; }
+            void setGoalPrice(const double &gPrice) { goalPrice = gPrice; }
 
         private:
             Operation operationType;

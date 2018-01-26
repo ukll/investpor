@@ -11,7 +11,7 @@ namespace investpor {
 
     namespace core {
 
-        bool Util::doublesEqual(double d1, double d2)
+        bool Util::doublesEqual(const double &d1, const double &d2)
         {
             static const double EPSILON = 0.0000001;
 
@@ -22,7 +22,7 @@ namespace investpor {
             }
         }
 
-        const QString Util::cryptoCurrencySymbol(Cryptocurrency ccurrency)
+        const QString Util::cryptoCurrencySymbol(const Cryptocurrency &ccurrency)
         {
             switch (ccurrency) {
             case Cryptocurrency::ETC:
@@ -42,7 +42,7 @@ namespace investpor {
             }
         }
 
-        const QString Util::cryptoCurrencyName(Cryptocurrency ccurrency)
+        const QString Util::cryptoCurrencyName(const Cryptocurrency &ccurrency)
         {
             switch (ccurrency) {
             case Cryptocurrency::ETC:
@@ -62,7 +62,7 @@ namespace investpor {
             }
         }
 
-        const QString Util::currencySymbol(Currency currency)
+        const QString Util::currencySymbol(const Currency &currency)
         {
             switch (currency) {
             case Currency::AUD:
@@ -82,7 +82,7 @@ namespace investpor {
             }
         }
 
-        const QString Util::currencyName(Currency currency)
+        const QString Util::currencyName(const Currency &currency)
         {
             switch (currency) {
             case Currency::AUD:
@@ -102,7 +102,7 @@ namespace investpor {
             }
         }
 
-        const QString Util::goldSymbol(Gold gold)
+        const QString Util::goldSymbol(const Gold &gold)
         {
             switch (gold) {
             case Gold::GRAMS:
@@ -114,7 +114,7 @@ namespace investpor {
             }
         }
 
-        const QString Util::goldName(Gold gold)
+        const QString Util::goldName(const Gold &gold)
         {
             switch (gold) {
             case Gold::GRAMS:
@@ -126,7 +126,7 @@ namespace investpor {
             }
         }
 
-        const QString Util::operationCode(Operation operation)
+        const QString Util::operationCode(const Operation &operation)
         {
             switch (operation) {
             case Operation::BUY:
@@ -138,7 +138,7 @@ namespace investpor {
             }
         }
 
-        const QString Util::operationName(Operation operation)
+        const QString Util::operationName(const Operation &operation)
         {
             switch (operation) {
             case Operation::BUY:
@@ -150,7 +150,7 @@ namespace investpor {
             }
         }
 
-        const QString Util::stockMarketSymbol(StockMarket market)
+        const QString Util::stockMarketSymbol(const StockMarket &market)
         {
             switch (market) {
             case StockMarket::BIST:
@@ -164,7 +164,7 @@ namespace investpor {
             }
         }
 
-        const QString Util::stockMarketName(StockMarket market)
+        const QString Util::stockMarketName(const StockMarket &market)
         {
             switch (market) {
             case StockMarket::BIST:

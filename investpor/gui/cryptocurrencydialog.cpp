@@ -41,7 +41,7 @@ namespace investpor {
             delete ui;
         }
 
-        void CryptocurrencyDialog::rearrangeDialog(int index)
+        void CryptocurrencyDialog::rearrangeDialog(int &index)
         {
             if(Operation::BUY == index) {
                 ui->lblGoalPrice->setVisible(true);

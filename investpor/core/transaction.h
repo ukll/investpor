@@ -10,11 +10,11 @@ namespace investpor {
         class Transaction
         {
         public:
-            explicit Transaction(quint16 id) { transactionID = id; }
+            explicit Transaction(const quint16 &id) { transactionID = id; }
             virtual ~Transaction() = 0;
 
             quint16 getTransactionId() const { return transactionID; }
-            void setTransactionId(quint16 id) { transactionID = id; }
+            void setTransactionId(const quint16 &id) { transactionID = id; }
 
         private:
             quint16 transactionID;

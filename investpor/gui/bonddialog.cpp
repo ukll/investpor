@@ -38,7 +38,7 @@ namespace investpor {
             delete ui;
         }
 
-        void BondDialog::rearrangeDialog(int index)
+        void BondDialog::rearrangeDialog(int &index)
         {
             if(Operation::BUY == index) {
                 ui->lblTerm->setVisible(true);
