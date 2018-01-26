@@ -5,6 +5,10 @@ namespace investpor {
 
     namespace core {
 
+        enum Investment {
+            CryptoCurrencyInvestment = 0, DiscountBondInvestment, ExchangeInvestment, FundInvestment, GoldInvestment, StockInvestment
+        };
+
         enum Cryptocurrency {
             ETC = 0, ETH, LTC, IOT, XBT, XRP
         };

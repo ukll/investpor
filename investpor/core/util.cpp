@@ -22,6 +22,26 @@ namespace investpor {
             }
         }
 
+        const QString Util::getInvestmentTagName(const Investment &investment)
+        {
+            switch (investment) {
+            case Investment::CryptoCurrencyInvestment:
+                return "cryptocurrency";
+            case Investment::DiscountBondInvestment:
+                return "discount-bond";
+            case Investment::ExchangeInvestment:
+                return "exchange";
+            case Investment::FundInvestment:
+                return "fund";
+            case Investment::GoldInvestment:
+                return "gold";
+            case Investment::StockInvestment:
+                return "stock";
+            default:
+                return "";
+            }
+        }
+
         const QString Util::cryptoCurrencySymbol(const Cryptocurrency &ccurrency)
         {
             switch (ccurrency) {

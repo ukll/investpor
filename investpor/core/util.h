@@ -15,6 +15,8 @@ namespace investpor {
         public:
             static bool doublesEqual(const double &d1, const double &d2);
 
+            static const QString getInvestmentTagName(const Investment &investment);
+
             static const QString cryptoCurrencySymbol(const Cryptocurrency &ccurrency);
             static const QString cryptoCurrencyName(const Cryptocurrency &ccurrency);
             static const QString currencySymbol(const Currency &currency);
