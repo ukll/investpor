@@ -79,6 +79,10 @@ namespace investpor {
                 }
             }
 
+            transaction = GoldTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex()),
+                                          static_cast<Gold>(ui->cbGoldType->currentIndex()),
+                                          ui->dsbPrice->value(), ui->dsbAmount->value(),
+                                          ui->dteDateTime->dateTime(), ui->dsbGoalPrice->value());
 
             if(!errorMessageList.isEmpty())
             {
