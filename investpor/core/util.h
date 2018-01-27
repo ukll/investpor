@@ -13,7 +13,8 @@ namespace investpor {
         class Util
         {
         public:
-            static bool doublesEqual(const double &d1, const double &d2);
+            static bool doubleEquality6DecPoints(const double &d1, const double &d2);
+            static bool doubleEquality10DecPoints(const double &d1, const double &d2);
 
             static const QString getInvestmentTagName(const Investment &investment);
 

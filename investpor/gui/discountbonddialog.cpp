@@ -74,7 +74,7 @@ namespace investpor {
                     errorMessageList << tr("Nominal value cannot be empty!");
                 } else if(!ui->dsbNominalValue->hasAcceptableInput()) {
                     errorMessageList << tr("Nominal value is not valid!");
-                } else if(Util::doublesEqual(ui->dsbNominalValue->value(), 0.0)) {
+                } else if(Util::doubleEquality6DecPoints(ui->dsbNominalValue->value(), 0.0)) {
                     errorMessageList << tr("Nominal value cannot be 0!");
                 }
             }
@@ -83,7 +83,7 @@ namespace investpor {
                 errorMessageList << tr("Sale price cannot be empty!");
             } else if(!ui->dsbSalePrice->hasAcceptableInput()) {
                 errorMessageList << tr("Sale price is not valid!");
-            } else if(Util::doublesEqual(ui->dsbSalePrice->value(), 0.0)) {
+            } else if(Util::doubleEquality6DecPoints(ui->dsbSalePrice->value(), 0.0)) {
                 errorMessageList << tr("Sale price cannot be 0!");
             } else if(ui->deDate->text().simplified().isEmpty()) {
                 errorMessageList << tr("Operation date cannot be empty!");

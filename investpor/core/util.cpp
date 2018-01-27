@@ -11,9 +11,20 @@ namespace investpor {
 
     namespace core {
 
-        bool Util::doublesEqual(const double &d1, const double &d2)
+        bool Util::doubleEquality6DecPoints(const double &d1, const double &d2)
         {
             static const double EPSILON = 0.0000001;
+
+            if(std::abs(d1 - d2) <= EPSILON || std::abs(d1 - d2) <= EPSILON * std::max(std::abs(d1), std::abs(d2))) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        bool Util::doubleEquality10DecPoints(const double &d1, const double &d2)
+        {
+            static const double EPSILON = 0.00000000001;
 
             if(std::abs(d1 - d2) <= EPSILON || std::abs(d1 - d2) <= EPSILON * std::max(std::abs(d1), std::abs(d2))) {
                 return true;

@@ -80,7 +80,7 @@ namespace investpor {
                 errorMessageList << tr("Price cannot be empty!");
             } else if(!ui->dsbPrice->hasAcceptableInput()) {
                 errorMessageList << tr("Price is invalid!");
-            } else if(Util::doublesEqual(ui->dsbPrice->value(), 0.0)) {
+            } else if(Util::doubleEquality6DecPoints(ui->dsbPrice->value(), 0.0)) {
                 errorMessageList << tr("Price cannot be 0!");
             } else if(ui->sbCount->text().simplified().isEmpty()) {
                 errorMessageList << tr("Count cannot be empty!");
@@ -92,7 +92,7 @@ namespace investpor {
                 errorMessageList << tr("Commission rate cannot be empty!");
             } else if(!ui->dsbCommissionRate->hasAcceptableInput()) {
                 errorMessageList << tr("Commission rate is invalid!");
-            } else if(Util::doublesEqual(ui->dsbCommissionRate->value(), 0.0)) {
+            } else if(Util::doubleEquality6DecPoints(ui->dsbCommissionRate->value(), 0.0)) {
                 errorMessageList << tr("Commission rate cannot be 0!");
             } else if(ui->dteDateTime->text().simplified().isEmpty()) {
                 errorMessageList << tr("Operation datetime cannot be empty!");

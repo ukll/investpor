@@ -57,13 +57,13 @@ namespace investpor {
                 errorMessageList << tr("Price cannot be empty!");
             } else if(!ui->dsbPrice->hasAcceptableInput()) {
                 errorMessageList << tr("Price is invalid!");
-            } else if(Util::doublesEqual(ui->dsbPrice->value(), 0.0)) {
+            } else if(Util::doubleEquality6DecPoints(ui->dsbPrice->value(), 0.0)) {
                 errorMessageList << tr("Price cannot be 0!");
             } else if(ui->dsbAmount->text().simplified().isEmpty()) {
                 errorMessageList << tr("Amount cannot be empty!");
             } else if(!ui->dsbAmount->hasAcceptableInput()) {
                 errorMessageList << tr("Amount is invalid!");
-            } else if(Util::doublesEqual(ui->dsbAmount->value(), 0.0)) {
+            } else if(Util::doubleEquality6DecPoints(ui->dsbAmount->value(), 0.0)) {
                 errorMessageList << tr("Amount cannot be 0!");
             } else if(ui->dteDateTime->text().simplified().isEmpty()) {
                 errorMessageList << tr("Operation datetime cannot be empty!");
