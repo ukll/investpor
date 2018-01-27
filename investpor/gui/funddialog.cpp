@@ -16,6 +16,7 @@ namespace investpor {
             ui(new Ui::FundDialog)
         {
             ui->setupUi(this);
+            setWindowTitle(QString("%1 v%2 - Fund Transaction").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
             ui->vlStatusBar->addWidget(&statusBar);
             fundCodeValidator.setRegExp(Util::fundCodeRegExp());
             ui->leCode->setValidator(&fundCodeValidator);

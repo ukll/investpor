@@ -1,5 +1,5 @@
-#ifndef BONDDIALOG_H
-#define BONDDIALOG_H
+#ifndef DISCOUNTBONDDIALOG_H
+#define DISCOUNTBONDDIALOG_H
 
 #include "investpor/core/discountbondtransaction.h"
 
@@ -8,7 +8,7 @@
 #include <QValidator>
 
 namespace Ui {
-    class BondDialog;
+    class DiscountBondDialog;
 }
 
 using investpor::core::DiscountBondTransaction;
@@ -17,18 +17,18 @@ namespace investpor {
 
     namespace gui {
 
-        class BondDialog : public QDialog
+        class DiscountBondDialog : public QDialog
         {
             Q_OBJECT
 
         public:
-            explicit BondDialog(QWidget *parent = 0);
-            ~BondDialog();
+            explicit DiscountBondDialog(QWidget *parent = 0);
+            ~DiscountBondDialog();
 
             DiscountBondTransaction getTransaction() const { return transaction; }
 
         private:
-            Ui::BondDialog *ui;
+            Ui::DiscountBondDialog *ui;
             DiscountBondTransaction transaction;
             QStatusBar statusBar;
             QRegExpValidator ISINValidator;
@@ -43,4 +43,4 @@ namespace investpor {
 
 
 
-#endif // BONDDIALOG_H
+#endif // DISCOUNTBONDDIALOG_H

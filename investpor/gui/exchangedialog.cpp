@@ -18,6 +18,7 @@ namespace investpor {
             ui(new Ui::ExchangeDialog)
         {
             ui->setupUi(this);
+            setWindowTitle(QString("%1 v%2 - Exchange Transaction").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
             ui->vlStatusBar->addWidget(&statusBar);
             ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
             ui->cbOperationType->addItem(Util::operationName(Operation::SELL));

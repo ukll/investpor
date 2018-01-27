@@ -1,5 +1,5 @@
-#include "investpor/gui/bonddialog.h"
-#include "ui_bonddialog.h"
+#include "investpor/gui/discountbonddialog.h"
+#include "ui_discountbonddialog.h"
 
 #include "investpor/core/types.h"
 #include "investpor/core/util.h"
@@ -15,11 +15,12 @@ namespace investpor {
 
     namespace gui {
 
-        BondDialog::BondDialog(QWidget *parent) :
+        DiscountBondDialog::DiscountBondDialog(QWidget *parent) :
             QDialog(parent),
-            ui(new Ui::BondDialog)
+            ui(new Ui::DiscountBondDialog)
         {
             ui->setupUi(this);
+            setWindowTitle(QString("%1 v%2 - Discount Bond Transaction").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
             ui->vlStatusBar->addWidget(&statusBar);
             ISINValidator.setRegExp(Util::bondISINRegExp());
             ui->leISINCode->setValidator(&ISINValidator);
@@ -30,15 +31,15 @@ namespace investpor {
                              [this](int index){ rearrangeDialog(index); });
             QObject::connect(ui->deTerm, &QDateEdit::dateChanged, ui->deDate, &QDateEdit::setMaximumDate);
 
-            QObject::connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &BondDialog::accept);
+            QObject::connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &DiscountBondDialog::accept);
         }
 
-        BondDialog::~BondDialog()
+        DiscountBondDialog::~DiscountBondDialog()
         {
             delete ui;
         }
 
-        void BondDialog::rearrangeDialog(int &index)
+        void DiscountBondDialog::rearrangeDialog(int &index)
         {
             if(Operation::BUY == index) {
                 ui->lblTerm->setVisible(true);
@@ -53,7 +54,7 @@ namespace investpor {
             }
         }
 
-        void BondDialog::accept()
+        void DiscountBondDialog::accept()
         {
             QStringList errorMessageList;
 

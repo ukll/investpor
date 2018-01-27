@@ -17,6 +17,7 @@ namespace investpor {
             ui(new Ui::StockDialog)
         {
             ui->setupUi(this);
+            setWindowTitle(QString("%1 v%2 - Stock Transaction").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
             ui->vlStatusBar->addWidget(&statusBar);
             symbolValidator.setRegExp(Util::stockSymbolRegExp());
             ui->leSymbol->setValidator(&symbolValidator);

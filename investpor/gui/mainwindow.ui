@@ -20,75 +20,6 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="bondTab">
-       <attribute name="title">
-        <string>Bond</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_7">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QLabel" name="lblTotalBondBuys">
-            <property name="text">
-             <string>Total Bond Buys :</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="leTotalBondBuys">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="lblTotalBondSells">
-            <property name="text">
-             <string>Total Bond Sells :</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="leTotalBondSells">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnNewBondTransaction">
-            <property name="text">
-             <string>New Bond Transaction</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QScrollArea" name="saBondTransactions">
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_6">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>1005</width>
-             <height>364</height>
-            </rect>
-           </property>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
       <widget class="QWidget" name="cryptoCurrencyTab">
        <attribute name="title">
         <string>Cryptocurrency</string>
@@ -145,6 +76,75 @@
            <bool>true</bool>
           </property>
           <widget class="QWidget" name="scrollAreaWidgetContents_5">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1005</width>
+             <height>364</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="bondTab">
+       <attribute name="title">
+        <string>Discount Bond</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="lblTotalBondBuys">
+            <property name="text">
+             <string>Total Bond Buys :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalBondBuys">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblTotalBondSells">
+            <property name="text">
+             <string>Total Bond Sells :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leTotalBondSells">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnNewDiscountBondTransaction">
+            <property name="text">
+             <string>New Bond Transaction</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="saBondTransactions">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_6">
            <property name="geometry">
             <rect>
              <x>0</x>
@@ -517,7 +517,7 @@
      <property name="title">
       <string>New Transaction</string>
      </property>
-     <addaction name="actionBond"/>
+     <addaction name="actionDiscountBond"/>
      <addaction name="actionCryptocurrency"/>
      <addaction name="actionExchange"/>
      <addaction name="actionFund"/>
@@ -543,9 +543,12 @@
     <string>Close</string>
    </property>
   </action>
-  <action name="actionBond">
+  <action name="actionDiscountBond">
    <property name="text">
-    <string>Bond</string>
+    <string>Discount Bond</string>
+   </property>
+   <property name="toolTip">
+    <string>Discount Bond</string>
    </property>
   </action>
   <action name="actionCryptocurrency">

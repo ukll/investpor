@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>BondDialog</class>
- <widget class="QDialog" name="BondDialog">
+ <class>DiscountBondDialog</class>
+ <widget class="QDialog" name="DiscountBondDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -161,7 +161,7 @@
   <connection>
    <sender>bbTransactionApproval</sender>
    <signal>accepted()</signal>
-   <receiver>BondDialog</receiver>
+   <receiver>DiscountBondDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -177,7 +177,7 @@
   <connection>
    <sender>bbTransactionApproval</sender>
    <signal>rejected()</signal>
-   <receiver>BondDialog</receiver>
+   <receiver>DiscountBondDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
