@@ -6,11 +6,12 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
-#include <QList>
-#include <QXmlStreamWriter>
-#include <QDomDocument>
 #include <QTextStream>
-#include <QDebug>
+#include <QXmlStreamWriter>
+#include <QXmlStreamReader>
+#include <QDomDocument>
+#include <QList>
+
 namespace investpor {
 
     namespace core {
@@ -24,14 +25,13 @@ namespace investpor {
             QObject(parent), portfolioFile(new QFile(filePath, this))
         {
             //Check if portfolio already exists.
-            QDomDocument portfolioDocument;
-            if(portfolioDocument.setContent(portfolioFile, false))
+            QDomDocument domDocument;
+
+            if(loadDomDocument(domDocument))
             {
                 state = PortfolioState::Valid;
-                portfolioFile->close();
                 return;
             }
-            portfolioFile->close();
 
             //Get the directory of the file.
             QFileInfo fileInfo(*portfolioFile);
