@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -27,7 +27,6 @@ SOURCES += \
     main.cpp \
     investpor/gui/mainwindow.cpp \
     investpor/gui/stockdialog.cpp \
-    investpor/gui/bonddialog.cpp \
     investpor/gui/cryptocurrencydialog.cpp \
     investpor/gui/exchangedialog.cpp \
     investpor/gui/funddialog.cpp \
@@ -39,12 +38,13 @@ SOURCES += \
     investpor/core/exchangetransaction.cpp \
     investpor/core/fundtransaction.cpp \
     investpor/core/goldtransaction.cpp \
-    investpor/core/stocktransaction.cpp
+    investpor/core/stocktransaction.cpp \
+    investpor/gui/discountbonddialog.cpp \
+    investpor/core/portfolioxml.cpp
 
 HEADERS += \
     investpor/gui/mainwindow.h \
     investpor/gui/stockdialog.h \
-    investpor/gui/bonddialog.h \
     investpor/gui/cryptocurrencydialog.h \
     investpor/gui/exchangedialog.h \
     investpor/gui/funddialog.h \
@@ -57,13 +57,15 @@ HEADERS += \
     investpor/core/exchangetransaction.h \
     investpor/core/fundtransaction.h \
     investpor/core/goldtransaction.h \
-    investpor/core/stocktransaction.h
+    investpor/core/stocktransaction.h \
+    investpor/gui/discountbonddialog.h \
+    investpor/core/portfolioxml.h
 
 FORMS += \
     investpor/gui/mainwindow.ui \
     investpor/gui/stockdialog.ui \
-    investpor/gui/bonddialog.ui \
     investpor/gui/cryptocurrencydialog.ui \
     investpor/gui/exchangedialog.ui \
     investpor/gui/funddialog.ui \
-    investpor/gui/golddialog.ui
+    investpor/gui/golddialog.ui \
+    investpor/gui/discountbonddialog.ui

@@ -1,11 +1,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "investpor/core/portfolioxml.h"
+
 #include <QMainWindow>
 
 namespace Ui {
     class MainWindow;
 }
+
+using investpor::core::PortfolioXML;
 
 namespace investpor {
 
@@ -19,8 +23,8 @@ namespace investpor {
             explicit MainWindow(QWidget *parent = 0);
             ~MainWindow();
 
-            void bondTransaction();
             void cryptoCurrencyTransaction();
+            void discountBondTransaction();
             void exchangeTransaction();
             void fundTransaction();
             void goldTransaction();
@@ -28,6 +32,7 @@ namespace investpor {
 
         private:
             Ui::MainWindow *ui;
+            PortfolioXML *portfolio;
         };
 
     }
