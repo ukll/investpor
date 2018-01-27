@@ -108,6 +108,12 @@ namespace investpor {
                 }
             }
 
+            transaction = StockTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex()),
+                                           static_cast<StockMarket>(ui->cbMarket->currentIndex()),
+                                           ui->leSymbol->text(), ui->leName->text(), ui->dsbPrice->value(),
+                                           ui->sbCount->value(), ui->dsbCommissionRate->value(),
+                                           ui->dteDateTime->dateTime(), ui->dsbGoalPrice->value());
+
             //If there is an error, warn the user.
             if(!errorMessageList.isEmpty())
             {
