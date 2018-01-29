@@ -106,7 +106,7 @@ namespace investpor {
                 return;
             }
 
-            transaction = FundTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex()),
+            transaction = FundTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex() + 1),
                                           ui->leCode->text().simplified(), ui->leName->text().simplified(),
                                           ui->dsbPrice->value(), static_cast<quint32>(ui->sbCount->value()),
                                           ui->deOrderDate->date(), ui->deOperationDate->date(), ui->dsbGoalPrice->value());

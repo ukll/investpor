@@ -6,27 +6,28 @@ namespace investpor {
     namespace core {
 
         enum Investment {
-            CryptoCurrencyInvestment = 0, DiscountBondInvestment, ExchangeInvestment, FundInvestment, GoldInvestment, StockInvestment
+            CryptoCurrencyInvestment = 0, DiscountBondInvestment, ExchangeInvestment,
+            FundInvestment, GoldInvestment, StockInvestment
         };
 
         enum Cryptocurrency {
-            ETC = 0, ETH, LTC, IOT, XBT, XRP
+            InvalidCryptocurrency = 0, ETC, ETH, LTC, IOT, XBT, XRP
         };
 
         enum Currency {
-            AUD = 0, CAD, CNY, EUR, TRY, USD
+            InvalidCurrency = 0, AUD, CAD, CNY, EUR, TRY, USD
         };
 
         enum Gold {
-            GRAMS = 0, ONS
+            InvalidGold = 0, GRAMS, ONS
         };
 
         enum Operation {
-            BUY = 0, SELL
+            InvalidOperation = 0, BUY, SELL
         };
 
         enum StockMarket {
-            BIST = 0, NASDAQ, NYSE
+            InvalidStockMarket = 0, BIST, NASDAQ, NYSE
         };
 
     }

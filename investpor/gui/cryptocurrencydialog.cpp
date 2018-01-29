@@ -92,8 +92,8 @@ namespace investpor {
                 return;
             }
 
-            transaction = CryptocurrencyTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex()),
-                                                    static_cast<Cryptocurrency>(ui->cbCryptocurrency->currentIndex()),
+            transaction = CryptocurrencyTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex() + 1),
+                                                    static_cast<Cryptocurrency>(ui->cbCryptocurrency->currentIndex() + 1),
                                                     ui->dsbPrice->value(), ui->dsbAmount->value(), ui->dteDateTime->dateTime(),
                                                     ui->dsbGoalPrice->value());
 

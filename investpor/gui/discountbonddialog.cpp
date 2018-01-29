@@ -98,7 +98,7 @@ namespace investpor {
                 return;
             }
 
-            transaction = DiscountBondTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex()),
+            transaction = DiscountBondTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex() + 1),
                                                   ui->leISINCode->text(), ui->deTerm->date(), ui->dsbNominalValue->value(),
                                                   ui->dsbSalePrice->value(), ui->deDate->date());
             //Passed the validation

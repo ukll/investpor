@@ -80,8 +80,8 @@ namespace investpor {
                 }
             }
 
-            transaction = GoldTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex()),
-                                          static_cast<Gold>(ui->cbGoldType->currentIndex()),
+            transaction = GoldTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex() + 1),
+                                          static_cast<Gold>(ui->cbGoldType->currentIndex() + 1),
                                           ui->dsbPrice->value(), ui->dsbAmount->value(),
                                           ui->dteDateTime->dateTime(), ui->dsbGoalPrice->value());
 

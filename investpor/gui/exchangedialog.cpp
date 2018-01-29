@@ -87,8 +87,8 @@ namespace investpor {
                 return;
             }
 
-            transaction = ExchangeTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex()),
-                                              static_cast<Currency>(ui->cbCurrency->currentIndex()),
+            transaction = ExchangeTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex() + 1),
+                                              static_cast<Currency>(ui->cbCurrency->currentIndex() + 1),
                                               ui->dsbPrice->value(), ui->dsbAmount->value(), ui->dteDateTime->dateTime(),
                                               ui->dsbGoalPrice->value());
 
