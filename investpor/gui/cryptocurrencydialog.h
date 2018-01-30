@@ -31,7 +31,7 @@ namespace investpor {
             QStatusBar statusBar;
             CryptocurrencyTransaction transaction;
 
-            void rearrangeDialog(int &index);
+            void rearrangeDialog(int &operationIndex);
             virtual void accept() override;
         };
 

@@ -34,7 +34,7 @@ namespace investpor {
             QRegExpValidator fundCodeValidator;
             QRegExpValidator fundNameValidator;
 
-            void rearrangeDialog(int &index);
+            void rearrangeDialog(int &operationIndex);
             virtual void accept() override;
         };
 

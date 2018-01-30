@@ -17,7 +17,7 @@ namespace investpor {
             ui(new Ui::StockDialog)
         {
             ui->setupUi(this);
-            setWindowTitle(QString("%1 v%2 - Stock Transaction").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
+            setWindowTitle(tr("Stock Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
             symbolValidator.setRegExp(Util::stockSymbolRegExp());
             ui->leSymbol->setValidator(&symbolValidator);
@@ -33,7 +33,7 @@ namespace investpor {
             }
 
             QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
-                             [this](int index){ rearrangeDialog(index); });
+                             [this](int index){ rearrangeDialog(++index); });
             QObject::connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &StockDialog::accept);
         }
 
@@ -42,9 +42,9 @@ namespace investpor {
             delete ui;
         }
 
-        void StockDialog::rearrangeDialog(int &index)
+        void StockDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Operation::BUY == index) {
+            if(Operation::BUY == operationIndex) {
                 ui->lblName->setVisible(true);
                 ui->leName->setVisible(true);
                 ui->lblGoalPrice->setVisible(true);

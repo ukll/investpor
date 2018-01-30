@@ -20,7 +20,7 @@ namespace investpor {
             ui(new Ui::DiscountBondDialog)
         {
             ui->setupUi(this);
-            setWindowTitle(QString("%1 v%2 - Discount Bond Transaction").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
+            setWindowTitle(tr("Discount Bond Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
             ISINValidator.setRegExp(Util::bondISINRegExp());
             ui->leISINCode->setValidator(&ISINValidator);
@@ -28,7 +28,7 @@ namespace investpor {
             ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
 
             QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
-                             [this](int index){ rearrangeDialog(index); });
+                             [this](int index){ rearrangeDialog(++index); });
             QObject::connect(ui->deTerm, &QDateEdit::dateChanged, ui->deDate, &QDateEdit::setMaximumDate);
 
             QObject::connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &DiscountBondDialog::accept);
@@ -39,9 +39,9 @@ namespace investpor {
             delete ui;
         }
 
-        void DiscountBondDialog::rearrangeDialog(int &index)
+        void DiscountBondDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Operation::BUY == index) {
+            if(Operation::BUY == operationIndex) {
                 ui->lblTerm->setVisible(true);
                 ui->deTerm->setVisible(true);
                 ui->lblNominalValue->setVisible(true);

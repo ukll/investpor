@@ -32,7 +32,7 @@ namespace investpor {
             QStatusBar statusBar;
             GoldTransaction transaction;
 
-            void rearrangeDialog(int &index);
+            void rearrangeDialog(int &operationIndex);
             virtual void accept() override;
         };
 

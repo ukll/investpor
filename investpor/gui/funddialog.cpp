@@ -16,7 +16,7 @@ namespace investpor {
             ui(new Ui::FundDialog)
         {
             ui->setupUi(this);
-            setWindowTitle(QString("%1 v%2 - Fund Transaction").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
+            setWindowTitle(tr("Fund Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
             fundCodeValidator.setRegExp(Util::fundCodeRegExp());
             ui->leCode->setValidator(&fundCodeValidator);
@@ -26,7 +26,7 @@ namespace investpor {
             ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
 
             QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
-                             [this](int index){ rearrangeDialog(index); });
+                             [this](int index){ rearrangeDialog(++index); });
             QObject::connect(ui->deOrderDate, &QDateEdit::dateChanged, ui->deOperationDate, &QDateEdit::setMinimumDate);
             QObject::connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &FundDialog::accept);
         }
@@ -36,9 +36,9 @@ namespace investpor {
             delete ui;
         }
 
-        void FundDialog::rearrangeDialog(int &index)
+        void FundDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Operation::BUY == index) {
+            if(Operation::BUY == operationIndex) {
                 ui->lblName->setVisible(true);
                 ui->leName->setVisible(true);
                 ui->lblGoalPrice->setVisible(true);

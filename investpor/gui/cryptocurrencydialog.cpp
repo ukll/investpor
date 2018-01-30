@@ -19,7 +19,7 @@ namespace investpor {
             ui(new Ui::CryptocurrencyDialog)
         {
             ui->setupUi(this);
-            setWindowTitle(QString("%1 v%2 - Cryptocurrency Transaction").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
+            setWindowTitle(tr("Cryptocurrency Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
             ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
             ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
@@ -32,7 +32,7 @@ namespace investpor {
             }
 
             QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
-                             [this](int index){ rearrangeDialog(index); });
+                             [this](int index){ rearrangeDialog(++index); });
 
             QObject::connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &CryptocurrencyDialog::accept);
         }
@@ -42,9 +42,9 @@ namespace investpor {
             delete ui;
         }
 
-        void CryptocurrencyDialog::rearrangeDialog(int &index)
+        void CryptocurrencyDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Operation::BUY == index) {
+            if(Operation::BUY == operationIndex) {
                 ui->lblGoalPrice->setVisible(true);
                 ui->dsbGoalPrice->setVisible(true);
             } else {
