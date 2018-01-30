@@ -39,7 +39,7 @@ namespace investpor {
             bool saveGoldTransaction(const GoldTransaction &transaction);
             bool saveStockTransaction(const StockTransaction &transaction);
 
-            QList<CryptocurrencyTransaction> getCryptoCurrencyTransactionList() const;
+            QList<CryptocurrencyTransaction> getCryptocurrencyTransactionList() const;
             QList<DiscountBondTransaction> getDiscountBondTransactionList() const;
             QList<ExchangeTransaction> getExchangeTransactionList() const;
             QList<FundTransaction> getFundTransactionList() const;
@@ -50,9 +50,10 @@ namespace investpor {
             QFile *portfolioFile;
             PortfolioState state;
 
-            bool loadDomDocument(QDomDocument &domDocument);
-            bool findDomElementByTagName(const QDomDocument &domDocument, QDomElement &domElement, const QString &tagName);
-            bool savePortfolio(const QDomDocument &domDocument);
+            bool loadDomDocument(QDomDocument &domDocument) const;
+            bool findDomElementByTagName(const QDomDocument &domDocument, QDomElement &domElement, const QString &tagName) const;
+            bool findDirectChildElementByTagName(const QDomElement &parent, QDomElement &child, const QString &tagName) const;
+            bool savePortfolio(const QDomDocument &domDocument) const;
         };
 
     }

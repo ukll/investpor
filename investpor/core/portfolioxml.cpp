@@ -33,6 +33,8 @@ namespace investpor {
                 return;
             }
 
+            state = PortfolioState::FileContentIsNotValid;
+
             //Get the directory of the file.
             QFileInfo fileInfo(*portfolioFile);
             QDir dir(fileInfo.absolutePath());
@@ -98,8 +100,6 @@ namespace investpor {
         {
             QDomDocument domDocument;
             QDomElement cryptoCurrencyInvestmentElement;
-            QDomElement cryptoCurrencyElement;
-            QDomElement transactionElement = domDocument.createElement("transaction");
 
             //Load the DOM document
             if(!loadDomDocument(domDocument))
@@ -107,16 +107,19 @@ namespace investpor {
                 return false;
             }
 
-            if(!findDomElementByTagName(domDocument, cryptoCurrencyElement,
-                Util::cryptoCurrencySymbol(transaction.getCryptocurrency()).toLower()))
+            if(!findDomElementByTagName(domDocument, cryptoCurrencyInvestmentElement,
+                                        Util::getInvestmentTagName(Investment::CryptoCurrencyInvestment)))
+            {
+                //Cryptocurrency investment element does not exist. File is not valid.
+                return false;
+            }
+
+            QDomElement cryptoCurrencyElement;
+            QDomElement transactionElement = domDocument.createElement("transaction");
+            if(!findDirectChildElementByTagName(cryptoCurrencyInvestmentElement, cryptoCurrencyElement,
+                                                Util::cryptoCurrencySymbol(transaction.getCryptocurrency()).toLower()))
             {
                 //Cryptocurrency element does not exist. Create a new one.
-                if(!findDomElementByTagName(domDocument, cryptoCurrencyInvestmentElement,
-                    Util::getInvestmentTagName(Investment::CryptoCurrencyInvestment)))
-                {
-                    return false;
-                }
-
                 cryptoCurrencyElement = domDocument.createElement(Util::cryptoCurrencySymbol(transaction.getCryptocurrency()).toLower());
                 cryptoCurrencyInvestmentElement.appendChild(cryptoCurrencyElement);
                 transactionElement.setAttribute("id", 1);
@@ -153,6 +156,7 @@ namespace investpor {
             //Save the transaction
             if(!savePortfolio(domDocument))
             {
+                state = FileCouldNotBeSaved;
                 return false;
             }
 
@@ -162,9 +166,6 @@ namespace investpor {
         bool PortfolioXML::saveDiscountBondTransaction(const DiscountBondTransaction &transaction)
         {
             QDomDocument domDocument;
-            QDomElement discountBondInvestmentElement;
-            QDomElement discountBondElement;
-            QDomElement transactionElement = domDocument.createElement("transaction");
 
             //Load the DOM document
             if(!loadDomDocument(domDocument))
@@ -172,15 +173,20 @@ namespace investpor {
                 return false;
             }
 
-            if(!findDomElementByTagName(domDocument, discountBondElement, transaction.getISIN().toLower()))
+            QDomElement discountBondInvestmentElement;
+            if(!findDomElementByTagName(domDocument, discountBondInvestmentElement,
+                                        Util::getInvestmentTagName(Investment::DiscountBondInvestment)))
+            {
+                //Discount bond investment element does not exist. File is not valid.
+                return false;
+            }
+
+            QDomElement discountBondElement;
+            QDomElement transactionElement = domDocument.createElement("transaction");
+            if(!findDirectChildElementByTagName(discountBondInvestmentElement, discountBondElement,
+                                                transaction.getISIN().toLower()))
             {
                 //Discount bond element does not exist. Create a new one.
-                if(!findDomElementByTagName(domDocument, discountBondInvestmentElement,
-                    Util::getInvestmentTagName(Investment::DiscountBondInvestment)))
-                {
-                    return false;
-                }
-
                 discountBondElement = domDocument.createElement(transaction.getISIN().toLower());
                 discountBondElement.setAttribute("term", transaction.getTerm().toString("yyyy-MM-dd"));
                 discountBondElement.setAttribute("nominal-value", QString::number(transaction.getNominalValue()));
@@ -206,6 +212,7 @@ namespace investpor {
             //Save the transaction
             if(!savePortfolio(domDocument))
             {
+                state = FileCouldNotBeSaved;
                 return false;
             }
 
@@ -215,9 +222,6 @@ namespace investpor {
         bool PortfolioXML::saveExchangeTransaction(const ExchangeTransaction &transaction)
         {
             QDomDocument domDocument;
-            QDomElement exchangeInvestmentElement;
-            QDomElement exchangeElement;
-            QDomElement transactionElement = domDocument.createElement("transaction");
 
             //Load the DOM document
             if(!loadDomDocument(domDocument))
@@ -225,15 +229,20 @@ namespace investpor {
                 return false;
             }
 
-            if(!findDomElementByTagName(domDocument, exchangeElement, Util::currencySymbol(transaction.getCurrency()).toLower()))
+            QDomElement exchangeInvestmentElement;
+            if(!findDomElementByTagName(domDocument, exchangeInvestmentElement,
+                                        Util::getInvestmentTagName(Investment::ExchangeInvestment)))
+            {
+                //Exchange investment element does not exist. File is not valid.
+                return false;
+            }
+
+            QDomElement exchangeElement;
+            QDomElement transactionElement = domDocument.createElement("transaction");
+            if(!findDirectChildElementByTagName(exchangeInvestmentElement, exchangeElement,
+                                                Util::currencySymbol(transaction.getCurrency()).toLower()))
             {
                 //Exchange element does not exist. Create a new one.
-                if(!findDomElementByTagName(domDocument, exchangeInvestmentElement,
-                    Util::getInvestmentTagName(Investment::ExchangeInvestment)))
-                {
-                    return false;
-                }
-
                 exchangeElement = domDocument.createElement(Util::currencySymbol(transaction.getCurrency()).toLower());
                 exchangeInvestmentElement.appendChild(exchangeElement);
                 transactionElement.setAttribute("id", 1);
@@ -270,6 +279,7 @@ namespace investpor {
             //Save the transaction
             if(!savePortfolio(domDocument))
             {
+                state = FileCouldNotBeSaved;
                 return false;
             }
 
@@ -279,9 +289,6 @@ namespace investpor {
         bool PortfolioXML::saveFundTransaction(const FundTransaction &transaction)
         {
             QDomDocument domDocument;
-            QDomElement fundInvestmentElement;
-            QDomElement fundElement;
-            QDomElement transactionElement = domDocument.createElement("transaction");
 
             //Load the DOM document
             if(!loadDomDocument(domDocument))
@@ -289,15 +296,19 @@ namespace investpor {
                 return false;
             }
 
-            if(!findDomElementByTagName(domDocument, fundElement, transaction.getFundCode().toLower()))
+            QDomElement fundInvestmentElement;
+            if(!findDomElementByTagName(domDocument, fundInvestmentElement,
+                                        Util::getInvestmentTagName(Investment::FundInvestment)))
+            {
+                //Fund investment element does not exist. File is not valid.
+                return false;
+            }
+
+            QDomElement fundElement;
+            QDomElement transactionElement = domDocument.createElement("transaction");
+            if(!findDirectChildElementByTagName(fundInvestmentElement, fundElement, transaction.getFundCode().toLower()))
             {
                 //Fund element does not exist. Create a new one.
-                if(!findDomElementByTagName(domDocument, fundInvestmentElement,
-                    Util::getInvestmentTagName(Investment::FundInvestment)))
-                {
-                    return false;
-                }
-
                 fundElement = domDocument.createElement(transaction.getFundCode().toLower());
                 fundElement.setAttribute("name", transaction.getFundName());
                 fundInvestmentElement.appendChild(fundElement);
@@ -324,7 +335,7 @@ namespace investpor {
             orderDateElement.appendChild(orderDateText);
             transactionElement.appendChild(orderDateElement);
 
-            QDomElement operationDateElement = domDocument.createElement("order-date");
+            QDomElement operationDateElement = domDocument.createElement("operation-date");
             QDomText operationDateText = domDocument.createTextNode(transaction.getOperationDate().toString("yyyy-MM-dd"));
             operationDateElement.appendChild(operationDateText);
             transactionElement.appendChild(operationDateElement);
@@ -340,6 +351,7 @@ namespace investpor {
             //Save the transaction
             if(!savePortfolio(domDocument))
             {
+                state = FileCouldNotBeSaved;
                 return false;
             }
 
@@ -359,15 +371,17 @@ namespace investpor {
                 return false;
             }
 
-            if(!findDomElementByTagName(domDocument, goldElement, Util::goldSymbol(transaction.getGoldType()).toLower()))
+            if(!findDomElementByTagName(domDocument, goldInvestmentElement,
+                                        Util::getInvestmentTagName(Investment::GoldInvestment)))
+            {
+                //Gold investment element does not exist. File is not valid.
+                return false;
+            }
+
+            if(!findDirectChildElementByTagName(goldInvestmentElement, goldElement,
+                                                Util::goldSymbol(transaction.getGoldType()).toLower()))
             {
                 //Gold element does not exist. Create a new one.
-                if(!findDomElementByTagName(domDocument, goldInvestmentElement,
-                    Util::getInvestmentTagName(Investment::GoldInvestment)))
-                {
-                    return false;
-                }
-
                 goldElement = domDocument.createElement(Util::goldSymbol(transaction.getGoldType()).toLower());
                 goldInvestmentElement.appendChild(goldElement);
                 transactionElement.setAttribute("id", 1);
@@ -404,6 +418,7 @@ namespace investpor {
             //Save the transaction
             if(!savePortfolio(domDocument))
             {
+                state = FileCouldNotBeSaved;
                 return false;
             }
 
@@ -413,10 +428,6 @@ namespace investpor {
         bool PortfolioXML::saveStockTransaction(const StockTransaction &transaction)
         {
             QDomDocument domDocument;
-            QDomElement stockInvestmentElement;
-            QDomElement stockMarketElement;
-            QDomElement stockElement;
-            QDomElement transactionElement = domDocument.createElement("transaction");
 
             //Load the DOM document
             if(!loadDomDocument(domDocument))
@@ -424,29 +435,34 @@ namespace investpor {
                 return false;
             }
 
-            if(!findDomElementByTagName(domDocument, stockMarketElement, Util::stockMarketSymbol(transaction.getStockMarket()).toLower()))
+            QDomElement stockInvestmentElement;
+            if(!findDomElementByTagName(domDocument, stockInvestmentElement,
+                                        Util::getInvestmentTagName(Investment::StockInvestment)))
+            {
+                //Stock investment element does not exist. File is not valid.
+                return false;
+            }
+
+            QDomElement stockMarketElement;
+            QDomElement stockElement;
+            QDomElement transactionElement = domDocument.createElement("transaction");
+            if(!findDirectChildElementByTagName(stockInvestmentElement, stockMarketElement,
+                                                Util::stockMarketSymbol(transaction.getStockMarket()).toLower()))
             {
                 //Stock market element does not exist. Create a new one.
-                if(!findDomElementByTagName(domDocument, stockInvestmentElement,
-                    Util::getInvestmentTagName(Investment::StockInvestment)))
-                {
-                    return false;
-                }
-
                 stockMarketElement = domDocument.createElement(Util::stockMarketSymbol(transaction.getStockMarket()).toLower());
                 stockInvestmentElement.appendChild(stockMarketElement);
-                stockElement = domDocument.createElement(transaction.getStockSymbol());
+            }
+
+            //Check if stock element exists.
+            if(!findDirectChildElementByTagName(stockMarketElement, stockElement, transaction.getStockSymbol().toLower()))
+            {
+                //Stock element does not exist. Create a new one.
+                stockElement = domDocument.createElement(transaction.getStockSymbol().toLower());
                 stockMarketElement.appendChild(stockElement);
                 stockElement.setAttribute("name", transaction.getStockName().toLower());
                 transactionElement.setAttribute("id", 1);
             } else {
-                //Stock market element exists. Check if stock element exists.
-                QDomNodeList stockElements = stockMarketElement.elementsByTagName(transaction.getStockSymbol());
-
-                if(stockElements.length() == 1)
-                {
-                    stockElement = stockElements.at(0).toElement();
-                }
                 transactionElement.setAttribute("id", stockElement.lastChild().toElement().attribute("id").toInt() + 1);
             }
 
@@ -484,64 +500,482 @@ namespace investpor {
             //Save the transaction
             if(!savePortfolio(domDocument))
             {
+                state = FileCouldNotBeSaved;
                 return false;
             }
 
             return true;
         }
 
-        QList<CryptocurrencyTransaction> PortfolioXML::getCryptoCurrencyTransactionList() const
+        QList<CryptocurrencyTransaction> PortfolioXML::getCryptocurrencyTransactionList() const
         {
-            //TODO
-            return QList<CryptocurrencyTransaction>();
+            QList<CryptocurrencyTransaction> transactionList;
+            QDomDocument domDocument;
+            if(!loadDomDocument(domDocument))
+            {
+                return QList<CryptocurrencyTransaction>();
+            }
+
+            QDomElement cryptoCurrencyInvestmentElement;
+            if(!findDomElementByTagName(domDocument, cryptoCurrencyInvestmentElement,
+                                        Util::getInvestmentTagName(Investment::CryptoCurrencyInvestment)))
+            {
+                //Cryptocurrency investment element does not exist. File is not valid.
+                return QList<CryptocurrencyTransaction>();
+            }
+
+            QDomNodeList cryptoCurrencyNodeList = cryptoCurrencyInvestmentElement.childNodes();
+            for(int cryptoCurrencyNode = 0; cryptoCurrencyNode < cryptoCurrencyNodeList.length(); ++cryptoCurrencyNode)
+            {
+                Cryptocurrency currentCryptocurrency = Util::getCryptocurrency(
+                            cryptoCurrencyNodeList.at(cryptoCurrencyNode).toElement().tagName());
+                if(currentCryptocurrency == Cryptocurrency::InvalidCryptocurrency)
+                {
+                    //Not yet supported Cryptocurrency. Skip this.
+                    continue;
+                }
+
+                QDomNodeList transactionNodes = cryptoCurrencyNodeList.at(cryptoCurrencyNode).childNodes();
+                for(int transactionNode = 0; transactionNode < transactionNodes.length(); ++transactionNode)
+                {
+                    if(transactionNodes.at(transactionNode).toElement().tagName() != "transaction")
+                    {
+                        //Not a transaction element. Skip this.
+                        continue;
+                    }
+
+                    CryptocurrencyTransaction transaction;
+                    transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
+                    transaction.setCryptocurrency(currentCryptocurrency);
+
+                    Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
+                    if(operation == Operation::InvalidOperation)
+                    {
+                        //Not yet supported Operation. Skip this one.
+                        continue;
+                    }
+                    transaction.setOperationType(operation);
+
+                    QDomNodeList transactionChildNodes = transactionNodes.at(transactionNode).childNodes();
+                    for(int transactionChildNode = 0; transactionChildNode < transactionChildNodes.length(); ++transactionChildNode)
+                    {
+                        if(transactionChildNodes.at(transactionChildNode).isElement())
+                        {
+                            QDomElement transactionChildElement = transactionChildNodes.at(transactionChildNode).toElement();
+
+                            if(transactionChildElement.tagName() == "price") {
+                                transaction.setPrice(transactionChildElement.text().toDouble());
+                            } else if(transactionChildElement.tagName() == "amount") {
+                                transaction.setAmount(transactionChildElement.text().toDouble());
+                            } if(transactionChildElement.tagName() == "date-time") {
+                                transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), "yyyy-MM-dd hh:mm:ss"));
+                            } if(transactionChildElement.tagName() == "goal-price") {
+                                transaction.setGoalPrice(transactionChildElement.text().toDouble());
+                            } else {
+                                //Not yet supported transaction info.
+                                continue;
+                            }
+                        }
+                    }
+                    transactionList.append(transaction);
+                }
+            }
+
+            return transactionList;
         }
 
         QList<DiscountBondTransaction> PortfolioXML::getDiscountBondTransactionList() const
         {
-            //TODO
-            return QList<DiscountBondTransaction>();
+            QList<DiscountBondTransaction> transactionList;
+            QDomDocument domDocument;
+            if(!loadDomDocument(domDocument))
+            {
+                return QList<DiscountBondTransaction>();
+            }
+
+            QDomElement discountBondInvestmentElement;
+            if(!findDomElementByTagName(domDocument, discountBondInvestmentElement,
+                                        Util::getInvestmentTagName(Investment::DiscountBondInvestment)))
+            {
+                //Discount bond investment element does not exist. File is not valid.
+                return QList<DiscountBondTransaction>();
+            }
+
+            QDomNodeList discountBondNodeList = discountBondInvestmentElement.childNodes();
+            for(int discountBondNode = 0; discountBondNode < discountBondNodeList.length(); ++discountBondNode)
+            {
+                QDomNodeList transactionNodes = discountBondNodeList.at(discountBondNode).childNodes();
+                for(int transactionNode = 0; transactionNode < transactionNodes.length(); ++transactionNode)
+                {
+                    if(transactionNodes.at(transactionNode).toElement().tagName() != "transaction")
+                    {
+                        //Not a transaction element. Skip this.
+                        continue;
+                    }
+
+                    DiscountBondTransaction transaction;
+                    transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
+                    transaction.setISIN(discountBondNodeList.at(discountBondNode).toElement().tagName());
+
+                    Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
+                    if(operation == Operation::InvalidOperation)
+                    {
+                        //Not yet supported Operation. Skip this one.
+                        continue;
+                    }
+                    transaction.setOperationType(operation);
+
+                    QDomNodeList transactionChildNodes = transactionNodes.at(transactionNode).childNodes();
+                    for(int transactionChildNode = 0; transactionChildNode < transactionChildNodes.length(); ++transactionChildNode)
+                    {
+                        if(transactionChildNodes.at(transactionChildNode).isElement())
+                        {
+                            QDomElement transactionChildElement = transactionChildNodes.at(transactionChildNode).toElement();
+
+                            if(transactionChildElement.tagName() == "term") {
+                                transaction.setTerm(QDate::fromString(transactionChildElement.text(), "yyyy-MM-dd"));
+                            } else if(transactionChildElement.tagName() == "nominal-value") {
+                                transaction.setNominalValue(transactionChildElement.text().toDouble());
+                            } if(transactionChildElement.tagName() == "sale-price") {
+                                transaction.setSalePrice(transactionChildElement.text().toDouble());
+                            } if(transactionChildElement.tagName() == "operation-date") {
+                                transaction.setOperationDate(QDate::fromString(transactionChildElement.text(), "yyyy-MM-dd"));
+                            } else {
+                                //Not yet supported transaction info.
+                                continue;
+                            }
+                        }
+                    }
+                    transactionList.append(transaction);
+                }
+            }
+
+            return transactionList;
         }
 
         QList<ExchangeTransaction> PortfolioXML::getExchangeTransactionList() const
         {
-            //TODO
-            return QList<ExchangeTransaction>();
+            QList<ExchangeTransaction> transactionList;
+            QDomDocument domDocument;
+            if(!loadDomDocument(domDocument))
+            {
+                return QList<ExchangeTransaction>();
+            }
+
+            QDomElement exchangeInvestmentElement;
+            if(!findDomElementByTagName(domDocument, exchangeInvestmentElement,
+                                        Util::getInvestmentTagName(Investment::ExchangeInvestment)))
+            {
+                //Exchange investment element does not exist. File is not valid.
+                return QList<ExchangeTransaction>();
+            }
+
+            QDomNodeList exchangeNodeList = exchangeInvestmentElement.childNodes();
+            for(int exchangeNode = 0; exchangeNode < exchangeNodeList.length(); ++exchangeNode)
+            {
+                Currency currentCurrency = Util::getCurrency(exchangeNodeList.at(exchangeNode).toElement().tagName());
+                if(Currency::InvalidCurrency == currentCurrency)
+                {
+                    //Not yet supported currency. Skip this.
+                    continue;
+                }
+
+                QDomNodeList transactionNodes = exchangeNodeList.at(exchangeNode).childNodes();
+                for(int transactionNode = 0; transactionNode < transactionNodes.length(); ++transactionNode)
+                {
+                    if(transactionNodes.at(transactionNode).toElement().tagName() != "transaction")
+                    {
+                        //Not a transaction element. Skip this.
+                        continue;
+                    }
+
+                    ExchangeTransaction transaction;
+                    transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
+                    transaction.setCurrency(currentCurrency);
+
+                    Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
+                    if(operation == Operation::InvalidOperation)
+                    {
+                        //Not yet supported Operation. Skip this one.
+                        continue;
+                    }
+                    transaction.setOperationType(operation);
+
+                    QDomNodeList transactionChildNodes = transactionNodes.at(transactionNode).childNodes();
+                    for(int transactionChildNode = 0; transactionChildNode < transactionChildNodes.length(); ++transactionChildNode)
+                    {
+                        if(transactionChildNodes.at(transactionChildNode).isElement())
+                        {
+                            QDomElement transactionChildElement = transactionChildNodes.at(transactionChildNode).toElement();
+
+                            if(transactionChildElement.tagName() == "price") {
+                                transaction.setPrice(transactionChildElement.text().toDouble());
+                            } else if(transactionChildElement.tagName() == "amount") {
+                                transaction.setAmount(transactionChildElement.text().toDouble());
+                            } if(transactionChildElement.tagName() == "date-time") {
+                                transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), "yyyy-MM-dd hh:mm:ss"));
+                            } if(transactionChildElement.tagName() == "goal-price") {
+                                transaction.setGoalPrice(transactionChildElement.text().toDouble());
+                            } else {
+                                //Not yet supported transaction info.
+                                continue;
+                            }
+                        }
+                    }
+                    transactionList.append(transaction);
+                }
+            }
+
+            return transactionList;
         }
 
         QList<FundTransaction> PortfolioXML::getFundTransactionList() const
         {
-            //TODO
-            return QList<FundTransaction>();
+            QList<FundTransaction> transactionList;
+            QDomDocument domDocument;
+            if(!loadDomDocument(domDocument))
+            {
+                return QList<FundTransaction>();
+            }
+
+            QDomElement fundInvestmentElement;
+            if(!findDomElementByTagName(domDocument, fundInvestmentElement,
+                                        Util::getInvestmentTagName(Investment::FundInvestment)))
+            {
+                //Fund investment element does not exist. File is not valid.
+                return QList<FundTransaction>();
+            }
+
+            QDomNodeList fundNodeList = fundInvestmentElement.childNodes();
+            for(int fundNode = 0; fundNode < fundNodeList.length(); ++fundNode)
+            {
+                QDomNodeList transactionNodes = fundNodeList.at(fundNode).childNodes();
+                for(int transactionNode = 0; transactionNode < transactionNodes.length(); ++transactionNode)
+                {
+                    if(transactionNodes.at(transactionNode).toElement().tagName() != "transaction")
+                    {
+                        //Not a transaction element. Skip this.
+                        continue;
+                    }
+
+                    FundTransaction transaction;
+                    transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
+                    transaction.setFundCode(fundNodeList.at(fundNode).toElement().tagName());
+                    transaction.setFundName(fundNodeList.at(fundNode).toElement().attribute("name"));
+
+                    Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
+                    if(operation == Operation::InvalidOperation)
+                    {
+                        //Not yet supported Operation. Skip this one.
+                        continue;
+                    }
+                    transaction.setOperationType(operation);
+
+                    QDomNodeList transactionChildNodes = transactionNodes.at(transactionNode).childNodes();
+                    for(int transactionChildNode = 0; transactionChildNode < transactionChildNodes.length(); ++transactionChildNode)
+                    {
+                        if(transactionChildNodes.at(transactionChildNode).isElement())
+                        {
+                            QDomElement transactionChildElement = transactionChildNodes.at(transactionChildNode).toElement();
+
+                            if(transactionChildElement.tagName() == "price") {
+                                transaction.setPrice(transactionChildElement.text().toDouble());
+                            } else if(transactionChildElement.tagName() == "count") {
+                                transaction.setCount(transactionChildElement.text().toDouble());
+                            } if(transactionChildElement.tagName() == "order-date") {
+                                transaction.setOrderDate(QDate::fromString(transactionChildElement.text(), "yyyy-MM-dd"));
+                            } if(transactionChildElement.tagName() == "operation-date") {
+                                transaction.setOperationDate(QDate::fromString(transactionChildElement.text(), "yyyy-MM-dd"));
+                            } if(transactionChildElement.tagName() == "goal-price") {
+                                transaction.setGoalPrice(transactionChildElement.text().toDouble());
+                            } else {
+                                //Not yet supported transaction info.
+                                continue;
+                            }
+                        }
+                    }
+                    transactionList.append(transaction);
+                }
+            }
+
+            return transactionList;
         }
 
         QList<GoldTransaction> PortfolioXML::getGoldTransactionList() const
         {
-            //TODO
-            return QList<GoldTransaction>();
+            QList<GoldTransaction> transactionList;
+            QDomDocument domDocument;
+            if(!loadDomDocument(domDocument))
+            {
+                return QList<GoldTransaction>();
+            }
+
+            QDomElement goldInvestmentElement;
+            if(!findDomElementByTagName(domDocument, goldInvestmentElement,
+                                        Util::getInvestmentTagName(Investment::GoldInvestment)))
+            {
+                //Gold investment element does not exist. File is not valid.
+                return QList<GoldTransaction>();
+            }
+
+            QDomNodeList goldNodeList = goldInvestmentElement.childNodes();
+            for(int goldNode = 0; goldNode < goldNodeList.length(); ++goldNode)
+            {
+                Gold currentGold = Util::getGold(goldNodeList.at(goldNode).toElement().tagName());
+                if(Gold::InvalidGold == currentGold)
+                {
+                    //Not yet supported gold. Skip this.
+                    continue;
+                }
+
+                QDomNodeList transactionNodes = goldNodeList.at(goldNode).childNodes();
+                for(int transactionNode = 0; transactionNode < transactionNodes.length(); ++transactionNode)
+                {
+                    if(transactionNodes.at(transactionNode).toElement().tagName() != "transaction")
+                    {
+                        //Not a transaction element. Skip this.
+                        continue;
+                    }
+
+                    GoldTransaction transaction;
+                    transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
+                    transaction.setGoldType(currentGold);
+
+                    Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
+                    if(operation == Operation::InvalidOperation)
+                    {
+                        //Not yet supported Operation. Skip this one.
+                        continue;
+                    }
+                    transaction.setOperationType(operation);
+
+                    QDomNodeList transactionChildNodes = transactionNodes.at(transactionNode).childNodes();
+                    for(int transactionChildNode = 0; transactionChildNode < transactionChildNodes.length(); ++transactionChildNode)
+                    {
+                        if(transactionChildNodes.at(transactionChildNode).isElement())
+                        {
+                            QDomElement transactionChildElement = transactionChildNodes.at(transactionChildNode).toElement();
+
+                            if(transactionChildElement.tagName() == "price") {
+                                transaction.setPrice(transactionChildElement.text().toDouble());
+                            } else if(transactionChildElement.tagName() == "amount") {
+                                transaction.setAmount(transactionChildElement.text().toDouble());
+                            } if(transactionChildElement.tagName() == "date-time") {
+                                transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), "yyyy-MM-dd hh:mm:ss"));
+                            } if(transactionChildElement.tagName() == "goal-price") {
+                                transaction.setGoalPrice(transactionChildElement.text().toDouble());
+                            } else {
+                                //Not yet supported transaction info.
+                                continue;
+                            }
+                        }
+                    }
+                    transactionList.append(transaction);
+                }
+            }
+
+            return transactionList;
         }
 
         QList<StockTransaction> PortfolioXML::getStockTransactionList() const
         {
-            //TODO
-            return QList<StockTransaction>();
+            QList<StockTransaction> transactionList;
+            QDomDocument domDocument;
+            if(!loadDomDocument(domDocument))
+            {
+                return QList<StockTransaction>();
+            }
+
+            QDomElement stockInvestmentElement;
+            if(!findDomElementByTagName(domDocument, stockInvestmentElement,
+                                        Util::getInvestmentTagName(Investment::StockInvestment)))
+            {
+                //Stock investment element does not exist. File is not valid.
+                return QList<StockTransaction>();
+            }
+
+            QDomNodeList stockMarketNodeList = stockInvestmentElement.childNodes();
+            for(int stockMarketNode = 0; stockMarketNode < stockMarketNodeList.length(); ++stockMarketNode)
+            {
+                StockMarket currentStockMarket =
+                        Util::getStockMarket(stockMarketNodeList.at(stockMarketNode).toElement().tagName());
+                if(StockMarket::InvalidStockMarket == currentStockMarket)
+                {
+                    //Not yet supported stock market. Skip this.
+                    continue;
+                }
+
+                QDomNodeList stockNodeList = stockMarketNodeList.at(stockMarketNode).childNodes();
+                for(int stockNode = 0; stockNode < stockNodeList.length(); ++stockNode)
+                {
+                    QDomNodeList transactionNodes = stockNodeList.at(stockNode).childNodes();
+                    for(int transactionNode = 0; transactionNode < transactionNodes.length(); ++transactionNode)
+                    {
+                        if(transactionNodes.at(transactionNode).toElement().tagName() != "transaction")
+                        {
+                            //Not a transaction element. Skip this.
+                            continue;
+                        }
+
+                        StockTransaction transaction;
+                        transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
+                        transaction.setStockMarket(currentStockMarket);
+                        transaction.setStockSymbol(stockNodeList.at(stockNode).toElement().tagName());
+                        transaction.setStockName(stockMarketNodeList.at(stockNode).toElement().attribute("name"));
+
+                        Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
+                        if(operation == Operation::InvalidOperation)
+                        {
+                            //Not yet supported Operation. Skip this one.
+                            continue;
+                        }
+                        transaction.setOperationType(operation);
+
+                        QDomNodeList transactionChildNodes = transactionNodes.at(transactionNode).childNodes();
+                        for(int transactionChildNode = 0; transactionChildNode < transactionChildNodes.length(); ++transactionChildNode)
+                        {
+                            if(transactionChildNodes.at(transactionChildNode).isElement())
+                            {
+                                QDomElement transactionChildElement = transactionChildNodes.at(transactionChildNode).toElement();
+
+                                if(transactionChildElement.tagName() == "price") {
+                                    transaction.setPrice(transactionChildElement.text().toDouble());
+                                } else if(transactionChildElement.tagName() == "count") {
+                                    transaction.setCount(transactionChildElement.text().toUShort());
+                                } else if(transactionChildElement.tagName() == "commission-rate") {
+                                    transaction.setCommissionRate(transactionChildElement.text().toDouble());
+                                } if(transactionChildElement.tagName() == "date-time") {
+                                    transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), "yyyy-MM-dd hh:mm:ss"));
+                                } if(transactionChildElement.tagName() == "goal-price") {
+                                    transaction.setGoalPrice(transactionChildElement.text().toDouble());
+                                } else {
+                                    //Not yet supported transaction info.
+                                    continue;
+                                }
+                            }
+                        }
+                        transactionList.append(transaction);
+                    }
+
+                }
+            }
+
+            return transactionList;
         }
 
-        bool PortfolioXML::loadDomDocument(QDomDocument &domDocument)
+        bool PortfolioXML::loadDomDocument(QDomDocument &domDocument) const
         {
-            domDocument.setContent(portfolioFile, false);
-            portfolioFile->close();
-
-            //Check if XML is valid.
-            if(domDocument.isNull())
+            if(!domDocument.setContent(portfolioFile, false))
             {
-                state = PortfolioState::FileContentIsNotValid;
+                portfolioFile->close();
                 return false;
             }
 
+            portfolioFile->close();
             return true;
         }
 
-        bool PortfolioXML::findDomElementByTagName(const QDomDocument &domDocument, QDomElement &domElement, const QString &tagName)
+        bool PortfolioXML::findDomElementByTagName(const QDomDocument &domDocument, QDomElement &domElement, const QString &tagName) const
         {
             //Find out if the child element has been created previously.
             QDomNodeList domElementNodes = domDocument.elementsByTagName(tagName);
@@ -554,10 +988,21 @@ namespace investpor {
             return false;
         }
 
-        bool PortfolioXML::savePortfolio(const QDomDocument &domDocument)
+        bool PortfolioXML::findDirectChildElementByTagName(const QDomElement &parent, QDomElement &child, const QString &tagName) const
+        {
+            QDomNodeList childNodes = parent.elementsByTagName(tagName);
+            if(childNodes.length() == 1)
+            {
+                child = childNodes.at(0).toElement();
+                return true;
+            }
+
+            return false;
+        }
+
+        bool PortfolioXML::savePortfolio(const QDomDocument &domDocument) const
         {
             if(!portfolioFile->open(QIODevice::Text | QIODevice::WriteOnly)){
-                state = FileCouldNotBeSaved;
                 return false;
             }
             QTextStream outStream(portfolioFile);

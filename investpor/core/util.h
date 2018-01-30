@@ -20,14 +20,19 @@ namespace investpor {
 
             static const QString cryptoCurrencySymbol(const Cryptocurrency &ccurrency);
             static const QString cryptoCurrencyName(const Cryptocurrency &ccurrency);
+            static Cryptocurrency getCryptocurrency(const QString &text);
             static const QString currencySymbol(const Currency &currency);
             static const QString currencyName(const Currency &currency);
+            static Currency getCurrency(const QString &text);
             static const QString goldSymbol(const Gold &gold);
             static const QString goldName(const Gold &gold);
+            static Gold getGold(const QString &text);
             static const QString operationCode(const Operation &operation);
             static const QString operationName(const Operation &operation);
+            static Operation getOperation(const QString &text);
             static const QString stockMarketSymbol(const StockMarket &market);
             static const QString stockMarketName(const StockMarket &market);
+            static StockMarket getStockMarket(const QString &text);
 
             static const QRegExp bondISINRegExp();
             static const QRegExp fundCodeRegExp();

@@ -11,7 +11,7 @@
 
 #include <QDir>
 #include <QMessageBox>
-
+#include <QDebug>
 using investpor::core::PortfolioXML;
 
 namespace investpor {

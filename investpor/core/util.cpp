@@ -37,19 +37,19 @@ namespace investpor {
         {
             switch (investment) {
             case Investment::CryptoCurrencyInvestment:
-                return "cryptocurrency";
+                return "cryptocurrency-investments";
             case Investment::DiscountBondInvestment:
-                return "discount-bond";
+                return "discount-bond-investments";
             case Investment::ExchangeInvestment:
-                return "exchange";
+                return "exchange-investments";
             case Investment::FundInvestment:
-                return "fund";
+                return "fund-investments";
             case Investment::GoldInvestment:
-                return "gold";
+                return "gold-investments";
             case Investment::StockInvestment:
-                return "stock";
+                return "stock-investments";
             default:
-                return "";
+                return QString();
             }
         }
 
@@ -69,7 +69,7 @@ namespace investpor {
             case Cryptocurrency::XRP:
                 return "xrp";
             default:
-                return "";
+                return QString();
             }
         }
 
@@ -89,7 +89,26 @@ namespace investpor {
             case Cryptocurrency::XRP:
                 return QObject::tr("Ripple");
             default:
-                return "";
+                return QString();
+            }
+        }
+
+        Cryptocurrency Util::getCryptocurrency(const QString &text)
+        {
+            if(text == Util::cryptoCurrencySymbol(Cryptocurrency::ETC)) {
+                return Cryptocurrency::ETC;
+            } else if(text == Util::cryptoCurrencySymbol(Cryptocurrency::ETH)) {
+                return Cryptocurrency::ETH;
+            } else if(text == Util::cryptoCurrencySymbol(Cryptocurrency::IOT)) {
+                return Cryptocurrency::IOT;
+            } else if(text == Util::cryptoCurrencySymbol(Cryptocurrency::LTC)) {
+                return Cryptocurrency::LTC;
+            } else if(text == Util::cryptoCurrencySymbol(Cryptocurrency::XBT)) {
+                return Cryptocurrency::XBT;
+            } else if(text == Util::cryptoCurrencySymbol(Cryptocurrency::XRP)) {
+                return Cryptocurrency::XRP;
+            } else {
+                return Cryptocurrency::InvalidCryptocurrency;
             }
         }
 
@@ -109,7 +128,7 @@ namespace investpor {
             case Currency::USD:
                 return "usd";
             default:
-                return "";
+                return QString();
             }
         }
 
@@ -129,7 +148,26 @@ namespace investpor {
             case Currency::USD:
                 return QObject::tr("United States Dollar");
             default:
-                return "";
+                return QString();
+            }
+        }
+
+        Currency Util::getCurrency(const QString &text)
+        {
+            if(Util::currencySymbol(Currency::AUD) == text) {
+                return Currency::AUD;
+            } else if(Util::currencySymbol(Currency::CAD) == text) {
+                return Currency::CAD;
+            } else if(Util::currencySymbol(Currency::CNY) == text) {
+                return Currency::CNY;
+            } else if(Util::currencySymbol(Currency::EUR) == text) {
+                return Currency::EUR;
+            } else if(Util::currencySymbol(Currency::TRY) == text) {
+                return Currency::TRY;
+            } else if(Util::currencySymbol(Currency::USD) == text) {
+                return Currency::USD;
+            } else {
+                return Currency::InvalidCurrency;
             }
         }
 
@@ -141,7 +179,7 @@ namespace investpor {
             case Gold::ONS:
                 return "ons";
             default:
-                return "";
+                return QString();
             }
         }
 
@@ -153,7 +191,18 @@ namespace investpor {
             case Gold::ONS:
                 return QObject::tr("Ons");
             default:
-                return "";
+                return QString();
+            }
+        }
+
+        Gold Util::getGold(const QString &text)
+        {
+            if(Util::goldSymbol(Gold::GRAMS) == text) {
+                return Gold::GRAMS;
+            } else if (Util::goldSymbol(Gold::ONS) == text) {
+                return Gold::ONS;
+            } else {
+                return Gold::InvalidGold;
             }
         }
 
@@ -165,7 +214,7 @@ namespace investpor {
             case Operation::SELL:
                 return "sell";
             default:
-                return "";
+                return QString();
             }
         }
 
@@ -177,7 +226,18 @@ namespace investpor {
             case Operation::SELL:
                 return QObject::tr("Sell");
             default:
-                return "";
+                return QString();
+            }
+        }
+
+        Operation Util::getOperation(const QString &text)
+        {
+            if(Util::operationCode(Operation::BUY) == text) {
+                return Operation::BUY;
+            } else if(Util::operationCode(Operation::SELL) == text) {
+                return Operation::SELL;
+            } else {
+                return Operation::InvalidOperation;
             }
         }
 
@@ -191,7 +251,7 @@ namespace investpor {
             case StockMarket::NYSE:
                 return "nyse";
             default:
-                return "";
+                return QString();
             }
         }
 
@@ -205,7 +265,20 @@ namespace investpor {
             case StockMarket::NYSE:
                 return QObject::tr("New York Stock Exchange");
             default:
-                return "";
+                return QString();
+            }
+        }
+
+        StockMarket Util::getStockMarket(const QString &text)
+        {
+            if(Util::stockMarketSymbol(StockMarket::BIST) == text) {
+                return StockMarket::BIST;
+            } else if(Util::stockMarketSymbol(StockMarket::NASDAQ) == text) {
+                return StockMarket::NASDAQ;
+            } else if(Util::stockMarketSymbol(StockMarket::NYSE) == text) {
+                return StockMarket::NYSE;
+            } else {
+                return StockMarket::InvalidStockMarket;
             }
         }
 
