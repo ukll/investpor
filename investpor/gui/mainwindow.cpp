@@ -83,6 +83,10 @@ namespace investpor {
             fundModel = new FundTableModel(portfolio->getFundTransactionList(), this);
             ui->tbvFundView->setModel(fundModel);
 
+            //Gold model
+            goldModel = new GoldTableModel(portfolio->getGoldTransactionList(), this);
+            ui->tbvGoldView->setModel(goldModel);
+
             updateModelsAndGUI();
         }
 
@@ -100,6 +104,7 @@ namespace investpor {
             discountBondModel->updateTransactionList(portfolio->getDiscountBondTransactionList());
             exchangeModel->updateTransactionList(portfolio->getExchangeTransactionList());
             fundModel->updateTransactionList(portfolio->getFundTransactionList());
+            goldModel->updateTransactionList(portfolio->getGoldTransactionList());
 
             double cryptoCurrencyBuys = cryptoCurrencyModel->totalBuys();
             double cryptoCurrencySells = cryptoCurrencyModel->totalSells();
@@ -121,10 +126,10 @@ namespace investpor {
             ui->leTotalFundBuys->setText(QString::number(fundBuys, 'f', 6));
             ui->leTotalFundSells->setText(QString::number(fundSells, 'f', 6));
 
-//            double goldBuys = goldModel->totalBuys();
-//            double goldSells = goldModel->totalSells();
-//            ui->leTotalGoldBuys->setText(QString::number(goldBuys, 'f', 6));
-//            ui->leTotalGoldSells->setText(QString::number(goldSells, 'f', 6));
+            double goldBuys = goldModel->totalBuys();
+            double goldSells = goldModel->totalSells();
+            ui->leTotalGoldBuys->setText(QString::number(goldBuys, 'f', 6));
+            ui->leTotalGoldSells->setText(QString::number(goldSells, 'f', 6));
 
 //            double stockBuys = stockModel->totalBuys();
 //            double stockSells = stockModel->totalSells();

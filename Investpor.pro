@@ -45,7 +45,8 @@ SOURCES += \
     investpor/gui/tablemodel.cpp \
     investpor/gui/discountbondtablemodel.cpp \
     investpor/gui/exchangetablemodel.cpp \
-    investpor/gui/fundtablemodel.cpp
+    investpor/gui/fundtablemodel.cpp \
+    investpor/gui/goldtablemodel.cpp
 
 HEADERS += \
     investpor/gui/mainwindow.h \
@@ -69,7 +70,8 @@ HEADERS += \
     investpor/gui/tablemodel.h \
     investpor/gui/discountbondtablemodel.h \
     investpor/gui/exchangetablemodel.h \
-    investpor/gui/fundtablemodel.h
+    investpor/gui/fundtablemodel.h \
+    investpor/gui/goldtablemodel.h
 
 FORMS += \
     investpor/gui/mainwindow.ui \

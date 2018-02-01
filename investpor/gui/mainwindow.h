@@ -6,6 +6,7 @@
 #include "investpor/gui/discountbondtablemodel.h"
 #include "investpor/gui/exchangetablemodel.h"
 #include "investpor/gui/fundtablemodel.h"
+#include "investpor/gui/goldtablemodel.h"
 
 #include <QMainWindow>
 
@@ -36,6 +37,7 @@ namespace investpor {
             DiscountBondTableModel *discountBondModel;
             ExchangeTableModel *exchangeModel;
             FundTableModel *fundModel;
+            GoldTableModel *goldModel;
 
             void updateModelsAndGUI();
 
