@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "investpor/core/portfolioxml.h"
+#include "investpor/gui/cryptocurrencytablemodel.h"
 
 #include <QMainWindow>
 
@@ -23,16 +24,21 @@ namespace investpor {
             explicit MainWindow(QWidget *parent = 0);
             ~MainWindow();
 
+
+        private:
+            Ui::MainWindow *ui;
+
+            PortfolioXML *portfolio;
+            CryptocurrencyTableModel *cryptoCurrencyModel;
+
+            void showBuysAndSells();
+
             void cryptoCurrencyTransaction();
             void discountBondTransaction();
             void exchangeTransaction();
             void fundTransaction();
             void goldTransaction();
             void stockTransaction();
-
-        private:
-            Ui::MainWindow *ui;
-            PortfolioXML *portfolio;
         };
 
     }

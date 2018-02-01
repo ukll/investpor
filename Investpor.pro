@@ -26,46 +26,50 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 SOURCES += \
     main.cpp \
     investpor/gui/mainwindow.cpp \
-    investpor/gui/stockdialog.cpp \
     investpor/gui/cryptocurrencydialog.cpp \
+    investpor/gui/discountbonddialog.cpp \
     investpor/gui/exchangedialog.cpp \
     investpor/gui/funddialog.cpp \
     investpor/gui/golddialog.cpp \
+    investpor/gui/stockdialog.cpp \
     investpor/core/util.cpp \
     investpor/core/transaction.cpp \
-    investpor/core/discountbondtransaction.cpp \
     investpor/core/cryptocurrencytransaction.cpp \
+    investpor/core/discountbondtransaction.cpp \
     investpor/core/exchangetransaction.cpp \
     investpor/core/fundtransaction.cpp \
     investpor/core/goldtransaction.cpp \
     investpor/core/stocktransaction.cpp \
-    investpor/gui/discountbonddialog.cpp \
-    investpor/core/portfolioxml.cpp
+    investpor/core/portfolioxml.cpp \
+    investpor/gui/cryptocurrencytablemodel.cpp \
+    investpor/gui/tablemodel.cpp
 
 HEADERS += \
     investpor/gui/mainwindow.h \
-    investpor/gui/stockdialog.h \
     investpor/gui/cryptocurrencydialog.h \
+    investpor/gui/discountbonddialog.h \
     investpor/gui/exchangedialog.h \
     investpor/gui/funddialog.h \
     investpor/gui/golddialog.h \
+    investpor/gui/stockdialog.h \
     investpor/core/types.h \
     investpor/core/util.h \
     investpor/core/transaction.h \
-    investpor/core/discountbondtransaction.h \
     investpor/core/cryptocurrencytransaction.h \
+    investpor/core/discountbondtransaction.h \
     investpor/core/exchangetransaction.h \
     investpor/core/fundtransaction.h \
     investpor/core/goldtransaction.h \
     investpor/core/stocktransaction.h \
-    investpor/gui/discountbonddialog.h \
-    investpor/core/portfolioxml.h
+    investpor/core/portfolioxml.h \
+    investpor/gui/cryptocurrencytablemodel.h \
+    investpor/gui/tablemodel.h
 
 FORMS += \
     investpor/gui/mainwindow.ui \
-    investpor/gui/stockdialog.ui \
     investpor/gui/cryptocurrencydialog.ui \
+    investpor/gui/discountbonddialog.ui \
     investpor/gui/exchangedialog.ui \
     investpor/gui/funddialog.ui \
     investpor/gui/golddialog.ui \
-    investpor/gui/discountbonddialog.ui
+    investpor/gui/stockdialog.ui
