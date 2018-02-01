@@ -1,22 +1,22 @@
-#ifndef DISCOUNTBONDTABLEMODEL_H
-#define DISCOUNTBONDTABLEMODEL_H
+#ifndef EXCHANGETABLEMODEL_H
+#define EXCHANGETABLEMODEL_H
 
 #include "investpor/gui/tablemodel.h"
-#include "investpor/core/discountbondtransaction.h"
+#include "investpor/core/exchangetransaction.h"
 
-using investpor::core::DiscountBondTransaction;
+using investpor::core::ExchangeTransaction;
 
 namespace investpor {
 
     namespace gui {
 
-        class DiscountBondTableModel : public TableModel
+        class ExchangeTableModel : public TableModel
         {
         public:
-            DiscountBondTableModel(QList<DiscountBondTransaction> list, QObject *parent = nullptr);
-            ~DiscountBondTableModel() { }
+            ExchangeTableModel(QList<ExchangeTransaction> list, QObject *parent = nullptr);
+            ~ExchangeTableModel() { }
 
-            void updateTransactionList(QList<DiscountBondTransaction> list);
+            void updateTransactionList(QList<ExchangeTransaction> list);
             virtual double totalBuys() const override;
             virtual double totalSells() const override;
 
@@ -26,11 +26,11 @@ namespace investpor {
             virtual int columnCount(const QModelIndex &parent) const override { return columns; }
 
         private:
-            const static int columns = 8;
-            QList<DiscountBondTransaction> transactionList;
+            const static int columns = 7;
+            QList<ExchangeTransaction> transactionList;
         };
 
     }
 
 }
-#endif // DISCOUNTBONDTABLEMODEL_H
+#endif // EXCHANGETABLEMODEL_H

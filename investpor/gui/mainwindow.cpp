@@ -75,6 +75,9 @@ namespace investpor {
             discountBondModel = new DiscountBondTableModel(portfolio->getDiscountBondTransactionList(), this);
             ui->tbvDiscountBondView->setModel(discountBondModel);
 
+            exchangeModel = new ExchangeTableModel(portfolio->getExchangeTransactionList(), this);
+            ui->tbvExchangeView->setModel(exchangeModel);
+
             updateModelsAndGUI();
         }
 
@@ -90,6 +93,7 @@ namespace investpor {
         {
             cryptoCurrencyModel->updateTransactionList(portfolio->getCryptocurrencyTransactionList());
             discountBondModel->updateTransactionList(portfolio->getDiscountBondTransactionList());
+            exchangeModel->updateTransactionList(portfolio->getExchangeTransactionList());
 
             double cryptoCurrencyBuys = cryptoCurrencyModel->totalBuys();
             double cryptoCurrencySells = cryptoCurrencyModel->totalSells();
@@ -101,10 +105,10 @@ namespace investpor {
             ui->leTotalDiscountBondBuys->setText(QString::number(discountBondBuys, 'f', 6));
             ui->leTotalDiscountBondSells->setText(QString::number(discountBondSells, 'f', 6));
 
-//            double exchangeBuys = exchangeModel->totalBuys();
-//            double exchangeSells = exchangeModel->totalSells();
-//            ui->leTotalExchangeBuys->setText(QString::number(exchangeBuys, 'f', 6));
-//            ui->leTotalExchangeSells->setText(QString::number(exchangeSells, 'f', 6));
+            double exchangeBuys = exchangeModel->totalBuys();
+            double exchangeSells = exchangeModel->totalSells();
+            ui->leTotalExchangeBuys->setText(QString::number(exchangeBuys, 'f', 6));
+            ui->leTotalExchangeSells->setText(QString::number(exchangeSells, 'f', 6));
 
 //            double fundBuys = fundModel->totalBuys();
 //            double fundSells = fundModel->totalSells();
