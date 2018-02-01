@@ -5,6 +5,7 @@
 #include "investpor/gui/cryptocurrencytablemodel.h"
 #include "investpor/gui/discountbondtablemodel.h"
 #include "investpor/gui/exchangetablemodel.h"
+#include "investpor/gui/fundtablemodel.h"
 
 #include <QMainWindow>
 
@@ -34,6 +35,7 @@ namespace investpor {
             CryptocurrencyTableModel *cryptoCurrencyModel;
             DiscountBondTableModel *discountBondModel;
             ExchangeTableModel *exchangeModel;
+            FundTableModel *fundModel;
 
             void updateModelsAndGUI();
 

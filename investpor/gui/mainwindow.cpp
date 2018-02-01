@@ -75,8 +75,13 @@ namespace investpor {
             discountBondModel = new DiscountBondTableModel(portfolio->getDiscountBondTransactionList(), this);
             ui->tbvDiscountBondView->setModel(discountBondModel);
 
+            //Exchange model
             exchangeModel = new ExchangeTableModel(portfolio->getExchangeTransactionList(), this);
             ui->tbvExchangeView->setModel(exchangeModel);
+
+            //Fund model
+            fundModel = new FundTableModel(portfolio->getFundTransactionList(), this);
+            ui->tbvFundView->setModel(fundModel);
 
             updateModelsAndGUI();
         }
@@ -94,6 +99,7 @@ namespace investpor {
             cryptoCurrencyModel->updateTransactionList(portfolio->getCryptocurrencyTransactionList());
             discountBondModel->updateTransactionList(portfolio->getDiscountBondTransactionList());
             exchangeModel->updateTransactionList(portfolio->getExchangeTransactionList());
+            fundModel->updateTransactionList(portfolio->getFundTransactionList());
 
             double cryptoCurrencyBuys = cryptoCurrencyModel->totalBuys();
             double cryptoCurrencySells = cryptoCurrencyModel->totalSells();
@@ -110,10 +116,10 @@ namespace investpor {
             ui->leTotalExchangeBuys->setText(QString::number(exchangeBuys, 'f', 6));
             ui->leTotalExchangeSells->setText(QString::number(exchangeSells, 'f', 6));
 
-//            double fundBuys = fundModel->totalBuys();
-//            double fundSells = fundModel->totalSells();
-//            ui->leTotalFundBuys->setText(QString::number(fundBuys, 'f', 6));
-//            ui->leTotalFundSells->setText(QString::number(fundSells, 'f', 6));
+            double fundBuys = fundModel->totalBuys();
+            double fundSells = fundModel->totalSells();
+            ui->leTotalFundBuys->setText(QString::number(fundBuys, 'f', 6));
+            ui->leTotalFundSells->setText(QString::number(fundSells, 'f', 6));
 
 //            double goldBuys = goldModel->totalBuys();
 //            double goldSells = goldModel->totalSells();

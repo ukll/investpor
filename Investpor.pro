@@ -44,7 +44,8 @@ SOURCES += \
     investpor/gui/cryptocurrencytablemodel.cpp \
     investpor/gui/tablemodel.cpp \
     investpor/gui/discountbondtablemodel.cpp \
-    investpor/gui/exchangetablemodel.cpp
+    investpor/gui/exchangetablemodel.cpp \
+    investpor/gui/fundtablemodel.cpp
 
 HEADERS += \
     investpor/gui/mainwindow.h \
@@ -67,7 +68,8 @@ HEADERS += \
     investpor/gui/cryptocurrencytablemodel.h \
     investpor/gui/tablemodel.h \
     investpor/gui/discountbondtablemodel.h \
-    investpor/gui/exchangetablemodel.h
+    investpor/gui/exchangetablemodel.h \
+    investpor/gui/fundtablemodel.h
 
 FORMS += \
     investpor/gui/mainwindow.ui \
