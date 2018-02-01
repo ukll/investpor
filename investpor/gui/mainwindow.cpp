@@ -87,6 +87,10 @@ namespace investpor {
             goldModel = new GoldTableModel(portfolio->getGoldTransactionList(), this);
             ui->tbvGoldView->setModel(goldModel);
 
+            //Stock model
+            stockModel = new StockTableModel(portfolio->getStockTransactionList(), this);
+            ui->tbvStockView->setModel(stockModel);
+
             updateModelsAndGUI();
         }
 
@@ -105,43 +109,44 @@ namespace investpor {
             exchangeModel->updateTransactionList(portfolio->getExchangeTransactionList());
             fundModel->updateTransactionList(portfolio->getFundTransactionList());
             goldModel->updateTransactionList(portfolio->getGoldTransactionList());
+            stockModel->updateTransactionList(portfolio->getStockTransactionList());
 
             double cryptoCurrencyBuys = cryptoCurrencyModel->totalBuys();
             double cryptoCurrencySells = cryptoCurrencyModel->totalSells();
-            ui->leTotalCryptocurrencyBuys->setText(QString::number(cryptoCurrencyBuys, 'f', 6));
-            ui->leTotalCryptocurrencySells->setText(QString::number(cryptoCurrencySells, 'f', 6));
+            ui->leTotalCryptocurrencyBuys->setText(QString::number(cryptoCurrencyBuys, 'f'));
+            ui->leTotalCryptocurrencySells->setText(QString::number(cryptoCurrencySells, 'f'));
 
             double discountBondBuys = discountBondModel->totalBuys();
             double discountBondSells = discountBondModel->totalSells();
-            ui->leTotalDiscountBondBuys->setText(QString::number(discountBondBuys, 'f', 6));
-            ui->leTotalDiscountBondSells->setText(QString::number(discountBondSells, 'f', 6));
+            ui->leTotalDiscountBondBuys->setText(QString::number(discountBondBuys, 'f'));
+            ui->leTotalDiscountBondSells->setText(QString::number(discountBondSells, 'f'));
 
             double exchangeBuys = exchangeModel->totalBuys();
             double exchangeSells = exchangeModel->totalSells();
-            ui->leTotalExchangeBuys->setText(QString::number(exchangeBuys, 'f', 6));
-            ui->leTotalExchangeSells->setText(QString::number(exchangeSells, 'f', 6));
+            ui->leTotalExchangeBuys->setText(QString::number(exchangeBuys, 'f'));
+            ui->leTotalExchangeSells->setText(QString::number(exchangeSells, 'f'));
 
             double fundBuys = fundModel->totalBuys();
             double fundSells = fundModel->totalSells();
-            ui->leTotalFundBuys->setText(QString::number(fundBuys, 'f', 6));
-            ui->leTotalFundSells->setText(QString::number(fundSells, 'f', 6));
+            ui->leTotalFundBuys->setText(QString::number(fundBuys, 'f'));
+            ui->leTotalFundSells->setText(QString::number(fundSells, 'f'));
 
             double goldBuys = goldModel->totalBuys();
             double goldSells = goldModel->totalSells();
-            ui->leTotalGoldBuys->setText(QString::number(goldBuys, 'f', 6));
-            ui->leTotalGoldSells->setText(QString::number(goldSells, 'f', 6));
+            ui->leTotalGoldBuys->setText(QString::number(goldBuys, 'f'));
+            ui->leTotalGoldSells->setText(QString::number(goldSells, 'f'));
 
-//            double stockBuys = stockModel->totalBuys();
-//            double stockSells = stockModel->totalSells();
-//            ui->leTotalStockBuys->setText(QString::number(stockBuys, 'f', 6));
-//            ui->leTotalStockSells->setText(QString::number(stockSells, 'f', 6));
+            double stockBuys = stockModel->totalBuys();
+            double stockSells = stockModel->totalSells();
+            ui->leTotalStockBuys->setText(QString::number(stockBuys, 'f'));
+            ui->leTotalStockSells->setText(QString::number(stockSells, 'f'));
 
             double totalInvestmentBuys = 0;
             double totalInvestmentSells = 0;
-//            totalInvestmentBuys = cryptoCurrencyBuys + discountBondBuys + exchangeBuys + fundBuys + goldBuys + stockBuys;
-//            totalInvestmentSells = cryptoCurrencySells + discountBondSells + exchangeSells + fundSells + goldSells + stockSells;
-            ui->leTotalBuys->setText(QString::number(totalInvestmentBuys, 'f', 6));
-            ui->leTotalSells->setText(QString::number(totalInvestmentSells, 'f', 6));
+            totalInvestmentBuys = cryptoCurrencyBuys + discountBondBuys + exchangeBuys + fundBuys + goldBuys + stockBuys;
+            totalInvestmentSells = cryptoCurrencySells + discountBondSells + exchangeSells + fundSells + goldSells + stockSells;
+            ui->leTotalBuys->setText(QString::number(totalInvestmentBuys, 'f'));
+            ui->leTotalSells->setText(QString::number(totalInvestmentSells, 'f'));
         }
 
         /**

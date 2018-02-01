@@ -932,7 +932,7 @@ namespace investpor {
                         transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                         transaction.setStockMarket(currentStockMarket);
                         transaction.setStockSymbol(stockNodeList.at(stockNode).toElement().tagName());
-                        transaction.setStockName(stockMarketNodeList.at(stockNode).toElement().attribute("name"));
+                        transaction.setStockName(stockNodeList.at(stockNode).toElement().attribute("name"));
 
                         Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
                         if(operation == Operation::InvalidOperation)
