@@ -42,7 +42,8 @@ SOURCES += \
     investpor/core/stocktransaction.cpp \
     investpor/core/portfolioxml.cpp \
     investpor/gui/cryptocurrencytablemodel.cpp \
-    investpor/gui/tablemodel.cpp
+    investpor/gui/tablemodel.cpp \
+    investpor/gui/discountbondtablemodel.cpp
 
 HEADERS += \
     investpor/gui/mainwindow.h \
@@ -63,7 +64,8 @@ HEADERS += \
     investpor/core/stocktransaction.h \
     investpor/core/portfolioxml.h \
     investpor/gui/cryptocurrencytablemodel.h \
-    investpor/gui/tablemodel.h
+    investpor/gui/tablemodel.h \
+    investpor/gui/discountbondtablemodel.h
 
 FORMS += \
     investpor/gui/mainwindow.ui \

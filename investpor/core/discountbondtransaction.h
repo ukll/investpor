@@ -16,7 +16,7 @@ namespace investpor {
         public:
             DiscountBondTransaction(const quint16 &id = 0) : Transaction(id) { }
             DiscountBondTransaction(const Operation &op, const QString &isin, const QDate &term, const double &nomValue,
-                const double &sPrice, const QDate &opDate, const quint16 &id = 0);
+                const double &sPrice, quint32 cnt, const QDate &opDate, const quint16 &id = 0);
             virtual ~DiscountBondTransaction() { }
 
             Operation getOperationType() const { return operationType; }
@@ -29,6 +29,8 @@ namespace investpor {
             void setNominalValue(const double &nomValue) { nominalValue = nomValue; }
             double getSalePrice() const { return salePrice; }
             void setSalePrice(const double &sPrice) { salePrice = sPrice; }
+            quint32 getCount() const { return count; }
+            void setCount(const quint32 &cnt) { count = cnt;}
             QDate getOperationDate() const { return operationDate; }
             void setOperationDate(const QDate &opDate) { operationDate = opDate; }
 
@@ -38,6 +40,7 @@ namespace investpor {
             QDate termDate;
             double nominalValue;
             double salePrice;
+            quint32 count;
             QDate operationDate;
         };
 

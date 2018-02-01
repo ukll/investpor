@@ -85,6 +85,12 @@ namespace investpor {
                 errorMessageList << tr("Sale price is not valid!");
             } else if(Util::doubleEquality6DecPoints(ui->dsbSalePrice->value(), 0.0)) {
                 errorMessageList << tr("Sale price cannot be 0!");
+            } else if(ui->sbCount->text().simplified().isEmpty()) {
+                errorMessageList << tr("Count cannot be empty!");
+            } else if(!ui->sbCount->hasAcceptableInput()) {
+                errorMessageList << tr("Count is not valid!");
+            } else if(ui->sbCount->value() == 0) {
+                errorMessageList << tr("Count cannot be 0!");
             } else if(ui->deDate->text().simplified().isEmpty()) {
                 errorMessageList << tr("Operation date cannot be empty!");
             } else if(!ui->deDate->hasAcceptableInput()) {
@@ -100,7 +106,7 @@ namespace investpor {
 
             transaction = DiscountBondTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex() + 1),
                                                   ui->leISINCode->text(), ui->deTerm->date(), ui->dsbNominalValue->value(),
-                                                  ui->dsbSalePrice->value(), ui->deDate->date());
+                                                  ui->dsbSalePrice->value(), ui->sbCount->value(), ui->deDate->date());
             //Passed the validation
             QDialog::accept();
         }

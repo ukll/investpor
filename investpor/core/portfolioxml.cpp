@@ -160,6 +160,7 @@ namespace investpor {
                 return false;
             }
 
+            emit portFolioModified();
             return true;
         }
 
@@ -204,6 +205,11 @@ namespace investpor {
             salePriceElement.appendChild(salePriceText);
             transactionElement.appendChild(salePriceElement);
 
+            QDomElement countElement = domDocument.createElement("count");
+            QDomText countText = domDocument.createTextNode(QString::number(transaction.getCount()));
+            countElement.appendChild(countText);
+            transactionElement.appendChild(countElement);
+
             QDomElement operationDateElement = domDocument.createElement("operation-date");
             QDomText operationDateText = domDocument.createTextNode(transaction.getOperationDate().toString("yyyy-MM-dd"));
             operationDateElement.appendChild(operationDateText);
@@ -216,6 +222,7 @@ namespace investpor {
                 return false;
             }
 
+            emit portFolioModified();
             return true;
         }
 
@@ -283,6 +290,7 @@ namespace investpor {
                 return false;
             }
 
+            emit portFolioModified();
             return true;
         }
 
@@ -355,6 +363,7 @@ namespace investpor {
                 return false;
             }
 
+            emit portFolioModified();
             return true;
         }
 
@@ -422,6 +431,7 @@ namespace investpor {
                 return false;
             }
 
+            emit portFolioModified();
             return true;
         }
 
@@ -504,6 +514,7 @@ namespace investpor {
                 return false;
             }
 
+            emit portFolioModified();
             return true;
         }
 
@@ -567,9 +578,9 @@ namespace investpor {
                                 transaction.setPrice(transactionChildElement.text().toDouble());
                             } else if(transactionChildElement.tagName() == "amount") {
                                 transaction.setAmount(transactionChildElement.text().toDouble());
-                            } if(transactionChildElement.tagName() == "date-time") {
+                            } else if(transactionChildElement.tagName() == "date-time") {
                                 transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), "yyyy-MM-dd hh:mm:ss"));
-                            } if(transactionChildElement.tagName() == "goal-price") {
+                            } else if(transactionChildElement.tagName() == "goal-price") {
                                 transaction.setGoalPrice(transactionChildElement.text().toDouble());
                             } else {
                                 //Not yet supported transaction info.
@@ -616,6 +627,8 @@ namespace investpor {
                     DiscountBondTransaction transaction;
                     transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setISIN(discountBondNodeList.at(discountBondNode).toElement().tagName());
+                    transaction.setTerm(QDate::fromString(discountBondNodeList.at(discountBondNode).toElement().attribute("term"), "yyyy-MM-dd"));
+                    transaction.setNominalValue(discountBondNodeList.at(discountBondNode).toElement().attribute("nominal-value").toDouble());
 
                     Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
                     if(operation == Operation::InvalidOperation)
@@ -632,13 +645,11 @@ namespace investpor {
                         {
                             QDomElement transactionChildElement = transactionChildNodes.at(transactionChildNode).toElement();
 
-                            if(transactionChildElement.tagName() == "term") {
-                                transaction.setTerm(QDate::fromString(transactionChildElement.text(), "yyyy-MM-dd"));
-                            } else if(transactionChildElement.tagName() == "nominal-value") {
-                                transaction.setNominalValue(transactionChildElement.text().toDouble());
-                            } if(transactionChildElement.tagName() == "sale-price") {
+                            if(transactionChildElement.tagName() == "sale-price") {
                                 transaction.setSalePrice(transactionChildElement.text().toDouble());
-                            } if(transactionChildElement.tagName() == "operation-date") {
+                            } else if(transactionChildElement.tagName() == "count") {
+                                transaction.setCount(transactionChildElement.text().toUShort());
+                            } else if(transactionChildElement.tagName() == "operation-date") {
                                 transaction.setOperationDate(QDate::fromString(transactionChildElement.text(), "yyyy-MM-dd"));
                             } else {
                                 //Not yet supported transaction info.
@@ -712,9 +723,9 @@ namespace investpor {
                                 transaction.setPrice(transactionChildElement.text().toDouble());
                             } else if(transactionChildElement.tagName() == "amount") {
                                 transaction.setAmount(transactionChildElement.text().toDouble());
-                            } if(transactionChildElement.tagName() == "date-time") {
+                            } else if(transactionChildElement.tagName() == "date-time") {
                                 transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), "yyyy-MM-dd hh:mm:ss"));
-                            } if(transactionChildElement.tagName() == "goal-price") {
+                            } else if(transactionChildElement.tagName() == "goal-price") {
                                 transaction.setGoalPrice(transactionChildElement.text().toDouble());
                             } else {
                                 //Not yet supported transaction info.
@@ -782,11 +793,11 @@ namespace investpor {
                                 transaction.setPrice(transactionChildElement.text().toDouble());
                             } else if(transactionChildElement.tagName() == "count") {
                                 transaction.setCount(transactionChildElement.text().toDouble());
-                            } if(transactionChildElement.tagName() == "order-date") {
+                            } else if(transactionChildElement.tagName() == "order-date") {
                                 transaction.setOrderDate(QDate::fromString(transactionChildElement.text(), "yyyy-MM-dd"));
-                            } if(transactionChildElement.tagName() == "operation-date") {
+                            } else if(transactionChildElement.tagName() == "operation-date") {
                                 transaction.setOperationDate(QDate::fromString(transactionChildElement.text(), "yyyy-MM-dd"));
-                            } if(transactionChildElement.tagName() == "goal-price") {
+                            } else if(transactionChildElement.tagName() == "goal-price") {
                                 transaction.setGoalPrice(transactionChildElement.text().toDouble());
                             } else {
                                 //Not yet supported transaction info.
@@ -860,9 +871,9 @@ namespace investpor {
                                 transaction.setPrice(transactionChildElement.text().toDouble());
                             } else if(transactionChildElement.tagName() == "amount") {
                                 transaction.setAmount(transactionChildElement.text().toDouble());
-                            } if(transactionChildElement.tagName() == "date-time") {
+                            } else if(transactionChildElement.tagName() == "date-time") {
                                 transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), "yyyy-MM-dd hh:mm:ss"));
-                            } if(transactionChildElement.tagName() == "goal-price") {
+                            } else if(transactionChildElement.tagName() == "goal-price") {
                                 transaction.setGoalPrice(transactionChildElement.text().toDouble());
                             } else {
                                 //Not yet supported transaction info.
@@ -944,9 +955,9 @@ namespace investpor {
                                     transaction.setCount(transactionChildElement.text().toUShort());
                                 } else if(transactionChildElement.tagName() == "commission-rate") {
                                     transaction.setCommissionRate(transactionChildElement.text().toDouble());
-                                } if(transactionChildElement.tagName() == "date-time") {
+                                } else if(transactionChildElement.tagName() == "date-time") {
                                     transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), "yyyy-MM-dd hh:mm:ss"));
-                                } if(transactionChildElement.tagName() == "goal-price") {
+                                } else if(transactionChildElement.tagName() == "goal-price") {
                                     transaction.setGoalPrice(transactionChildElement.text().toDouble());
                                 } else {
                                     //Not yet supported transaction info.

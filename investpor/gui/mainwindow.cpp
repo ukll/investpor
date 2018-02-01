@@ -65,10 +65,17 @@ namespace investpor {
                 }
             }
 
+            QObject::connect(portfolio, &PortfolioXML::portFolioModified, this, &MainWindow::updateModelsAndGUI);
+
+            //Cryptocurrency model
             cryptoCurrencyModel = new CryptocurrencyTableModel(portfolio->getCryptocurrencyTransactionList(), this);
             ui->tbvCryptocurrencyView->setModel(cryptoCurrencyModel);
 
-            showBuysAndSells();
+            //Discount bond model
+            discountBondModel = new DiscountBondTableModel(portfolio->getDiscountBondTransactionList(), this);
+            ui->tbvDiscountBondView->setModel(discountBondModel);
+
+            updateModelsAndGUI();
         }
 
         /**
@@ -79,54 +86,45 @@ namespace investpor {
             delete ui;
         }
 
-        void MainWindow::showBuysAndSells()
+        void MainWindow::updateModelsAndGUI()
         {
-            double cryptoCurrencyBuys = 0;
-            double cryptoCurrencySells = 0;
-            cryptoCurrencyBuys = cryptoCurrencyModel->totalBuys();
-            cryptoCurrencySells = cryptoCurrencyModel->totalSells();
+            cryptoCurrencyModel->updateTransactionList(portfolio->getCryptocurrencyTransactionList());
+            discountBondModel->updateTransactionList(portfolio->getDiscountBondTransactionList());
+
+            double cryptoCurrencyBuys = cryptoCurrencyModel->totalBuys();
+            double cryptoCurrencySells = cryptoCurrencyModel->totalSells();
             ui->leTotalCryptocurrencyBuys->setText(QString::number(cryptoCurrencyBuys, 'f', 6));
             ui->leTotalCryptocurrencySells->setText(QString::number(cryptoCurrencySells, 'f', 6));
 
-            double discountBondBuys = 0;
-            double discountBondSells = 0;
-//            discountBondBuys = discountBondModel->totalBuys();
-//            discountBondSells = discountBondModel->totalSells();
+            double discountBondBuys = discountBondModel->totalBuys();
+            double discountBondSells = discountBondModel->totalSells();
             ui->leTotalDiscountBondBuys->setText(QString::number(discountBondBuys, 'f', 6));
             ui->leTotalDiscountBondSells->setText(QString::number(discountBondSells, 'f', 6));
 
-            double exchangeBuys = 0;
-            double exchangeSells = 0;
-//            exchangeBuys = exchangeModel->totalBuys();
-//            exchangeSells = exchangeModel->totalSells();
-            ui->leTotalExchangeBuys->setText(QString::number(exchangeBuys, 'f', 6));
-            ui->leTotalExchangeSells->setText(QString::number(exchangeSells, 'f', 6));
+//            double exchangeBuys = exchangeModel->totalBuys();
+//            double exchangeSells = exchangeModel->totalSells();
+//            ui->leTotalExchangeBuys->setText(QString::number(exchangeBuys, 'f', 6));
+//            ui->leTotalExchangeSells->setText(QString::number(exchangeSells, 'f', 6));
 
-            double fundBuys = 0;
-            double fundSells = 0;
-//            fundBuys = fundModel->totalBuys();
-//            fundSells = fundModel->totalSells();
-            ui->leTotalFundBuys->setText(QString::number(fundBuys, 'f', 6));
-            ui->leTotalFundSells->setText(QString::number(fundSells, 'f', 6));
+//            double fundBuys = fundModel->totalBuys();
+//            double fundSells = fundModel->totalSells();
+//            ui->leTotalFundBuys->setText(QString::number(fundBuys, 'f', 6));
+//            ui->leTotalFundSells->setText(QString::number(fundSells, 'f', 6));
 
-            double goldBuys = 0;
-            double goldSells = 0;
-//            goldBuys = goldModel->totalBuys();
-//            goldSells = goldModel->totalSells();
-            ui->leTotalGoldBuys->setText(QString::number(goldBuys, 'f', 6));
-            ui->leTotalGoldSells->setText(QString::number(goldSells, 'f', 6));
+//            double goldBuys = goldModel->totalBuys();
+//            double goldSells = goldModel->totalSells();
+//            ui->leTotalGoldBuys->setText(QString::number(goldBuys, 'f', 6));
+//            ui->leTotalGoldSells->setText(QString::number(goldSells, 'f', 6));
 
-            double stockBuys = 0;
-            double stockSells = 0;
-//            stockBuys = stockModel->totalBuys();
-//            stockSells = stockModel->totalSells();
-            ui->leTotalStockBuys->setText(QString::number(stockBuys, 'f', 6));
-            ui->leTotalStockSells->setText(QString::number(stockSells, 'f', 6));
+//            double stockBuys = stockModel->totalBuys();
+//            double stockSells = stockModel->totalSells();
+//            ui->leTotalStockBuys->setText(QString::number(stockBuys, 'f', 6));
+//            ui->leTotalStockSells->setText(QString::number(stockSells, 'f', 6));
 
             double totalInvestmentBuys = 0;
             double totalInvestmentSells = 0;
-            totalInvestmentBuys = cryptoCurrencyBuys + discountBondBuys + exchangeBuys + fundBuys + goldBuys + stockBuys;
-            totalInvestmentSells = cryptoCurrencySells + discountBondSells + exchangeSells + fundSells + goldSells + stockSells;
+//            totalInvestmentBuys = cryptoCurrencyBuys + discountBondBuys + exchangeBuys + fundBuys + goldBuys + stockBuys;
+//            totalInvestmentSells = cryptoCurrencySells + discountBondSells + exchangeSells + fundSells + goldSells + stockSells;
             ui->leTotalBuys->setText(QString::number(totalInvestmentBuys, 'f', 6));
             ui->leTotalSells->setText(QString::number(totalInvestmentSells, 'f', 6));
         }
@@ -144,8 +142,6 @@ namespace investpor {
                     QMessageBox::information(this,
                         tr("Operation result"), tr("Cryptocurrency transaction could not be saved!"), QMessageBox::Ok);
                 } else {
-                    cryptoCurrencyModel->updateTransactionList(portfolio->getCryptocurrencyTransactionList());
-                    showBuysAndSells();
                     statusBar()->showMessage(tr("Cryptocurrency transaction has been saved successfully!"), 3000);
                 }
             }

@@ -46,6 +46,9 @@ namespace investpor {
             QList<GoldTransaction> getGoldTransactionList() const;
             QList<StockTransaction> getStockTransactionList() const;
 
+        signals:
+            void portFolioModified();
+
         private:
             QFile *portfolioFile;
             PortfolioState state;
