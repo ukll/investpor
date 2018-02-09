@@ -547,6 +547,7 @@ namespace investpor {
                 }
 
                 QDomNodeList transactionNodes = cryptoCurrencyNodeList.at(cryptoCurrencyNode).childNodes();
+                CryptocurrencyTransaction transaction;
                 for(int transactionNode = 0; transactionNode < transactionNodes.length(); ++transactionNode)
                 {
                     if(transactionNodes.at(transactionNode).toElement().tagName() != "transaction")
@@ -555,7 +556,7 @@ namespace investpor {
                         continue;
                     }
 
-                    CryptocurrencyTransaction transaction;
+                    transaction = CryptocurrencyTransaction();
                     transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setCryptocurrency(currentCryptocurrency);
 
@@ -613,6 +614,7 @@ namespace investpor {
             }
 
             QDomNodeList discountBondNodeList = discountBondInvestmentElement.childNodes();
+            DiscountBondTransaction transaction;
             for(int discountBondNode = 0; discountBondNode < discountBondNodeList.length(); ++discountBondNode)
             {
                 QDomNodeList transactionNodes = discountBondNodeList.at(discountBondNode).childNodes();
@@ -624,7 +626,7 @@ namespace investpor {
                         continue;
                     }
 
-                    DiscountBondTransaction transaction;
+                    transaction = DiscountBondTransaction();
                     transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setISIN(discountBondNodeList.at(discountBondNode).toElement().tagName());
                     transaction.setTerm(QDate::fromString(discountBondNodeList.at(discountBondNode).toElement().attribute("term"), "yyyy-MM-dd"));
@@ -692,6 +694,7 @@ namespace investpor {
                 }
 
                 QDomNodeList transactionNodes = exchangeNodeList.at(exchangeNode).childNodes();
+                ExchangeTransaction transaction;
                 for(int transactionNode = 0; transactionNode < transactionNodes.length(); ++transactionNode)
                 {
                     if(transactionNodes.at(transactionNode).toElement().tagName() != "transaction")
@@ -700,7 +703,7 @@ namespace investpor {
                         continue;
                     }
 
-                    ExchangeTransaction transaction;
+                    transaction = ExchangeTransaction();
                     transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setCurrency(currentCurrency);
 
@@ -758,6 +761,7 @@ namespace investpor {
             }
 
             QDomNodeList fundNodeList = fundInvestmentElement.childNodes();
+            FundTransaction transaction;
             for(int fundNode = 0; fundNode < fundNodeList.length(); ++fundNode)
             {
                 QDomNodeList transactionNodes = fundNodeList.at(fundNode).childNodes();
@@ -769,7 +773,7 @@ namespace investpor {
                         continue;
                     }
 
-                    FundTransaction transaction;
+                    transaction = FundTransaction();
                     transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setFundCode(fundNodeList.at(fundNode).toElement().tagName());
                     transaction.setFundName(fundNodeList.at(fundNode).toElement().attribute("name"));
@@ -840,6 +844,7 @@ namespace investpor {
                 }
 
                 QDomNodeList transactionNodes = goldNodeList.at(goldNode).childNodes();
+                GoldTransaction transaction;
                 for(int transactionNode = 0; transactionNode < transactionNodes.length(); ++transactionNode)
                 {
                     if(transactionNodes.at(transactionNode).toElement().tagName() != "transaction")
@@ -848,7 +853,7 @@ namespace investpor {
                         continue;
                     }
 
-                    GoldTransaction transaction;
+                    transaction = GoldTransaction();
                     transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setGoldType(currentGold);
 
@@ -920,6 +925,7 @@ namespace investpor {
                 for(int stockNode = 0; stockNode < stockNodeList.length(); ++stockNode)
                 {
                     QDomNodeList transactionNodes = stockNodeList.at(stockNode).childNodes();
+                    StockTransaction transaction;
                     for(int transactionNode = 0; transactionNode < transactionNodes.length(); ++transactionNode)
                     {
                         if(transactionNodes.at(transactionNode).toElement().tagName() != "transaction")
@@ -928,7 +934,7 @@ namespace investpor {
                             continue;
                         }
 
-                        StockTransaction transaction;
+                        transaction = StockTransaction();
                         transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                         transaction.setStockMarket(currentStockMarket);
                         transaction.setStockSymbol(stockNodeList.at(stockNode).toElement().tagName());
