@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>700</width>
-    <height>412</height>
+    <height>418</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -231,6 +231,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>cbOperationType</tabstop>
+  <tabstop>cbMarket</tabstop>
+  <tabstop>leSymbol</tabstop>
+  <tabstop>leName</tabstop>
+  <tabstop>dsbPrice</tabstop>
+  <tabstop>sbCount</tabstop>
+  <tabstop>dsbCommissionRate</tabstop>
+  <tabstop>dteDateTime</tabstop>
+  <tabstop>dsbGoalPrice</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

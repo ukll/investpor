@@ -170,6 +170,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>cbOperationType</tabstop>
+  <tabstop>leISINCode</tabstop>
+  <tabstop>deTerm</tabstop>
+  <tabstop>dsbNominalValue</tabstop>
+  <tabstop>dsbSalePrice</tabstop>
+  <tabstop>sbCount</tabstop>
+  <tabstop>deDate</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

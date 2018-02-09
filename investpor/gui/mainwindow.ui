@@ -185,7 +185,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1032</width>
+             <width>1058</width>
              <height>364</height>
             </rect>
            </property>
@@ -272,7 +272,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1032</width>
+             <width>1058</width>
              <height>364</height>
             </rect>
            </property>
@@ -359,7 +359,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1032</width>
+             <width>1058</width>
              <height>364</height>
             </rect>
            </property>
@@ -452,7 +452,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1032</width>
+             <width>1058</width>
              <height>364</height>
             </rect>
            </property>
@@ -545,7 +545,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1032</width>
+             <width>1058</width>
              <height>364</height>
             </rect>
            </property>
@@ -642,6 +642,9 @@
      <string>&amp;Edit</string>
     </property>
     <widget class="QMenu" name="menuNew_Transaction">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="title">
       <string>New Transaction</string>
      </property>

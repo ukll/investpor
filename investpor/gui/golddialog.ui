@@ -146,6 +146,14 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>cbOperationType</tabstop>
+  <tabstop>cbGoldType</tabstop>
+  <tabstop>dsbPrice</tabstop>
+  <tabstop>dsbAmount</tabstop>
+  <tabstop>dteDateTime</tabstop>
+  <tabstop>dsbGoalPrice</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

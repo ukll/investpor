@@ -70,7 +70,6 @@ namespace investpor {
 
         void MainWindow::newPortfolio()
         {
-            ui->centralWidget->setEnabled(false);
 
             QString portfolioURL =
                 QFileDialog::getSaveFileName(this, tr("New portfolio file"), QDir::homePath(), tr("XML Files (*.xml)"));
@@ -80,6 +79,7 @@ namespace investpor {
             {
                 QMessageBox::critical(this, tr("No Portfolio"),
                     tr("Portfolio file could not be created!"));
+                ui->centralWidget->setEnabled(false);
                 return;
             }
 
@@ -88,11 +88,11 @@ namespace investpor {
             connectModels();
             updateModelsAndGUI();
             ui->centralWidget->setEnabled(true);
+            ui->menuNew_Transaction->setEnabled(true);
         }
 
         void MainWindow::openPortfolio()
         {
-            ui->centralWidget->setEnabled(false);
 
             QString portfolioURL =
                 QFileDialog::getOpenFileName(this, tr("Open a portfolio file"), QDir::homePath(), tr("XML Files (*.xml)"));
@@ -102,6 +102,7 @@ namespace investpor {
             {
                 QMessageBox::critical(this, tr("No Portfolio"),
                     tr("Portfolio file could not be opened!"));
+                ui->centralWidget->setEnabled(false);
                 return;
             }
 
@@ -110,6 +111,7 @@ namespace investpor {
             connectModels();
             updateModelsAndGUI();
             ui->centralWidget->setEnabled(true);
+            ui->menuNew_Transaction->setEnabled(true);
         }
 
         void MainWindow::connectModels()
