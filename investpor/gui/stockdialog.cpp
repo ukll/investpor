@@ -67,7 +67,7 @@ namespace investpor {
                 errorMessageList << tr("Symbol is invalid!");
             }
 
-            if(ui->cbOperationType->currentIndex() == Operation::BUY)
+            if(Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(ui->leName->text().simplified().isEmpty()) {
                     errorMessageList << tr("Stock name cannot be empty!");
@@ -101,7 +101,7 @@ namespace investpor {
             }
 
             //If it is a buy operation, check the validity of goal price.
-            if(ui->cbOperationType->currentIndex() == Operation::BUY)
+            if(Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(!ui->dsbGoalPrice->text().simplified().isEmpty() && !ui->dsbGoalPrice->hasAcceptableInput()) {
                     errorMessageList << tr("Goal price is invalid!");

@@ -61,7 +61,7 @@ namespace investpor {
                 errorMessageList << tr("Fund code is invalid!");
             }
 
-            if(ui->cbOperationType->currentIndex() == Operation::BUY) {
+            if(Operation::BUY == (ui->cbOperationType->currentIndex() + 1)) {
                 if(ui->leName->text().simplified().isEmpty()) {
                     errorMessageList << tr("Fund name cannot be empty!");
                 } else if(!ui->leName->hasAcceptableInput()) {
@@ -92,7 +92,7 @@ namespace investpor {
             }
 
             //If it is a buy operation, check the validity of goal price.
-            if(ui->cbOperationType->currentIndex() == Operation::BUY)
+            if(Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(!ui->dsbGoalPrice->text().simplified().isEmpty() && !ui->dsbGoalPrice->hasAcceptableInput()) {
                     errorMessageList << tr("Goal price is invalid!");

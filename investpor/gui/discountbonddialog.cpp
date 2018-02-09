@@ -64,7 +64,7 @@ namespace investpor {
                 errorMessageList << tr("ISIN code is not valid!");
             }
 
-            if(Operation::BUY == ui->cbOperationType->currentIndex()) {
+            if(Operation::BUY == (ui->cbOperationType->currentIndex() + 1)) {
                 //If it is a BUY transacton, validate term and nominal value too.
                 if(ui->deTerm->text().simplified().isEmpty()) {
                     errorMessageList << tr("Term date cannot be empty!");

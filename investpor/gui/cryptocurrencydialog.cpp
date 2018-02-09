@@ -76,7 +76,7 @@ namespace investpor {
             }
 
 
-            if(ui->cbOperationType->currentIndex() == Operation::BUY)
+            if(Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(ui->dsbGoalPrice->text().simplified().isEmpty()) {
                     errorMessageList << tr("Goal price cannot be empty!");
