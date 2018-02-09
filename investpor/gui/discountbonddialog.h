@@ -5,7 +5,7 @@
 
 #include <QDialog>
 #include <QStatusBar>
-#include <QValidator>
+#include <QRegularExpressionValidator>
 
 namespace Ui {
     class DiscountBondDialog;
@@ -31,7 +31,7 @@ namespace investpor {
             Ui::DiscountBondDialog *ui;
             DiscountBondTransaction transaction;
             QStatusBar statusBar;
-            QRegExpValidator ISINValidator;
+            QRegularExpressionValidator ISINValidator;
 
             void rearrangeDialog(int &operationIndex);
             virtual void accept() override;

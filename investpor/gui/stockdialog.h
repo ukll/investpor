@@ -5,7 +5,7 @@
 
 #include <QDialog>
 #include <QStatusBar>
-#include <QRegExpValidator>
+#include <QRegularExpressionValidator>
 
 namespace Ui {
     class StockDialog;
@@ -30,8 +30,8 @@ namespace investpor {
         private:
             Ui::StockDialog *ui;
             QStatusBar statusBar;
-            QRegExpValidator symbolValidator;
-            QRegExpValidator nameValidator;
+            QRegularExpressionValidator symbolValidator;
+            QRegularExpressionValidator nameValidator;
             StockTransaction transaction;
 
             void rearrangeDialog(int &operationIndex);

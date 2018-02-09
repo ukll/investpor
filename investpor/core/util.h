@@ -4,7 +4,7 @@
 #include "investpor/core/types.h"
 
 class QString;
-class QRegExp;
+class QRegularExpression;
 
 namespace investpor {
 
@@ -34,11 +34,11 @@ namespace investpor {
             static const QString stockMarketName(const StockMarket &market);
             static StockMarket getStockMarket(const QString &text);
 
-            static const QRegExp bondISINRegExp();
-            static const QRegExp fundCodeRegExp();
-            static const QRegExp fundNameRegExp();
-            static const QRegExp stockSymbolRegExp();
-            static const QRegExp stockNameRegExp();
+            static const QRegularExpression bondISINRegularExpression();
+            static const QRegularExpression fundCodeRegularExpression();
+            static const QRegularExpression fundNameRegularExpression();
+            static const QRegularExpression stockSymbolRegularExpression();
+            static const QRegularExpression stockNameRegularExpression();
 
         private:
             Util() = delete;

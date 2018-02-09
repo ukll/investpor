@@ -19,9 +19,9 @@ namespace investpor {
             ui->setupUi(this);
             setWindowTitle(tr("Stock Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
-            symbolValidator.setRegExp(Util::stockSymbolRegExp());
+            symbolValidator.setRegularExpression(Util::stockSymbolRegularExpression());
             ui->leSymbol->setValidator(&symbolValidator);
-            nameValidator.setRegExp(Util::stockNameRegExp());
+            nameValidator.setRegularExpression(Util::stockNameRegularExpression());
             ui->leName->setValidator(&nameValidator);
             ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
             ui->cbOperationType->addItem(Util::operationName(Operation::SELL));

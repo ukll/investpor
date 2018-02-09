@@ -5,7 +5,7 @@
 
 #include <QDialog>
 #include <QStatusBar>
-#include <QRegExpValidator>
+#include <QRegularExpressionValidator>
 
 namespace Ui {
     class FundDialog;
@@ -31,8 +31,8 @@ namespace investpor {
             Ui::FundDialog *ui;
             FundTransaction transaction;
             QStatusBar statusBar;
-            QRegExpValidator fundCodeValidator;
-            QRegExpValidator fundNameValidator;
+            QRegularExpressionValidator fundCodeValidator;
+            QRegularExpressionValidator fundNameValidator;
 
             void rearrangeDialog(int &operationIndex);
             virtual void accept() override;

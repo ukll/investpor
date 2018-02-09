@@ -5,7 +5,7 @@
 #include <cmath>
 
 #include <QObject>
-#include <QRegExp>
+#include <QRegularExpression>
 
 namespace investpor {
 
@@ -282,33 +282,33 @@ namespace investpor {
             }
         }
 
-        const QRegExp Util::bondISINRegExp()
+        const QRegularExpression Util::bondISINRegularExpression()
         {
-            QRegExp exp("^[a-zA-Z]{2}[a-zA-Z0-9]{9}[0-9]{1,3}$");
+            QRegularExpression exp("^[a-zA-Z]{2}[a-zA-Z0-9]{9}[0-9]{1,3}$");
             return exp;
         }
 
-        const QRegExp Util::fundCodeRegExp()
+        const QRegularExpression Util::fundCodeRegularExpression()
         {
-            QRegExp exp("^[a-zA-Z0-9]{3,5}$");
+            QRegularExpression exp("^[a-zA-Z0-9]{3,5}$");
             return exp;
         }
 
-        const QRegExp Util::fundNameRegExp()
+        const QRegularExpression Util::fundNameRegularExpression()
         {
-            QRegExp exp("^([a-zA-Z0-9]+\\.? ?)+$");
+            QRegularExpression exp("^([a-zA-Z0-9]+\\.? ?)+$");
             return exp;
         }
 
-        const QRegExp Util::stockSymbolRegExp()
+        const QRegularExpression Util::stockSymbolRegularExpression()
         {
-            QRegExp exp("^[a-zA-Z]+$");
+            QRegularExpression exp("^[a-zA-Z]+$");
             return exp;
         }
 
-        const QRegExp Util::stockNameRegExp()
+        const QRegularExpression Util::stockNameRegularExpression()
         {
-            QRegExp exp("^([a-zA-Z0-9]+\\.? ?)+$");
+            QRegularExpression exp("^([a-zA-Z0-9]+\\.? ?)+$");
             return exp;
         }
 

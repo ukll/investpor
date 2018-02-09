@@ -22,7 +22,7 @@ namespace investpor {
             ui->setupUi(this);
             setWindowTitle(tr("Discount Bond Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
-            ISINValidator.setRegExp(Util::bondISINRegExp());
+            ISINValidator.setRegularExpression(Util::bondISINRegularExpression());
             ui->leISINCode->setValidator(&ISINValidator);
             ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
             ui->cbOperationType->addItem(Util::operationName(Operation::SELL));

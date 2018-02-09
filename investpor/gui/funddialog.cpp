@@ -18,9 +18,9 @@ namespace investpor {
             ui->setupUi(this);
             setWindowTitle(tr("Fund Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
-            fundCodeValidator.setRegExp(Util::fundCodeRegExp());
+            fundCodeValidator.setRegularExpression(Util::fundCodeRegularExpression());
             ui->leCode->setValidator(&fundCodeValidator);
-            fundNameValidator.setRegExp(Util::fundNameRegExp());
+            fundNameValidator.setRegularExpression(Util::fundNameRegularExpression());
             ui->leName->setValidator(&fundNameValidator);
             ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
             ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
