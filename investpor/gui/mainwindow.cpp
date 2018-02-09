@@ -10,6 +10,7 @@
 #include "investpor/gui/stockdialog.h"
 
 #include <QDir>
+#include <QFileDialog>
 #include <QMessageBox>
 
 using investpor::core::PortfolioXML;
@@ -28,6 +29,11 @@ namespace investpor {
         {
             ui->setupUi(this);
             setWindowTitle(QString("%1 v%2 - Investment Portfolio Tracker").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
+
+            //File menu actions
+            QObject::connect(ui->actionNew_Portfolio, &QAction::triggered, this, &MainWindow::newPortfolio);
+            QObject::connect(ui->actionOpen_Portfolio, &QAction::triggered, this, &MainWindow::openPortfolio);
+            QObject::connect(ui->actionClose, &QAction::triggered, this, &MainWindow::close);
 
             //BondDialog connections
             QObject::connect(ui->btnNewDiscountBondTransaction, &QPushButton::clicked, ui->actionDiscountBond, &QAction::trigger);
@@ -52,21 +58,62 @@ namespace investpor {
             //StockDialog connections
             QObject::connect(ui->btnNewStockTransaction, &QPushButton::clicked, ui->actionStock, &QAction::trigger);
             QObject::connect(ui->actionStock, &QAction::triggered, this, &MainWindow::stockTransaction);
+        }
 
-            //Close action to close main window
-            QObject::connect(ui->actionClose, &QAction::triggered, this, &MainWindow::close);
+        /**
+         * @brief Delete non-decendants of QObject & objects without a parent
+         */
+        MainWindow::~MainWindow()
+        {
+            delete ui;
+        }
 
-            portfolio = new PortfolioXML(QDir::toNativeSeparators(QDir::homePath() + "/" + qApp->applicationName() + "/portfolio.xml"), this);
-            if(portfolio->getState() != PortfolioXML::PortfolioState::Valid) {
-                if(QMessageBox::Ok == QMessageBox::critical(this,
-                    tr("No Portfolio"), tr("Portfolio file could not be opened! Application will be closed!")))
-                {
-                    exit(EXIT_FAILURE);
-                }
+        void MainWindow::newPortfolio()
+        {
+            ui->centralWidget->setEnabled(false);
+
+            QString portfolioURL =
+                QFileDialog::getSaveFileName(this, tr("New portfolio file"), QDir::homePath(), tr("XML Files (*.xml)"));
+
+            portfolio = new PortfolioXML(QDir::toNativeSeparators(portfolioURL), this);
+            if(portfolio->getState() != PortfolioXML::PortfolioState::Valid)
+            {
+                QMessageBox::critical(this, tr("No Portfolio"),
+                    tr("Portfolio file could not be created!"));
+                return;
             }
 
             QObject::connect(portfolio, &PortfolioXML::portFolioModified, this, &MainWindow::updateModelsAndGUI);
 
+            connectModels();
+            updateModelsAndGUI();
+            ui->centralWidget->setEnabled(true);
+        }
+
+        void MainWindow::openPortfolio()
+        {
+            ui->centralWidget->setEnabled(false);
+
+            QString portfolioURL =
+                QFileDialog::getOpenFileName(this, tr("Open a portfolio file"), QDir::homePath(), tr("XML Files (*.xml)"));
+
+            portfolio = new PortfolioXML(QDir::toNativeSeparators(portfolioURL), this);
+            if(portfolio->getState() != PortfolioXML::PortfolioState::Valid)
+            {
+                QMessageBox::critical(this, tr("No Portfolio"),
+                    tr("Portfolio file could not be opened!"));
+                return;
+            }
+
+            QObject::connect(portfolio, &PortfolioXML::portFolioModified, this, &MainWindow::updateModelsAndGUI);
+
+            connectModels();
+            updateModelsAndGUI();
+            ui->centralWidget->setEnabled(true);
+        }
+
+        void MainWindow::connectModels()
+        {
             //Cryptocurrency model
             cryptoCurrencyModel = new CryptocurrencyTableModel(portfolio->getCryptocurrencyTransactionList(), this);
             ui->tbvCryptocurrencyView->setModel(cryptoCurrencyModel);
@@ -90,16 +137,6 @@ namespace investpor {
             //Stock model
             stockModel = new StockTableModel(portfolio->getStockTransactionList(), this);
             ui->tbvStockView->setModel(stockModel);
-
-            updateModelsAndGUI();
-        }
-
-        /**
-         * @brief Delete non-decendants of QObject & objects without a parent
-         */
-        MainWindow::~MainWindow()
-        {
-            delete ui;
         }
 
         void MainWindow::updateModelsAndGUI()
@@ -147,6 +184,21 @@ namespace investpor {
             totalInvestmentSells = cryptoCurrencySells + discountBondSells + exchangeSells + fundSells + goldSells + stockSells;
             ui->leTotalBuys->setText(QString::number(totalInvestmentBuys, 'f'));
             ui->leTotalSells->setText(QString::number(totalInvestmentSells, 'f'));
+
+            ui->leTotalCryptocurrencyBuys->setEnabled(true);
+            ui->leTotalCryptocurrencySells->setEnabled(true);
+            ui->leTotalDiscountBondBuys->setEnabled(true);
+            ui->leTotalDiscountBondSells->setEnabled(true);
+            ui->leTotalExchangeBuys->setEnabled(true);
+            ui->leTotalExchangeSells->setEnabled(true);
+            ui->leTotalFundBuys->setEnabled(true);
+            ui->leTotalFundSells->setEnabled(true);
+            ui->leTotalGoldBuys->setEnabled(true);
+            ui->leTotalGoldSells->setEnabled(true);
+            ui->leTotalStockBuys->setEnabled(true);
+            ui->leTotalStockSells->setEnabled(true);
+            ui->leTotalBuys->setEnabled(true);
+            ui->leTotalSells->setEnabled(true);
         }
 
         /**
@@ -160,7 +212,7 @@ namespace investpor {
                 if(!portfolio->saveCryptocurrencyTransaction(cd.getTransaction()))
                 {
                     QMessageBox::information(this,
-                        tr("Operation result"), tr("Cryptocurrency transaction could not be saved!"), QMessageBox::Ok);
+                                             tr("Operation result"), tr("Cryptocurrency transaction could not be saved!"), QMessageBox::Ok);
                 } else {
                     statusBar()->showMessage(tr("Cryptocurrency transaction has been saved successfully!"), 3000);
                 }
@@ -177,7 +229,7 @@ namespace investpor {
             {
                 if(!portfolio->saveDiscountBondTransaction(dbd.getTransaction())) {
                     QMessageBox::information(this,
-                        tr("Operation result"), tr("Discount bond transaction could not be saved!"), QMessageBox::Ok);
+                                             tr("Operation result"), tr("Discount bond transaction could not be saved!"), QMessageBox::Ok);
                 } else {
                     statusBar()->showMessage(tr("Discount bond transaction has been saved successfully!"), 3000);
                 }
@@ -195,7 +247,7 @@ namespace investpor {
                 if(!portfolio->saveExchangeTransaction(ed.getTransaction()))
                 {
                     QMessageBox::information(this,
-                        tr("Operation result"), tr("Exchange transaction could not be saved!"), QMessageBox::Ok);
+                                             tr("Operation result"), tr("Exchange transaction could not be saved!"), QMessageBox::Ok);
                 } else {
                     statusBar()->showMessage(tr("Exchange transaction has been saved successfully!"), 3000);
                 }
@@ -213,7 +265,7 @@ namespace investpor {
                 if(!portfolio->saveFundTransaction(fd.getTransaction()))
                 {
                     QMessageBox::information(this,
-                        tr("Operation result"), tr("Fund transaction could not be saved!"), QMessageBox::Ok);
+                                             tr("Operation result"), tr("Fund transaction could not be saved!"), QMessageBox::Ok);
                 } else {
                     statusBar()->showMessage(tr("Fund transaction has been saved successfully!"), 3000);
                 }
@@ -231,7 +283,7 @@ namespace investpor {
                 if(!portfolio->saveGoldTransaction(gd.getTransaction()))
                 {
                     QMessageBox::information(this,
-                        tr("Operation result"), tr("Gold transaction could not be saved!"), QMessageBox::Ok);
+                                             tr("Operation result"), tr("Gold transaction could not be saved!"), QMessageBox::Ok);
                 } else {
                     statusBar()->showMessage(tr("Gold transaction has been saved successfully!"), 3000);
                 }
@@ -249,7 +301,7 @@ namespace investpor {
                 if(!portfolio->saveStockTransaction(sd.getTransaction()))
                 {
                     QMessageBox::information(this,
-                        tr("Operation result"), tr("Stock transaction could not be saved!"), QMessageBox::Ok);
+                                             tr("Operation result"), tr("Stock transaction could not be saved!"), QMessageBox::Ok);
                 } else {
                     statusBar()->showMessage(tr("Stock transaction has been saved successfully!"), 3000);
                 }

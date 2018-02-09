@@ -33,7 +33,7 @@ namespace investpor {
         private:
             Ui::MainWindow *ui;
 
-            PortfolioXML *portfolio;
+            PortfolioXML *portfolio = nullptr;
             CryptocurrencyTableModel *cryptoCurrencyModel;
             DiscountBondTableModel *discountBondModel;
             ExchangeTableModel *exchangeModel;
@@ -41,6 +41,9 @@ namespace investpor {
             GoldTableModel *goldModel;
             StockTableModel *stockModel;
 
+            void newPortfolio();
+            void openPortfolio();
+            void connectModels();
             void updateModelsAndGUI();
 
             void cryptoCurrencyTransaction();

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1047</width>
+    <width>1100</width>
     <height>575</height>
    </rect>
   </property>
@@ -14,6 +14,9 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QTabWidget" name="twOperations">
@@ -37,7 +40,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalCryptocurrencyBuys">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -54,7 +57,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalCryptocurrencySells">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -80,7 +83,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1005</width>
+             <width>1058</width>
              <height>364</height>
             </rect>
            </property>
@@ -139,7 +142,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalDiscountBondBuys">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -156,7 +159,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalDiscountBondSells">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -182,8 +185,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>88</width>
-             <height>88</height>
+             <width>1032</width>
+             <height>364</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -226,7 +229,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalExchangeBuys">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -243,7 +246,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalExchangeSells">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -269,8 +272,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>88</width>
-             <height>88</height>
+             <width>1032</width>
+             <height>364</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -313,7 +316,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalFundBuys">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -330,7 +333,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalFundSells">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -356,8 +359,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>88</width>
-             <height>88</height>
+             <width>1032</width>
+             <height>364</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -403,7 +406,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalGoldBuys">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -423,7 +426,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalGoldSells">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -449,8 +452,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>88</width>
-             <height>88</height>
+             <width>1032</width>
+             <height>364</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -496,7 +499,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalStockBuys">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -516,7 +519,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalStockSells">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -542,7 +545,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1005</width>
+             <width>1032</width>
              <height>364</height>
             </rect>
            </property>
@@ -586,7 +589,7 @@
       <item>
        <widget class="QLineEdit" name="leTotalBuys">
         <property name="enabled">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="readOnly">
          <bool>true</bool>
@@ -606,7 +609,7 @@
       <item>
        <widget class="QLineEdit" name="leTotalSells">
         <property name="enabled">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="readOnly">
          <bool>true</bool>
@@ -622,7 +625,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1047</width>
+     <width>1100</width>
      <height>25</height>
     </rect>
    </property>
@@ -630,6 +633,8 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <addaction name="actionNew_Portfolio"/>
+    <addaction name="actionOpen_Portfolio"/>
     <addaction name="actionClose"/>
    </widget>
    <widget class="QMenu" name="menu_Edit">
@@ -697,6 +702,16 @@
   <action name="actionStock">
    <property name="text">
     <string>Stock</string>
+   </property>
+  </action>
+  <action name="actionOpen_Portfolio">
+   <property name="text">
+    <string>Open Portfolio</string>
+   </property>
+  </action>
+  <action name="actionNew_Portfolio">
+   <property name="text">
+    <string>New Portfolio</string>
    </property>
   </action>
  </widget>
