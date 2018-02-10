@@ -2,6 +2,9 @@
 
 #include "investpor/core/util.h"
 
+#include <QBrush>
+#include <QColor>
+
 using investpor::core::Operation;
 using investpor::core::Util;
 
@@ -92,6 +95,19 @@ namespace investpor {
 
         QVariant DiscountBondTableModel::data(const QModelIndex &index, int role) const
         {
+            if(Qt::TextAlignmentRole == role)
+            {
+                return Qt::AlignCenter;
+            }
+
+            if(Qt::BackgroundRole == role)
+            {
+                if(Operation::BUY == transactionList.at(index.row()).getOperationType()) {
+                    return QBrush(QColor(0, 255, 0, 100));
+                }
+                return QBrush(QColor(255, 0, 0, 100));
+            }
+
             if(Qt::DisplayRole != role)
             {
                 return QVariant();
@@ -99,7 +115,7 @@ namespace investpor {
 
             switch (index.column()) {
             case 0:
-                return transactionList.at(index.row()).getISIN();
+                return transactionList.at(index.row()).getISIN().toUpper();
             case 1:
                 return transactionList.at(index.row()).getTransactionId();
             case 2:
@@ -107,9 +123,9 @@ namespace investpor {
             case 3:
                 return transactionList.at(index.row()).getTerm().toString(Qt::ISODate);
             case 4:
-                return QString::number(transactionList.at(index.row()).getNominalValue(), 'f', 6);
+                return QString::number(transactionList.at(index.row()).getNominalValue(), 'f');
             case 5:
-                return QString::number(transactionList.at(index.row()).getSalePrice(), 'f', 6);;
+                return QString::number(transactionList.at(index.row()).getSalePrice(), 'f');;
             case 6:
                 return transactionList.at(index.row()).getCount();
             case 7:

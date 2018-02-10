@@ -131,6 +131,7 @@ namespace investpor {
             //Fund model
             fundModel = new FundTableModel(portfolio->getFundTransactionList(), this);
             ui->tbvFundView->setModel(fundModel);
+            ui->tbvFundView->resizeColumnsToContents();
 
             //Gold model
             goldModel = new GoldTableModel(portfolio->getGoldTransactionList(), this);
@@ -139,6 +140,7 @@ namespace investpor {
             //Stock model
             stockModel = new StockTableModel(portfolio->getStockTransactionList(), this);
             ui->tbvStockView->setModel(stockModel);
+            ui->tbvStockView->resizeColumnsToContents();
         }
 
         void MainWindow::updateModelsAndGUI()
@@ -214,7 +216,8 @@ namespace investpor {
                 if(!portfolio->saveCryptocurrencyTransaction(cd.getTransaction()))
                 {
                     QMessageBox::information(this,
-                                             tr("Operation result"), tr("Cryptocurrency transaction could not be saved!"), QMessageBox::Ok);
+                                             tr("Operation result"), tr("Cryptocurrency transaction could not be saved!"),
+                                             QMessageBox::Ok);
                 } else {
                     statusBar()->showMessage(tr("Cryptocurrency transaction has been saved successfully!"), 3000);
                 }
@@ -231,7 +234,8 @@ namespace investpor {
             {
                 if(!portfolio->saveDiscountBondTransaction(dbd.getTransaction())) {
                     QMessageBox::information(this,
-                                             tr("Operation result"), tr("Discount bond transaction could not be saved!"), QMessageBox::Ok);
+                                             tr("Operation result"), tr("Discount bond transaction could not be saved!"),
+                                             QMessageBox::Ok);
                 } else {
                     statusBar()->showMessage(tr("Discount bond transaction has been saved successfully!"), 3000);
                 }
@@ -249,7 +253,8 @@ namespace investpor {
                 if(!portfolio->saveExchangeTransaction(ed.getTransaction()))
                 {
                     QMessageBox::information(this,
-                                             tr("Operation result"), tr("Exchange transaction could not be saved!"), QMessageBox::Ok);
+                                             tr("Operation result"), tr("Exchange transaction could not be saved!"),
+                                             QMessageBox::Ok);
                 } else {
                     statusBar()->showMessage(tr("Exchange transaction has been saved successfully!"), 3000);
                 }
@@ -267,7 +272,8 @@ namespace investpor {
                 if(!portfolio->saveFundTransaction(fd.getTransaction()))
                 {
                     QMessageBox::information(this,
-                                             tr("Operation result"), tr("Fund transaction could not be saved!"), QMessageBox::Ok);
+                                             tr("Operation result"), tr("Fund transaction could not be saved!"),
+                                             QMessageBox::Ok);
                 } else {
                     statusBar()->showMessage(tr("Fund transaction has been saved successfully!"), 3000);
                 }
@@ -285,7 +291,8 @@ namespace investpor {
                 if(!portfolio->saveGoldTransaction(gd.getTransaction()))
                 {
                     QMessageBox::information(this,
-                                             tr("Operation result"), tr("Gold transaction could not be saved!"), QMessageBox::Ok);
+                                             tr("Operation result"), tr("Gold transaction could not be saved!"),
+                                             QMessageBox::Ok);
                 } else {
                     statusBar()->showMessage(tr("Gold transaction has been saved successfully!"), 3000);
                 }
@@ -303,7 +310,8 @@ namespace investpor {
                 if(!portfolio->saveStockTransaction(sd.getTransaction()))
                 {
                     QMessageBox::information(this,
-                                             tr("Operation result"), tr("Stock transaction could not be saved!"), QMessageBox::Ok);
+                                             tr("Operation result"), tr("Stock transaction could not be saved!"),
+                                             QMessageBox::Ok);
                 } else {
                     statusBar()->showMessage(tr("Stock transaction has been saved successfully!"), 3000);
                 }

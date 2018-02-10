@@ -2,6 +2,9 @@
 
 #include "investpor/core/util.h"
 
+#include <QBrush>
+#include <QColor>
+
 using investpor::core::Util;
 using investpor::core::Currency;
 
@@ -90,6 +93,19 @@ namespace investpor {
 
         QVariant ExchangeTableModel::data(const QModelIndex &index, int role) const
         {
+            if(Qt::TextAlignmentRole == role)
+            {
+                return Qt::AlignCenter;
+            }
+
+            if(Qt::BackgroundRole == role)
+            {
+                if(Operation::BUY == transactionList.at(index.row()).getOperationType()) {
+                    return QBrush(QColor(0, 255, 0, 100));
+                }
+                return QBrush(QColor(255, 0, 0, 100));
+            }
+
             if(Qt::DisplayRole != role)
             {
                 return QVariant();
@@ -97,17 +113,17 @@ namespace investpor {
 
             switch (index.column()) {
             case 0:
-                return Util::currencySymbol(transactionList.at(index.row()).getCurrency());
+                return Util::currencySymbol(transactionList.at(index.row()).getCurrency()).toUpper();
             case 1:
                 return transactionList.at(index.row()).getTransactionId();
             case 2:
                 return Util::operationName(transactionList.at(index.row()).getOperationType());
             case 3:
-                return QString::number(transactionList.at(index.row()).getPrice(), 'f', 6);
+                return QString::number(transactionList.at(index.row()).getPrice(), 'f');
             case 4:
-                return QString::number(transactionList.at(index.row()).getAmount(), 'f', 6);
+                return QString::number(transactionList.at(index.row()).getAmount(), 'f');
             case 5:
-                return QString::number(transactionList.at(index.row()).getGoalPrice(), 'f', 6);
+                return QString::number(transactionList.at(index.row()).getGoalPrice(), 'f');
             case 6:
                 return transactionList.at(index.row()).getOperationDateTime().toString(Qt::ISODate);
             default:

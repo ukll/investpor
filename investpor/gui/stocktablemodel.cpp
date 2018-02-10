@@ -2,6 +2,9 @@
 
 #include "investpor/core/util.h"
 
+#include <QBrush>
+#include <QColor>
+
 using investpor::core::Util;
 
 namespace investpor {
@@ -95,6 +98,19 @@ namespace investpor {
 
         QVariant StockTableModel::data(const QModelIndex &index, int role) const
         {
+            if(Qt::TextAlignmentRole == role)
+            {
+                return Qt::AlignCenter;
+            }
+
+            if(Qt::BackgroundRole == role)
+            {
+                if(Operation::BUY == transactionList.at(index.row()).getOperationType()) {
+                    return QBrush(QColor(0, 255, 0, 100));
+                }
+                return QBrush(QColor(255, 0, 0, 100));
+            }
+
             if(Qt::DisplayRole != role)
             {
                 return QVariant();
@@ -102,11 +118,11 @@ namespace investpor {
 
             switch (index.column()) {
             case 0:
-                return Util::stockMarketSymbol(transactionList.at(index.row()).getStockMarket());
+                return Util::stockMarketSymbol(transactionList.at(index.row()).getStockMarket()).toUpper();
             case 1:
-                return transactionList.at(index.row()).getStockSymbol();
+                return transactionList.at(index.row()).getStockSymbol().toUpper();
             case 2:
-                return transactionList.at(index.row()).getStockName();
+                return transactionList.at(index.row()).getStockName().toUpper();
             case 3:
                 return transactionList.at(index.row()).getTransactionId();
             case 4:
