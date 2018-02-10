@@ -29,7 +29,6 @@ namespace investpor {
             explicit MainWindow(QWidget *parent = 0);
             ~MainWindow();
 
-
         private:
             Ui::MainWindow *ui;
 
@@ -40,6 +39,9 @@ namespace investpor {
             FundTableModel *fundModel;
             GoldTableModel *goldModel;
             StockTableModel *stockModel;
+
+            void readApplicationSettings();
+            void writeApplicationSettings();
 
             void newPortfolio();
             void openPortfolio();
@@ -52,6 +54,8 @@ namespace investpor {
             void fundTransaction();
             void goldTransaction();
             void stockTransaction();
+
+            virtual void closeEvent(QCloseEvent *event) override;
         };
 
     }

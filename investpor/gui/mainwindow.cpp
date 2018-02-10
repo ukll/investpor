@@ -9,6 +9,7 @@
 #include "investpor/gui/golddialog.h"
 #include "investpor/gui/stockdialog.h"
 
+#include <QSettings>
 #include <QDir>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -29,6 +30,8 @@ namespace investpor {
         {
             ui->setupUi(this);
             setWindowTitle(QString("%1 v%2 - Investment Portfolio Tracker").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
+
+            readApplicationSettings();
 
             //File menu actions
             QObject::connect(ui->actionNew_Portfolio, &QAction::triggered, this, &MainWindow::newPortfolio);
@@ -66,6 +69,24 @@ namespace investpor {
         MainWindow::~MainWindow()
         {
             delete ui;
+        }
+
+        void MainWindow::readApplicationSettings()
+        {
+            QSettings settings;
+            settings.beginGroup("MainWindow");
+            resize(settings.value("size", QSize(1100, 575)).toSize());
+            move(settings.value("pos", QPoint(200, 200)).toPoint());
+            settings.endGroup();
+        }
+
+        void MainWindow::writeApplicationSettings()
+        {
+            QSettings settings;
+            settings.beginGroup("MainWindow");
+            settings.setValue("size", size());
+            settings.setValue("pos", pos());
+            settings.endGroup();
         }
 
         void MainWindow::newPortfolio()
@@ -316,6 +337,12 @@ namespace investpor {
                     statusBar()->showMessage(tr("Stock transaction has been saved successfully!"), 3000);
                 }
             }
+        }
+
+        void MainWindow::closeEvent(QCloseEvent *event)
+        {
+            writeApplicationSettings();
+            event->accept();
         }
 
     }
