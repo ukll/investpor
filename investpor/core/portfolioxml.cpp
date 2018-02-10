@@ -62,7 +62,7 @@ namespace investpor {
             outStream.writeStartDocument();
 
             //create root element
-            outStream.writeStartElement("investments");
+            outStream.writeStartElement("portfolio");
 
             outStream.writeStartElement(Util::getInvestmentTagName(Investment::CryptoCurrencyInvestment));
             outStream.writeEndElement();
