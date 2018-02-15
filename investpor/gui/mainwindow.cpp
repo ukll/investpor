@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include "investpor/core/portfolioxml.h"
+#include "investpor/gui/portfoliodialog.h"
 #include "investpor/gui/cryptocurrencydialog.h"
 #include "investpor/gui/discountbonddialog.h"
 #include "investpor/gui/exchangedialog.h"
@@ -38,6 +39,9 @@ namespace investpor {
             QObject::connect(ui->actionOpen_Portfolio, &QAction::triggered, this, &MainWindow::openPortfolio);
             QObject::connect(ui->actionClose, &QAction::triggered, this, &MainWindow::close);
 
+            //Edit menu actions
+            QObject::connect(ui->actionEdit_Portfolio, &QAction::triggered, this, &MainWindow::editPortfolio);
+
             //BondDialog connections
             QObject::connect(ui->btnNewDiscountBondTransaction, &QPushButton::clicked, ui->actionDiscountBond, &QAction::trigger);
             QObject::connect(ui->actionDiscountBond, &QAction::triggered, this, &MainWindow::discountBondTransaction);
@@ -71,6 +75,9 @@ namespace investpor {
             delete ui;
         }
 
+        /**
+         * @brief Reads application settings from previous session
+         */
         void MainWindow::readApplicationSettings()
         {
             QSettings settings;
@@ -80,7 +87,10 @@ namespace investpor {
             settings.endGroup();
         }
 
-        void MainWindow::writeApplicationSettings()
+        /**
+         * @brief Writes application settings for next session
+         */
+        void MainWindow::writeApplicationSettings() const
         {
             QSettings settings;
             settings.beginGroup("MainWindow");
@@ -89,44 +99,69 @@ namespace investpor {
             settings.endGroup();
         }
 
+        /**
+         * @brief Creates a new portfolio by using portfolio filepath, name and base currency.
+         */
         void MainWindow::newPortfolio()
         {
-
-            QString portfolioURL =
-                QFileDialog::getSaveFileName(this, tr("New portfolio file"), QDir::homePath(), tr("XML Files (*.xml)"));
-
-            portfolio = new PortfolioXML(QDir::toNativeSeparators(portfolioURL), this);
-            if(portfolio->getState() != PortfolioXML::PortfolioState::Valid)
+            PortfolioDialog pd(this);
+            if(pd.exec() == QDialog::Accepted)
             {
-                QMessageBox::critical(this, tr("No Portfolio"),
-                    tr("Portfolio file could not be created!"));
-                ui->centralWidget->setEnabled(false);
-                return;
+                portfolio = new PortfolioXML(QDir::toNativeSeparators(pd.getPortfolioURL()),
+                                             pd.getPortfolioName(), pd.getBasecurrency(), this);
+                if(portfolio->getState() != PortfolioXML::PortfolioState::Valid)
+                {
+                    QMessageBox::critical(this, tr("No Portfolio"),
+                                          tr("Portfolio file could not be created!"));
+                    ui->centralWidget->setEnabled(false);
+                    return;
+                }
+
+                ui->actionEdit_Portfolio->setEnabled(true);
+                QObject::connect(portfolio, &PortfolioXML::portFolioModified, this, &MainWindow::updateModelsAndGUI);
+
+                connectModels();
+                updateModelsAndGUI();
+                ui->centralWidget->setEnabled(true);
+                ui->menuNew_Transaction->setEnabled(true);
             }
-
-            QObject::connect(portfolio, &PortfolioXML::portFolioModified, this, &MainWindow::updateModelsAndGUI);
-
-            connectModels();
-            updateModelsAndGUI();
-            ui->centralWidget->setEnabled(true);
-            ui->menuNew_Transaction->setEnabled(true);
         }
 
+        /**
+         * @brief Changes portfolio name and base currency.
+         */
+        void MainWindow::editPortfolio()
+        {
+            PortfolioDialog pd(portfolio->getPortfolioName(), portfolio->getBaseCurrency(), this);
+            if(pd.exec() == QDialog::Accepted)
+            {
+                if(!portfolio->setPortfolioName(pd.getPortfolioName()) ||
+                        !portfolio->setBaseCurrency(pd.getBasecurrency()))
+                {
+                    QMessageBox::warning(this, tr("Operation Failed!"),
+                                         tr("Portfolio file could not be edited!"));
+                }
+            }
+        }
+
+        /**
+         * @brief Opens an existing portfolio file by using its filepath.
+         */
         void MainWindow::openPortfolio()
         {
-
             QString portfolioURL =
-                QFileDialog::getOpenFileName(this, tr("Open a portfolio file"), QDir::homePath(), tr("XML Files (*.xml)"));
+                    QFileDialog::getOpenFileName(this, tr("Open a portfolio file"), QDir::homePath(), tr("XML Files (*.xml)"));
 
             portfolio = new PortfolioXML(QDir::toNativeSeparators(portfolioURL), this);
             if(portfolio->getState() != PortfolioXML::PortfolioState::Valid)
             {
                 QMessageBox::critical(this, tr("No Portfolio"),
-                    tr("Portfolio file could not be opened!"));
+                                      tr("Portfolio file could not be opened!"));
                 ui->centralWidget->setEnabled(false);
                 return;
             }
 
+            ui->actionEdit_Portfolio->setEnabled(true);
             QObject::connect(portfolio, &PortfolioXML::portFolioModified, this, &MainWindow::updateModelsAndGUI);
 
             connectModels();

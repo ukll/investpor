@@ -648,13 +648,14 @@
      <property name="title">
       <string>New Transaction</string>
      </property>
-     <addaction name="actionDiscountBond"/>
      <addaction name="actionCryptocurrency"/>
+     <addaction name="actionDiscountBond"/>
      <addaction name="actionExchange"/>
      <addaction name="actionFund"/>
      <addaction name="actionGold"/>
      <addaction name="actionStock"/>
     </widget>
+    <addaction name="actionEdit_Portfolio"/>
     <addaction name="menuNew_Transaction"/>
    </widget>
    <addaction name="menu_File"/>
@@ -675,6 +676,9 @@
    </property>
   </action>
   <action name="actionDiscountBond">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Discount Bond</string>
    </property>
@@ -683,6 +687,9 @@
    </property>
   </action>
   <action name="actionCryptocurrency">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Cryptocurrency</string>
    </property>
@@ -715,6 +722,14 @@
   <action name="actionNew_Portfolio">
    <property name="text">
     <string>New Portfolio</string>
+   </property>
+  </action>
+  <action name="actionEdit_Portfolio">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Edit Portfolio</string>
    </property>
   </action>
  </widget>

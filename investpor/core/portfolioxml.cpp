@@ -17,7 +17,7 @@ namespace investpor {
     namespace core {
 
         /**
-         * @brief Creates portfolio.
+         * @brief Constructor to create a portfolio object when opening an existing portfolio file.
          * @param filePath : Filepath of portfolio file.
          * @param parent : Parent to own portfolio.
          */
@@ -31,13 +31,22 @@ namespace investpor {
                 if(loadDomDocument(domDocument))
                 {
                     state = PortfolioState::Valid;
+
+                    QDomElement portfolioElement = domDocument.documentElement();
+                    portfolioName = portfolioElement.attribute("name");
+                    baseCurrency = Util::getCurrency(portfolioElement.attribute("currency"));
+
                     return;
                 }
 
                 state = PortfolioState::FileContentIsNotValid;
                 return;
             }
+        }
 
+        PortfolioXML::PortfolioXML(const QString &filePath, const QString &pName, const Currency &bCurrency, QObject *parent) :
+            QObject(parent), portfolioFile(new QFile(filePath, this)), portfolioName(pName), baseCurrency(bCurrency)
+        {
             //Get the directory of the file.
             QFileInfo fileInfo(*portfolioFile);
             QDir dir(fileInfo.absolutePath());
@@ -66,6 +75,8 @@ namespace investpor {
 
             //create root element
             outStream.writeStartElement("portfolio");
+            outStream.writeAttribute("name", pName);
+            outStream.writeAttribute("currency", Util::currencySymbol(bCurrency));
 
             outStream.writeStartElement(Util::getInvestmentTagName(Investment::CryptoCurrencyInvestment));
             outStream.writeEndElement();
@@ -91,12 +102,57 @@ namespace investpor {
             portfolioFile->close();
 
             state = PortfolioState::Valid;
-            return;
         }
 
         PortfolioXML::~PortfolioXML()
         {
 
+        }
+
+        bool PortfolioXML::setPortfolioName(const QString &pName)
+        {
+            QDomDocument domDocument;
+            //Load the DOM document
+            if(!loadDomDocument(domDocument))
+            {
+                return false;
+            }
+
+            QDomElement portfolioElement = domDocument.documentElement();
+            portfolioElement.setAttribute("name", pName);
+
+            //Save the transaction
+            if(!savePortfolio(domDocument))
+            {
+                state = FileCouldNotBeSaved;
+                return false;
+            }
+
+            portfolioName = pName;
+            return true;
+        }
+
+        bool PortfolioXML::setBaseCurrency(const Currency &bCurrency)
+        {
+            QDomDocument domDocument;
+            //Load the DOM document
+            if(!loadDomDocument(domDocument))
+            {
+                return false;
+            }
+
+            QDomElement portfolioElement = domDocument.documentElement();
+            portfolioElement.setAttribute("currency", Util::currencySymbol(bCurrency));
+
+            //Save the transaction
+            if(!savePortfolio(domDocument))
+            {
+                state = FileCouldNotBeSaved;
+                return false;
+            }
+
+            baseCurrency = bCurrency;
+            return true;
         }
 
         bool PortfolioXML::saveCryptocurrencyTransaction(const CryptocurrencyTransaction &transaction)

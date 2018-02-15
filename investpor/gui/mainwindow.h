@@ -41,9 +41,10 @@ namespace investpor {
             StockTableModel *stockModel;
 
             void readApplicationSettings();
-            void writeApplicationSettings();
+            void writeApplicationSettings() const;
 
             void newPortfolio();
+            void editPortfolio();
             void openPortfolio();
             void connectModels();
             void updateModelsAndGUI();
