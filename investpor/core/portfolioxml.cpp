@@ -24,16 +24,19 @@ namespace investpor {
         PortfolioXML::PortfolioXML(const QString &filePath, QObject *parent) :
             QObject(parent), portfolioFile(new QFile(filePath, this))
         {
-            //Check if portfolio already exists.
             QDomDocument domDocument;
 
-            if(loadDomDocument(domDocument))
-            {
-                state = PortfolioState::Valid;
+            if(portfolioFile->exists()) {
+                //Check if portfolio file is valid.
+                if(loadDomDocument(domDocument))
+                {
+                    state = PortfolioState::Valid;
+                    return;
+                }
+
+                state = PortfolioState::FileContentIsNotValid;
                 return;
             }
-
-            state = PortfolioState::FileContentIsNotValid;
 
             //Get the directory of the file.
             QFileInfo fileInfo(*portfolioFile);
