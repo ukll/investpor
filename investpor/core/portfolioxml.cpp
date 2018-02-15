@@ -219,7 +219,6 @@ namespace investpor {
                 return false;
             }
 
-            emit portFolioModified();
             return true;
         }
 
@@ -281,7 +280,6 @@ namespace investpor {
                 return false;
             }
 
-            emit portFolioModified();
             return true;
         }
 
@@ -349,7 +347,6 @@ namespace investpor {
                 return false;
             }
 
-            emit portFolioModified();
             return true;
         }
 
@@ -422,7 +419,6 @@ namespace investpor {
                 return false;
             }
 
-            emit portFolioModified();
             return true;
         }
 
@@ -490,7 +486,6 @@ namespace investpor {
                 return false;
             }
 
-            emit portFolioModified();
             return true;
         }
 
@@ -573,7 +568,6 @@ namespace investpor {
                 return false;
             }
 
-            emit portFolioModified();
             return true;
         }
 

@@ -31,6 +31,7 @@ namespace investpor {
         {
             ui->setupUi(this);
             setWindowTitle(QString("%1 v%2 - Investment Portfolio Tracker").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
+            enableTotalsLineEdits();
 
             readApplicationSettings();
 
@@ -76,6 +77,27 @@ namespace investpor {
         }
 
         /**
+         * @brief Sets totals QLineEdits enabled so that background colors become white rather than grey.
+         */
+        void MainWindow::enableTotalsLineEdits()
+        {
+            ui->leTotalCryptocurrencyBuys->setEnabled(true);
+            ui->leTotalCryptocurrencySells->setEnabled(true);
+            ui->leTotalDiscountBondBuys->setEnabled(true);
+            ui->leTotalDiscountBondSells->setEnabled(true);
+            ui->leTotalExchangeBuys->setEnabled(true);
+            ui->leTotalExchangeSells->setEnabled(true);
+            ui->leTotalFundBuys->setEnabled(true);
+            ui->leTotalFundSells->setEnabled(true);
+            ui->leTotalGoldBuys->setEnabled(true);
+            ui->leTotalGoldSells->setEnabled(true);
+            ui->leTotalStockBuys->setEnabled(true);
+            ui->leTotalStockSells->setEnabled(true);
+            ui->leTotalBuys->setEnabled(true);
+            ui->leTotalSells->setEnabled(true);
+        }
+
+        /**
          * @brief Reads application settings from previous session
          */
         void MainWindow::readApplicationSettings()
@@ -118,10 +140,9 @@ namespace investpor {
                 }
 
                 ui->actionEdit_Portfolio->setEnabled(true);
-                QObject::connect(portfolio, &PortfolioXML::portFolioModified, this, &MainWindow::updateModelsAndGUI);
 
                 connectModels();
-                updateModelsAndGUI();
+                updateTotals();
                 ui->centralWidget->setEnabled(true);
                 ui->menuNew_Transaction->setEnabled(true);
             }
@@ -162,14 +183,16 @@ namespace investpor {
             }
 
             ui->actionEdit_Portfolio->setEnabled(true);
-            QObject::connect(portfolio, &PortfolioXML::portFolioModified, this, &MainWindow::updateModelsAndGUI);
 
             connectModels();
-            updateModelsAndGUI();
+            updateTotals();
             ui->centralWidget->setEnabled(true);
             ui->menuNew_Transaction->setEnabled(true);
         }
 
+        /**
+         * @brief Connect transaction models to views.
+         */
         void MainWindow::connectModels()
         {
             //Cryptocurrency model
@@ -199,15 +222,59 @@ namespace investpor {
             ui->tbvStockView->resizeColumnsToContents();
         }
 
-        void MainWindow::updateModelsAndGUI()
+        /**
+         * @brief Updates CryptocurrencyModel with new transaction list.
+         */
+        void MainWindow::updateCryptocurrencyModel()
         {
             cryptoCurrencyModel->updateTransactionList(portfolio->getCryptocurrencyTransactionList());
-            discountBondModel->updateTransactionList(portfolio->getDiscountBondTransactionList());
-            exchangeModel->updateTransactionList(portfolio->getExchangeTransactionList());
-            fundModel->updateTransactionList(portfolio->getFundTransactionList());
-            goldModel->updateTransactionList(portfolio->getGoldTransactionList());
-            stockModel->updateTransactionList(portfolio->getStockTransactionList());
+        }
 
+        /**
+         * @brief Updates DiscountBondModel with new transaction list.
+         */
+        void MainWindow::updateDiscountBondModel()
+        {
+            discountBondModel->updateTransactionList(portfolio->getDiscountBondTransactionList());
+        }
+
+        /**
+         * @brief Updates ExchangeModel with new transaction list.
+         */
+        void MainWindow::updateExchangeModel()
+        {
+            exchangeModel->updateTransactionList(portfolio->getExchangeTransactionList());
+        }
+
+        /**
+         * @brief Updates FundModel with new transaction list.
+         */
+        void MainWindow::updateFundModel()
+        {
+            fundModel->updateTransactionList(portfolio->getFundTransactionList());
+        }
+
+        /**
+         * @brief Updates GoldModel with new transaction list.
+         */
+        void MainWindow::updateGoldModel()
+        {
+            goldModel->updateTransactionList(portfolio->getGoldTransactionList());
+        }
+
+        /**
+         * @brief Updates StockModel with new transction list.
+         */
+        void MainWindow::updateStockModel()
+        {
+            stockModel->updateTransactionList(portfolio->getStockTransactionList());
+        }
+
+        /**
+         * @brief Update total buys & total sells values in the window.
+         */
+        void MainWindow::updateTotals()
+        {
             double cryptoCurrencyBuys = cryptoCurrencyModel->totalBuys();
             double cryptoCurrencySells = cryptoCurrencyModel->totalSells();
             ui->leTotalCryptocurrencyBuys->setText(QString::number(cryptoCurrencyBuys, 'f'));
@@ -244,21 +311,6 @@ namespace investpor {
             totalInvestmentSells = cryptoCurrencySells + discountBondSells + exchangeSells + fundSells + goldSells + stockSells;
             ui->leTotalBuys->setText(QString::number(totalInvestmentBuys, 'f'));
             ui->leTotalSells->setText(QString::number(totalInvestmentSells, 'f'));
-
-            ui->leTotalCryptocurrencyBuys->setEnabled(true);
-            ui->leTotalCryptocurrencySells->setEnabled(true);
-            ui->leTotalDiscountBondBuys->setEnabled(true);
-            ui->leTotalDiscountBondSells->setEnabled(true);
-            ui->leTotalExchangeBuys->setEnabled(true);
-            ui->leTotalExchangeSells->setEnabled(true);
-            ui->leTotalFundBuys->setEnabled(true);
-            ui->leTotalFundSells->setEnabled(true);
-            ui->leTotalGoldBuys->setEnabled(true);
-            ui->leTotalGoldSells->setEnabled(true);
-            ui->leTotalStockBuys->setEnabled(true);
-            ui->leTotalStockSells->setEnabled(true);
-            ui->leTotalBuys->setEnabled(true);
-            ui->leTotalSells->setEnabled(true);
         }
 
         /**
@@ -275,6 +327,8 @@ namespace investpor {
                                              tr("Operation result"), tr("Cryptocurrency transaction could not be saved!"),
                                              QMessageBox::Ok);
                 } else {
+                    updateCryptocurrencyModel();
+                    updateTotals();
                     statusBar()->showMessage(tr("Cryptocurrency transaction has been saved successfully!"), 3000);
                 }
             }
@@ -293,6 +347,8 @@ namespace investpor {
                                              tr("Operation result"), tr("Discount bond transaction could not be saved!"),
                                              QMessageBox::Ok);
                 } else {
+                    updateDiscountBondModel();
+                    updateTotals();
                     statusBar()->showMessage(tr("Discount bond transaction has been saved successfully!"), 3000);
                 }
             }
@@ -312,6 +368,8 @@ namespace investpor {
                                              tr("Operation result"), tr("Exchange transaction could not be saved!"),
                                              QMessageBox::Ok);
                 } else {
+                    updateExchangeModel();
+                    updateTotals();
                     statusBar()->showMessage(tr("Exchange transaction has been saved successfully!"), 3000);
                 }
             }
@@ -331,6 +389,8 @@ namespace investpor {
                                              tr("Operation result"), tr("Fund transaction could not be saved!"),
                                              QMessageBox::Ok);
                 } else {
+                    updateFundModel();
+                    updateTotals();
                     statusBar()->showMessage(tr("Fund transaction has been saved successfully!"), 3000);
                 }
             }
@@ -350,6 +410,8 @@ namespace investpor {
                                              tr("Operation result"), tr("Gold transaction could not be saved!"),
                                              QMessageBox::Ok);
                 } else {
+                    updateGoldModel();
+                    updateTotals();
                     statusBar()->showMessage(tr("Gold transaction has been saved successfully!"), 3000);
                 }
             }
@@ -369,11 +431,17 @@ namespace investpor {
                                              tr("Operation result"), tr("Stock transaction could not be saved!"),
                                              QMessageBox::Ok);
                 } else {
+                    updateStockModel();
+                    updateTotals();
                     statusBar()->showMessage(tr("Stock transaction has been saved successfully!"), 3000);
                 }
             }
         }
 
+        /**
+         * @brief Interrupts closeEvent for some important operations.
+         * @param event : QCloseEvent object that is sent when window is closing.
+         */
         void MainWindow::closeEvent(QCloseEvent *event)
         {
             writeApplicationSettings();

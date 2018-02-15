@@ -40,6 +40,7 @@ namespace investpor {
             GoldTableModel *goldModel;
             StockTableModel *stockModel;
 
+            void enableTotalsLineEdits();
             void readApplicationSettings();
             void writeApplicationSettings() const;
 
@@ -47,7 +48,13 @@ namespace investpor {
             void editPortfolio();
             void openPortfolio();
             void connectModels();
-            void updateModelsAndGUI();
+            void updateCryptocurrencyModel();
+            void updateDiscountBondModel();
+            void updateExchangeModel();
+            void updateFundModel();
+            void updateGoldModel();
+            void updateStockModel();
+            void updateTotals();
 
             void cryptoCurrencyTransaction();
             void discountBondTransaction();

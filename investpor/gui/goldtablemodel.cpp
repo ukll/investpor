@@ -12,7 +12,8 @@ namespace investpor {
 
     namespace gui {
 
-        GoldTableModel::GoldTableModel(QList<GoldTransaction> list, QObject *parent)
+        GoldTableModel::GoldTableModel(QList<GoldTransaction> list, QObject *parent) :
+            TableModel(parent), transactionList(list)
         {
 
         }
