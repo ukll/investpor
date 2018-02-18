@@ -13,9 +13,9 @@ namespace investpor {
         class GoldTransaction : public Transaction
         {
         public:
-            GoldTransaction(const quint16 &id = 0) : Transaction(id) { }
+            GoldTransaction() : Transaction() { }
             GoldTransaction(const Util::Operation &op, const Util::Gold &gType, const double &prc, const double &amnt,
-                const QDateTime &dt, const double &gPrice, const quint16 &id = 0);
+                const QDateTime &dt, const double &gPrice);
             virtual ~GoldTransaction() { }
 
             Util::Operation getOperationType() const { return operationType; }

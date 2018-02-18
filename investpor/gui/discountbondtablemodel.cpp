@@ -74,18 +74,16 @@ namespace investpor {
             case 0:
                 return QString("ISIN");
             case 1:
-                return QString("Transaction ID");
-            case 2:
                 return QString("Operation Type");
-            case 3:
+            case 2:
                 return QString("Term");
-            case 4:
+            case 3:
                 return QString("Nominal Value");
-            case 5:
+            case 4:
                 return QString("Sale Price");
-            case 6:
+            case 5:
                 return QString("Count");
-            case 7:
+            case 6:
                 return QString("Operation Date");
             default:
                 return QVariant();
@@ -116,18 +114,16 @@ namespace investpor {
             case 0:
                 return transactionList.at(index.row()).getISIN().toUpper();
             case 1:
-                return transactionList.at(index.row()).getTransactionId();
-            case 2:
                 return Util::operationName(transactionList.at(index.row()).getOperationType());
-            case 3:
+            case 2:
                 return transactionList.at(index.row()).getTerm().toString(Qt::ISODate);
-            case 4:
+            case 3:
                 return QString::number(transactionList.at(index.row()).getNominalValue(), 'f');
-            case 5:
+            case 4:
                 return QString::number(transactionList.at(index.row()).getSalePrice(), 'f');;
-            case 6:
+            case 5:
                 return transactionList.at(index.row()).getCount();
-            case 7:
+            case 6:
                 return transactionList.at(index.row()).getOperationDate().toString(Qt::ISODate);
             default:
                 return QVariant();

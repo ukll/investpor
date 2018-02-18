@@ -15,9 +15,9 @@ namespace investpor {
         class ExchangeTransaction : public Transaction
         {
         public:
-            ExchangeTransaction(const quint16 &id = 0) : Transaction(id) { }
+            ExchangeTransaction() : Transaction() { }
             ExchangeTransaction(const Util::Operation &op, const Util::Currency &cur, const double &prc, const double &amnt,
-                const QDateTime &dt, const double &gPrice, const quint16 &id = 0);
+                const QDateTime &dt, const double &gPrice);
             virtual ~ExchangeTransaction() { }
 
             Util::Operation getOperationType() const { return operationType; }

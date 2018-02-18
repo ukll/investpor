@@ -210,7 +210,6 @@ namespace investpor {
             //Fund model
             fundModel = new FundTableModel(portfolio->getFundTransactionList(), this);
             ui->tbvFundView->setModel(fundModel);
-            ui->tbvFundView->resizeColumnsToContents();
 
             //Gold model
             goldModel = new GoldTableModel(portfolio->getGoldTransactionList(), this);
@@ -219,7 +218,6 @@ namespace investpor {
             //Stock model
             stockModel = new StockTableModel(portfolio->getStockTransactionList(), this);
             ui->tbvStockView->setModel(stockModel);
-            ui->tbvStockView->resizeColumnsToContents();
         }
 
         /**

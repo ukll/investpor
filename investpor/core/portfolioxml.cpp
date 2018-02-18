@@ -178,12 +178,9 @@ namespace investpor {
                 //Cryptocurrency element does not exist. Create a new one.
                 cryptoCurrencyElement = domDocument.createElement(Util::cryptoCurrencySymbol(transaction.getCryptocurrency()).toLower());
                 cryptoCurrencyInvestmentElement.appendChild(cryptoCurrencyElement);
-                transactionElement.setAttribute("id", 1);
-            } else {
-                transactionElement.setAttribute("id", cryptoCurrencyElement.lastChild().toElement().attribute("id").toInt() + 1);
             }
 
-            transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()));
+            transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()).toLower());
             cryptoCurrencyElement.appendChild(transactionElement);
 
             QDomElement priceElement = domDocument.createElement("price");
@@ -197,7 +194,7 @@ namespace investpor {
             transactionElement.appendChild(amountElement);
 
             QDomElement dateTimeElement = domDocument.createElement("date-time");
-            QDomText dateTimeText = domDocument.createTextNode(transaction.getOperationDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+            QDomText dateTimeText = domDocument.createTextNode(transaction.getOperationDateTime().toString(Qt::ISODate));
             dateTimeElement.appendChild(dateTimeText);
             transactionElement.appendChild(dateTimeElement);
 
@@ -244,15 +241,12 @@ namespace investpor {
             {
                 //Discount bond element does not exist. Create a new one.
                 discountBondElement = domDocument.createElement(transaction.getISIN().toLower());
-                discountBondElement.setAttribute("term", transaction.getTerm().toString("yyyy-MM-dd"));
+                discountBondElement.setAttribute("term", transaction.getTerm().toString(Qt::ISODate));
                 discountBondElement.setAttribute("nominal-value", QString::number(transaction.getNominalValue()));
                 discountBondInvestmentElement.appendChild(discountBondElement);
-                transactionElement.setAttribute("id", 1);
-            } else {
-                transactionElement.setAttribute("id", discountBondElement.lastChild().toElement().attribute("id").toInt() + 1);
             }
 
-            transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()));
+            transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()).toLower());
             discountBondElement.appendChild(transactionElement);
 
             QDomElement salePriceElement = domDocument.createElement("sale-price");
@@ -266,7 +260,7 @@ namespace investpor {
             transactionElement.appendChild(countElement);
 
             QDomElement operationDateElement = domDocument.createElement("operation-date");
-            QDomText operationDateText = domDocument.createTextNode(transaction.getOperationDate().toString("yyyy-MM-dd"));
+            QDomText operationDateText = domDocument.createTextNode(transaction.getOperationDate().toString(Qt::ISODate));
             operationDateElement.appendChild(operationDateText);
             transactionElement.appendChild(operationDateElement);
 
@@ -306,12 +300,9 @@ namespace investpor {
                 //Exchange element does not exist. Create a new one.
                 exchangeElement = domDocument.createElement(Util::currencySymbol(transaction.getCurrency()).toLower());
                 exchangeInvestmentElement.appendChild(exchangeElement);
-                transactionElement.setAttribute("id", 1);
-            } else {
-                transactionElement.setAttribute("id", exchangeElement.lastChild().toElement().attribute("id").toInt() + 1);
             }
 
-            transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()));
+            transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()).toLower());
             exchangeElement.appendChild(transactionElement);
 
             QDomElement priceElement = domDocument.createElement("price");
@@ -325,7 +316,7 @@ namespace investpor {
             transactionElement.appendChild(amountElement);
 
             QDomElement dateTimeElement = domDocument.createElement("date-time");
-            QDomText dateTimeText = domDocument.createTextNode(transaction.getOperationDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+            QDomText dateTimeText = domDocument.createTextNode(transaction.getOperationDateTime().toString(Qt::ISODate));
             dateTimeElement.appendChild(dateTimeText);
             transactionElement.appendChild(dateTimeElement);
 
@@ -373,12 +364,9 @@ namespace investpor {
                 fundElement = domDocument.createElement(transaction.getFundCode().toLower());
                 fundElement.setAttribute("name", transaction.getFundName());
                 fundInvestmentElement.appendChild(fundElement);
-                transactionElement.setAttribute("id", 1);
-            } else {
-                transactionElement.setAttribute("id", fundElement.lastChild().toElement().attribute("id").toInt() + 1);
             }
 
-            transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()));
+            transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()).toLower());
             fundElement.appendChild(transactionElement);
 
             QDomElement priceElement = domDocument.createElement("price");
@@ -392,12 +380,12 @@ namespace investpor {
             transactionElement.appendChild(countElement);
 
             QDomElement orderDateElement = domDocument.createElement("order-date");
-            QDomText orderDateText = domDocument.createTextNode(transaction.getOrderDate().toString("yyyy-MM-dd"));
+            QDomText orderDateText = domDocument.createTextNode(transaction.getOrderDate().toString(Qt::ISODate));
             orderDateElement.appendChild(orderDateText);
             transactionElement.appendChild(orderDateElement);
 
             QDomElement operationDateElement = domDocument.createElement("operation-date");
-            QDomText operationDateText = domDocument.createTextNode(transaction.getOperationDate().toString("yyyy-MM-dd"));
+            QDomText operationDateText = domDocument.createTextNode(transaction.getOperationDate().toString(Qt::ISODate));
             operationDateElement.appendChild(operationDateText);
             transactionElement.appendChild(operationDateElement);
 
@@ -445,12 +433,9 @@ namespace investpor {
                 //Gold element does not exist. Create a new one.
                 goldElement = domDocument.createElement(Util::goldSymbol(transaction.getGoldType()).toLower());
                 goldInvestmentElement.appendChild(goldElement);
-                transactionElement.setAttribute("id", 1);
-            } else {
-                transactionElement.setAttribute("id", goldElement.lastChild().toElement().attribute("id").toInt() + 1);
             }
 
-            transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()));
+            transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()).toLower());
             goldElement.appendChild(transactionElement);
 
             QDomElement priceElement = domDocument.createElement("price");
@@ -464,7 +449,7 @@ namespace investpor {
             transactionElement.appendChild(amountElement);
 
             QDomElement dateTimeElement = domDocument.createElement("date-time");
-            QDomText dateTimeText = domDocument.createTextNode(transaction.getOperationDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+            QDomText dateTimeText = domDocument.createTextNode(transaction.getOperationDateTime().toString(Qt::ISODate));
             dateTimeElement.appendChild(dateTimeText);
             transactionElement.appendChild(dateTimeElement);
 
@@ -522,12 +507,9 @@ namespace investpor {
                 stockElement = domDocument.createElement(transaction.getStockSymbol().toLower());
                 stockMarketElement.appendChild(stockElement);
                 stockElement.setAttribute("name", transaction.getStockName().toLower());
-                transactionElement.setAttribute("id", 1);
-            } else {
-                transactionElement.setAttribute("id", stockElement.lastChild().toElement().attribute("id").toInt() + 1);
             }
 
-            transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()));
+            transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()).toLower());
             stockElement.appendChild(transactionElement);
 
             QDomElement priceElement = domDocument.createElement("price");
@@ -546,7 +528,7 @@ namespace investpor {
             transactionElement.appendChild(commissionRateElement);
 
             QDomElement dateTimeElement = domDocument.createElement("date-time");
-            QDomText dateTimeText = domDocument.createTextNode(transaction.getOperationDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+            QDomText dateTimeText = domDocument.createTextNode(transaction.getOperationDateTime().toString(Qt::ISODate));
             dateTimeElement.appendChild(dateTimeText);
             transactionElement.appendChild(dateTimeElement);
 
@@ -607,7 +589,6 @@ namespace investpor {
                     }
 
                     transaction = CryptocurrencyTransaction();
-                    transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setCryptocurrency(currentCryptocurrency);
 
                     Util::Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
@@ -630,7 +611,7 @@ namespace investpor {
                             } else if(transactionChildElement.tagName() == "amount") {
                                 transaction.setAmount(transactionChildElement.text().toDouble());
                             } else if(transactionChildElement.tagName() == "date-time") {
-                                transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), "yyyy-MM-dd hh:mm:ss"));
+                                transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), Qt::ISODate));
                             } else if(transactionChildElement.tagName() == "goal-price") {
                                 transaction.setGoalPrice(transactionChildElement.text().toDouble());
                             } else {
@@ -677,9 +658,8 @@ namespace investpor {
                     }
 
                     transaction = DiscountBondTransaction();
-                    transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setISIN(discountBondNodeList.at(discountBondNode).toElement().tagName());
-                    transaction.setTerm(QDate::fromString(discountBondNodeList.at(discountBondNode).toElement().attribute("term"), "yyyy-MM-dd"));
+                    transaction.setTerm(QDate::fromString(discountBondNodeList.at(discountBondNode).toElement().attribute("term"), Qt::ISODate));
                     transaction.setNominalValue(discountBondNodeList.at(discountBondNode).toElement().attribute("nominal-value").toDouble());
 
                     Util::Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
@@ -702,7 +682,7 @@ namespace investpor {
                             } else if(transactionChildElement.tagName() == "count") {
                                 transaction.setCount(transactionChildElement.text().toUShort());
                             } else if(transactionChildElement.tagName() == "operation-date") {
-                                transaction.setOperationDate(QDate::fromString(transactionChildElement.text(), "yyyy-MM-dd"));
+                                transaction.setOperationDate(QDate::fromString(transactionChildElement.text(), Qt::ISODate));
                             } else {
                                 //Not yet supported transaction info.
                                 continue;
@@ -754,7 +734,6 @@ namespace investpor {
                     }
 
                     transaction = ExchangeTransaction();
-                    transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setCurrency(currentCurrency);
 
                     Util::Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
@@ -777,7 +756,7 @@ namespace investpor {
                             } else if(transactionChildElement.tagName() == "amount") {
                                 transaction.setAmount(transactionChildElement.text().toDouble());
                             } else if(transactionChildElement.tagName() == "date-time") {
-                                transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), "yyyy-MM-dd hh:mm:ss"));
+                                transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), Qt::ISODate));
                             } else if(transactionChildElement.tagName() == "goal-price") {
                                 transaction.setGoalPrice(transactionChildElement.text().toDouble());
                             } else {
@@ -824,7 +803,6 @@ namespace investpor {
                     }
 
                     transaction = FundTransaction();
-                    transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setFundCode(fundNodeList.at(fundNode).toElement().tagName());
                     transaction.setFundName(fundNodeList.at(fundNode).toElement().attribute("name"));
 
@@ -848,9 +826,9 @@ namespace investpor {
                             } else if(transactionChildElement.tagName() == "count") {
                                 transaction.setCount(transactionChildElement.text().toDouble());
                             } else if(transactionChildElement.tagName() == "order-date") {
-                                transaction.setOrderDate(QDate::fromString(transactionChildElement.text(), "yyyy-MM-dd"));
+                                transaction.setOrderDate(QDate::fromString(transactionChildElement.text(), Qt::ISODate));
                             } else if(transactionChildElement.tagName() == "operation-date") {
-                                transaction.setOperationDate(QDate::fromString(transactionChildElement.text(), "yyyy-MM-dd"));
+                                transaction.setOperationDate(QDate::fromString(transactionChildElement.text(), Qt::ISODate));
                             } else if(transactionChildElement.tagName() == "goal-price") {
                                 transaction.setGoalPrice(transactionChildElement.text().toDouble());
                             } else {
@@ -904,7 +882,6 @@ namespace investpor {
                     }
 
                     transaction = GoldTransaction();
-                    transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setGoldType(currentGold);
 
                     Util::Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
@@ -927,7 +904,7 @@ namespace investpor {
                             } else if(transactionChildElement.tagName() == "amount") {
                                 transaction.setAmount(transactionChildElement.text().toDouble());
                             } else if(transactionChildElement.tagName() == "date-time") {
-                                transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), "yyyy-MM-dd hh:mm:ss"));
+                                transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), Qt::ISODate));
                             } else if(transactionChildElement.tagName() == "goal-price") {
                                 transaction.setGoalPrice(transactionChildElement.text().toDouble());
                             } else {
@@ -985,7 +962,6 @@ namespace investpor {
                         }
 
                         transaction = StockTransaction();
-                        transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                         transaction.setStockMarket(currentStockMarket);
                         transaction.setStockSymbol(stockNodeList.at(stockNode).toElement().tagName());
                         transaction.setStockName(stockNodeList.at(stockNode).toElement().attribute("name"));
@@ -1012,7 +988,7 @@ namespace investpor {
                                 } else if(transactionChildElement.tagName() == "commission-rate") {
                                     transaction.setCommissionRate(transactionChildElement.text().toDouble());
                                 } else if(transactionChildElement.tagName() == "date-time") {
-                                    transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), "yyyy-MM-dd hh:mm:ss"));
+                                    transaction.setOperationDateTime(QDateTime::fromString(transactionChildElement.text(), Qt::ISODate));
                                 } else if(transactionChildElement.tagName() == "goal-price") {
                                     transaction.setGoalPrice(transactionChildElement.text().toDouble());
                                 } else {

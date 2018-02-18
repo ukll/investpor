@@ -26,7 +26,7 @@ namespace investpor {
             virtual int columnCount(const QModelIndex &parent) const override { return columns; }
 
         private:
-            const static int columns = 7;
+            const static int columns = 6;
             QList<CryptocurrencyTransaction> transactionList;
         };
 

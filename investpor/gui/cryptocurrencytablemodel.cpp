@@ -75,16 +75,14 @@ namespace investpor {
             case 0:
                 return QString("Cryptocurrency");
             case 1:
-                return QString("Transaction ID");
-            case 2:
                 return QString("Operation Type");
-            case 3:
+            case 2:
                 return QString("Price");
-            case 4:
+            case 3:
                 return QString("Amount");
-            case 5:
+            case 4:
                 return QString("Goal Price");
-            case 6:
+            case 5:
                 return QString("Date and Time");
             default:
                 return QVariant();
@@ -115,16 +113,14 @@ namespace investpor {
             case 0:
                 return Util::cryptoCurrencySymbol(transactionList.at(index.row()).getCryptocurrency()).toUpper();
             case 1:
-                return transactionList.at(index.row()).getTransactionId();
-            case 2:
                 return Util::operationName(transactionList.at(index.row()).getOperationType());
-            case 3:
+            case 2:
                 return QString::number(transactionList.at(index.row()).getPrice(), 'f');
-            case 4:
+            case 3:
                 return QString::number(transactionList.at(index.row()).getAmount(), 'f', 10);
-            case 5:
+            case 4:
                 return QString::number(transactionList.at(index.row()).getGoalPrice(), 'f');
-            case 6:
+            case 5:
                 return transactionList.at(index.row()).getOperationDateTime().toString(Qt::ISODate);
             default:
                 return QVariant();

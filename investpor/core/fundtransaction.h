@@ -13,9 +13,9 @@ namespace investpor {
         class FundTransaction : public Transaction
         {
         public:
-            FundTransaction(const quint16 &id = 0) : Transaction(id) { }
+            FundTransaction() : Transaction() { }
             FundTransaction(const Util::Operation &op, const QString &fCode, const QString &fName, const double &prc, const quint32 &cnt,
-                            const QDate &orDate, const QDate &opDate, const double &gPrice, const quint16 &id = 0);
+                            const QDate &orDate, const QDate &opDate, const double &gPrice);
             virtual ~FundTransaction() { }
 
             Util::Operation getOperationType() const { return operationType; }

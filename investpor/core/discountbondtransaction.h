@@ -14,9 +14,9 @@ namespace investpor {
         class DiscountBondTransaction : public Transaction
         {
         public:
-            DiscountBondTransaction(const quint16 &id = 0) : Transaction(id) { }
+            DiscountBondTransaction() : Transaction() { }
             DiscountBondTransaction(const Util::Operation &op, const QString &isin, const QDate &term, const double &nomValue,
-                const double &sPrice, quint32 cnt, const QDate &opDate, const quint16 &id = 0);
+                const double &sPrice, quint32 cnt, const QDate &opDate);
             virtual ~DiscountBondTransaction() { }
 
             Util::Operation getOperationType() const { return operationType; }
