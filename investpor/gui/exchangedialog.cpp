@@ -23,7 +23,7 @@ namespace investpor {
             ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
             ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
 
-            for(uint i = Currency::AUD; i <= Currency::USD; ++i)
+            for(uint i = Currency::ARS; i <= Currency::ZAR; ++i)
             {
                 ui->cbCurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Currency>(i)).toUpper())
                                         .arg(Util::currencyName(static_cast<Currency>(i))));

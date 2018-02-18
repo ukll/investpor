@@ -25,7 +25,7 @@ namespace investpor {
             setWindowTitle(tr("New Portfolio"));
             ui->vlStatusBarLayout->addWidget(&statusBar);
 
-            for(uint i = Currency::AUD; i <= Currency::USD; ++i)
+            for(uint i = Currency::ARS; i <= Currency::ZAR; ++i)
             {
                 ui->cbBaseCurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Currency>(i)).toUpper())
                                             .arg(Util::currencyName(static_cast<Currency>(i))));
@@ -47,7 +47,7 @@ namespace investpor {
             setWindowTitle(tr("Edit Portfolio"));
             ui->vlStatusBarLayout->addWidget(&statusBar);
 
-            for(uint i = Currency::AUD; i <= Currency::USD; ++i)
+            for(uint i = Currency::ARS; i <= Currency::ZAR; ++i)
             {
                 ui->cbBaseCurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Currency>(i)).toUpper())
                                             .arg(Util::currencyName(static_cast<Currency>(i))));

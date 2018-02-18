@@ -26,7 +26,7 @@ namespace investpor {
             ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
             ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
 
-            for(uint i = StockMarket::BIST; i <= StockMarket::NYSE; ++i)
+            for(uint i = StockMarket::BMEX; i <= StockMarket::XTSE; ++i)
             {
                 ui->cbMarket->addItem(QString("%1 - %2").arg(Util::stockMarketSymbol(static_cast<StockMarket>(i))).toUpper()
                                       .arg(Util::stockMarketName(static_cast<StockMarket>(i))));

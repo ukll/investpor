@@ -11,11 +11,12 @@ namespace investpor {
         };
 
         enum Cryptocurrency {
-            InvalidCryptocurrency = 0, ETC, ETH, LTC, IOT, XBT, XRP
+            InvalidCryptocurrency = 0, BCH, DASH, ETC, ETH, LTC, MIOTA, XBT, XRP
         };
 
         enum Currency {
-            InvalidCurrency = 0, AUD, CAD, CNY, EUR, TRY, USD
+            InvalidCurrency = 0, ARS, AUD, BRL, CAD, CHF, CNY, EUR, GBP,
+            HKD, IDR, INR, JPY, KRW, MXN, PLN, QAR, RUB, SAR, TND, TRY, USD, ZAR
         };
 
         enum Gold {
@@ -27,7 +28,10 @@ namespace investpor {
         };
 
         enum StockMarket {
-            InvalidStockMarket = 0, BIST, NASDAQ, NYSE
+            InvalidStockMarket = 0,
+            BMEX, BVMF, MISX, NAPA, XAMS, XASX, XBOM, XFRA,
+            XIST, XLON, XMIL, XHKG, XJPX, XJSE, XKRX, XNAS,
+            XNSE, XNYS, XPAR, XSHE, XSHG, XSWX, XTAI, XTSE
         };
 
     }
