@@ -1,10 +1,8 @@
 #include "investpor/gui/funddialog.h"
 #include "ui_funddialog.h"
 
-#include "investpor/core/types.h"
 #include "investpor/core/util.h"
 
-using investpor::core::Operation;
 using investpor::core::Util;
 
 namespace investpor {
@@ -22,8 +20,8 @@ namespace investpor {
             ui->leCode->setValidator(&fundCodeValidator);
             fundNameValidator.setRegularExpression(Util::fundNameRegularExpression());
             ui->leName->setValidator(&fundNameValidator);
-            ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
+            ui->cbOperationType->addItem(Util::operationName(Util::Operation::BUY));
+            ui->cbOperationType->addItem(Util::operationName(Util::Operation::SELL));
 
             QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
                              [this](int index){ rearrangeDialog(++index); });
@@ -38,7 +36,7 @@ namespace investpor {
 
         void FundDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Operation::BUY == operationIndex) {
+            if(Util::Operation::BUY == operationIndex) {
                 ui->lblName->setVisible(true);
                 ui->leName->setVisible(true);
                 ui->lblGoalPrice->setVisible(true);
@@ -61,7 +59,7 @@ namespace investpor {
                 errorMessageList << tr("Fund code is invalid!");
             }
 
-            if(Operation::BUY == (ui->cbOperationType->currentIndex() + 1)) {
+            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1)) {
                 if(ui->leName->text().simplified().isEmpty()) {
                     errorMessageList << tr("Fund name cannot be empty!");
                 } else if(!ui->leName->hasAcceptableInput()) {
@@ -92,7 +90,7 @@ namespace investpor {
             }
 
             //If it is a buy operation, check the validity of goal price.
-            if(Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(!ui->dsbGoalPrice->text().simplified().isEmpty() && !ui->dsbGoalPrice->hasAcceptableInput()) {
                     errorMessageList << tr("Goal price is invalid!");
@@ -106,7 +104,7 @@ namespace investpor {
                 return;
             }
 
-            transaction = FundTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex() + 1),
+            transaction = FundTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentIndex() + 1),
                                           ui->leCode->text().simplified(), ui->leName->text().simplified(),
                                           ui->dsbPrice->value(), static_cast<quint32>(ui->sbCount->value()),
                                           ui->deOrderDate->date(), ui->deOperationDate->date(), ui->dsbGoalPrice->value());

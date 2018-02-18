@@ -1,12 +1,10 @@
 #ifndef FUNDTRANSACTION_H
 #define FUNDTRANSACTION_H
 
-#include "investpor/core/types.h"
+#include "investpor/core/util.h"
 #include "investpor/core/transaction.h"
 
 #include <QDate>
-
-using investpor::core::Operation;
 
 namespace investpor {
 
@@ -16,12 +14,12 @@ namespace investpor {
         {
         public:
             FundTransaction(const quint16 &id = 0) : Transaction(id) { }
-            FundTransaction(const Operation &op, const QString &fCode, const QString &fName, const double &prc, const quint32 &cnt,
+            FundTransaction(const Util::Operation &op, const QString &fCode, const QString &fName, const double &prc, const quint32 &cnt,
                             const QDate &orDate, const QDate &opDate, const double &gPrice, const quint16 &id = 0);
             virtual ~FundTransaction() { }
 
-            Operation getOperationType() const { return operationType; }
-            void setOperationType(const Operation &op) { operationType = op; }
+            Util::Operation getOperationType() const { return operationType; }
+            void setOperationType(const Util::Operation &op) { operationType = op; }
             QString getFundCode() const { return fundCode; }
             void setFundCode(const QString &fCode) { fundCode = fCode; }
             QString getFundName() const { return fundName; }
@@ -38,7 +36,7 @@ namespace investpor {
             void setGoalPrice(const double &gPrice) { goalPrice = gPrice; }
 
         private:
-            Operation operationType;
+            Util::Operation operationType;
             QString fundCode;
             QString fundName;
             double price;

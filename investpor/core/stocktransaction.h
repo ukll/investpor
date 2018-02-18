@@ -1,13 +1,10 @@
 #ifndef STOCKTRANSACTION_H
 #define STOCKTRANSACTION_H
 
-#include "investpor/core/types.h"
+#include "investpor/core/util.h"
 #include "investpor/core/transaction.h"
 
 #include <QDateTime>
-
-using investpor::core::Operation;
-using investpor::core::StockMarket;
 
 namespace investpor {
 
@@ -17,14 +14,14 @@ namespace investpor {
         {
         public:
             StockTransaction(const quint16 &id = 0) : Transaction(id) { }
-            StockTransaction(const Operation &op, const StockMarket &sMarket, const QString &symbol, const QString &name, const double &prc,
+            StockTransaction(const Util::Operation &op, const Util::StockMarket &sMarket, const QString &symbol, const QString &name, const double &prc,
                              const quint32 &cnt, const double &cRate, const QDateTime &opDateTime, const double &gPrice, const quint16 &id = 0);
             virtual ~StockTransaction() { }
 
-            Operation getOperationType() const { return operationType; }
-            void setOperationType(const Operation &op) { operationType = op; }
-            StockMarket getStockMarket() const { return stockMarket; }
-            void setStockMarket(const StockMarket &sMarket) { stockMarket = sMarket; }
+            Util::Operation getOperationType() const { return operationType; }
+            void setOperationType(const Util::Operation &op) { operationType = op; }
+            Util::StockMarket getStockMarket() const { return stockMarket; }
+            void setStockMarket(const Util::StockMarket &sMarket) { stockMarket = sMarket; }
             QString getStockSymbol() const { return stockSymbol; }
             void setStockSymbol(const QString &symbol) { stockSymbol = symbol; }
             QString getStockName() const { return stockName; }
@@ -41,8 +38,8 @@ namespace investpor {
             void setGoalPrice(const double &gPrice) { goalPrice = gPrice; }
 
         private:
-            Operation operationType;
-            StockMarket stockMarket;
+            Util::Operation operationType;
+            Util::StockMarket stockMarket;
             QString stockSymbol;
             QString stockName;
             double price;

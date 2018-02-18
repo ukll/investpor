@@ -1,12 +1,9 @@
 #include "investpor/gui/cryptocurrencydialog.h"
 #include "ui_cryptocurrencydialog.h"
 
-#include "investpor/core/types.h"
 #include "investpor/core/util.h"
 #include "investpor/core/cryptocurrencytransaction.h"
 
-using investpor::core::Operation;
-using investpor::core::Cryptocurrency;
 using investpor::core::Util;
 using investpor::core::CryptocurrencyTransaction;
 
@@ -21,13 +18,13 @@ namespace investpor {
             ui->setupUi(this);
             setWindowTitle(tr("Cryptocurrency Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
-            ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
+            ui->cbOperationType->addItem(Util::operationName(Util::Operation::BUY));
+            ui->cbOperationType->addItem(Util::operationName(Util::Operation::SELL));
 
-            for(int i = Cryptocurrency::BCH; i <= Cryptocurrency::XRP; ++i)
+            for(int i = Util::Cryptocurrency::BCH; i <= Util::Cryptocurrency::XRP; ++i)
             {
-                ui->cbCryptocurrency->addItem(QString("%1 - %2").arg(Util::cryptoCurrencySymbol(static_cast<Cryptocurrency>(i)).toUpper())
-                                              .arg(Util::cryptoCurrencyName(static_cast<Cryptocurrency>(i)))
+                ui->cbCryptocurrency->addItem(QString("%1 - %2").arg(Util::cryptoCurrencySymbol(static_cast<Util::Cryptocurrency>(i)).toUpper())
+                                              .arg(Util::cryptoCurrencyName(static_cast<Util::Cryptocurrency>(i)))
                                               );
             }
 
@@ -44,7 +41,7 @@ namespace investpor {
 
         void CryptocurrencyDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Operation::BUY == operationIndex) {
+            if(Util::Operation::BUY == operationIndex) {
                 ui->lblGoalPrice->setVisible(true);
                 ui->dsbGoalPrice->setVisible(true);
             } else {
@@ -76,7 +73,7 @@ namespace investpor {
             }
 
 
-            if(Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(ui->dsbGoalPrice->text().simplified().isEmpty()) {
                     errorMessageList << tr("Goal price cannot be empty!");
@@ -92,8 +89,8 @@ namespace investpor {
                 return;
             }
 
-            transaction = CryptocurrencyTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex() + 1),
-                                                    static_cast<Cryptocurrency>(ui->cbCryptocurrency->currentIndex() + 1),
+            transaction = CryptocurrencyTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentIndex() + 1),
+                                                    static_cast<Util::Cryptocurrency>(ui->cbCryptocurrency->currentIndex() + 1),
                                                     ui->dsbPrice->value(), ui->dsbAmount->value(), ui->dteDateTime->dateTime(),
                                                     ui->dsbGoalPrice->value());
 

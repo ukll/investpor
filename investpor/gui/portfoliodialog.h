@@ -1,7 +1,7 @@
 #ifndef PORTFOLIODIALOG_H
 #define PORTFOLIODIALOG_H
 
-#include "investpor/core/types.h"
+#include "investpor/core/util.h"
 
 #include <QDialog>
 #include <QStatusBar>
@@ -10,7 +10,7 @@ namespace Ui {
     class PortfolioDialog;
 }
 
-using investpor::core::Currency;
+using investpor::core::Util;
 
 namespace investpor {
 
@@ -22,12 +22,12 @@ namespace investpor {
 
         public:
             explicit PortfolioDialog(QWidget *parent = nullptr);
-            PortfolioDialog(const QString &pName, const Currency &bCurrency, QWidget *parent = nullptr);
+            PortfolioDialog(const QString &pName, const Util::Currency &bCurrency, QWidget *parent = nullptr);
             ~PortfolioDialog();
 
             const QString getPortfolioName() const { return portfolioName; }
             const QString getPortfolioURL() const { return portfolioURL; }
-            Currency getBasecurrency() const { return baseCurrency; }
+            Util::Currency getBasecurrency() const { return baseCurrency; }
 
         private:
             Ui::PortfolioDialog *ui;
@@ -36,7 +36,7 @@ namespace investpor {
             bool isEditDialog;
             QString portfolioName;
             QString portfolioURL;
-            Currency baseCurrency;
+            Util::Currency baseCurrency;
 
             void browseForFile();
             virtual void accept() override;

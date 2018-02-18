@@ -1,7 +1,7 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#include "investpor/core/types.h"
+#include <QObject>
 
 class QString;
 class QRegularExpression;
@@ -10,9 +10,44 @@ namespace investpor {
 
     namespace core {
 
-        class Util
+        class Util : public QObject
         {
+            Q_OBJECT
         public:
+            enum Investment {
+                CryptoCurrencyInvestment = 0, DiscountBondInvestment, ExchangeInvestment,
+                FundInvestment, GoldInvestment, StockInvestment
+            };
+
+            enum Cryptocurrency {
+                InvalidCryptocurrency = 0, BCH, DASH, ETC, ETH, LTC, MIOTA, XBT, XRP
+            };
+            Q_ENUM(Cryptocurrency)
+
+            enum Currency {
+                InvalidCurrency = 0, ARS, AUD, BRL, CAD, CHF, CNY, EUR, GBP,
+                HKD, IDR, INR, JPY, KRW, MXN, PLN, QAR, RUB, SAR, TND, TRY, USD, ZAR
+            };
+            Q_ENUM(Currency)
+
+            enum Gold {
+                InvalidGold = 0, GRAMS, ONS
+            };
+            Q_ENUM(Gold)
+
+            enum Operation {
+                InvalidOperation = 0, BUY, SELL
+            };
+            Q_ENUM(Operation)
+
+            enum StockMarket {
+                InvalidStockMarket = 0,
+                BMEX, BVMF, MISX, NAPA, XAMS, XASX, XBOM, XFRA,
+                XIST, XLON, XMIL, XHKG, XJPX, XJSE, XKRX, XNAS,
+                XNSE, XNYS, XPAR, XSHE, XSHG, XSWX, XTAI, XTSE
+            };
+            Q_ENUM(StockMarket)
+
             static bool doubleEquality6DecPoints(const double &d1, const double &d2);
             static bool doubleEquality10DecPoints(const double &d1, const double &d2);
 
@@ -43,8 +78,8 @@ namespace investpor {
         private:
             Util() = delete;
             Util(const Util &) = delete;
+            Util& operator=(const Util &) = delete;
             Util(const Util &&) = delete;
-            ~Util() = delete;
         };
 
     }

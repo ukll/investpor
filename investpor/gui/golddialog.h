@@ -1,7 +1,6 @@
 #ifndef GOLDDIALOG_H
 #define GOLDDIALOG_H
 
-#include "investpor/core/types.h"
 #include "investpor/core/goldtransaction.h"
 
 #include <QDialog>

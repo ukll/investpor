@@ -1,13 +1,12 @@
 #ifndef HEADERFILESCRYPTOCURRENCYTRANSACTION_H
 #define HEADERFILESCRYPTOCURRENCYTRANSACTION_H
 
-#include "investpor/core/types.h"
+#include "investpor/core/util.h"
 #include "investpor/core/transaction.h"
 
 #include <QDateTime>
 
-using investpor::core::Operation;
-using investpor::core::Cryptocurrency;
+using investpor::core::Util;
 
 namespace investpor {
 
@@ -17,14 +16,14 @@ namespace investpor {
         {
         public:
             CryptocurrencyTransaction(const quint16 &id = 0) : Transaction(id) { }
-            CryptocurrencyTransaction(const Operation &op, const Cryptocurrency &ccurrency, const double &prc, const double &amnt,
+            CryptocurrencyTransaction(const Util::Operation &op, const Util::Cryptocurrency &ccurrency, const double &prc, const double &amnt,
                 const QDateTime &opDateTime, const double &gPrice, const quint16 &id = 0);
             virtual ~CryptocurrencyTransaction() { }
 
-            Operation getOperationType() const { return operationType; }
-            void setOperationType(const Operation &op) { operationType = op; }
-            Cryptocurrency getCryptocurrency() const { return cryptoCurrency; }
-            void setCryptocurrency(const Cryptocurrency &ccurrency) { cryptoCurrency = ccurrency; }
+            Util::Operation getOperationType() const { return operationType; }
+            void setOperationType(const Util::Operation &op) { operationType = op; }
+            Util::Cryptocurrency getCryptocurrency() const { return cryptoCurrency; }
+            void setCryptocurrency(const Util::Cryptocurrency &ccurrency) { cryptoCurrency = ccurrency; }
             double getPrice() const { return price; }
             void setPrice(const double &prc) { price = prc; }
             double getAmount() const { return amount; }
@@ -35,8 +34,8 @@ namespace investpor {
             void setGoalPrice(const double &gp) { goalPrice = gp; }
 
         private:
-            Operation operationType;
-            Cryptocurrency cryptoCurrency;
+            Util::Operation operationType;
+            Util::Cryptocurrency cryptoCurrency;
             double price;
             double amount;
             QDateTime operationDateTime;

@@ -5,7 +5,6 @@
 #include <QBrush>
 #include <QColor>
 
-using investpor::core::Operation;
 using investpor::core::Util;
 
 namespace investpor {
@@ -34,7 +33,7 @@ namespace investpor {
             QList<DiscountBondTransaction>::const_iterator iter;
             for(iter = transactionList.cbegin(); iter < transactionList.cend(); ++iter)
             {
-                if(iter->getOperationType() == Operation::BUY)
+                if(iter->getOperationType() == Util::Operation::BUY)
                 {
                     buys += (iter->getSalePrice() * iter->getCount());
                 }
@@ -50,7 +49,7 @@ namespace investpor {
             QList<DiscountBondTransaction>::const_iterator iter;
             for(iter = transactionList.cbegin(); iter < transactionList.cend(); ++iter)
             {
-                if(iter->getOperationType() == Operation::SELL)
+                if(iter->getOperationType() == Util::Operation::SELL)
                 {
                     sells += (iter->getSalePrice() * iter->getCount());
                 }
@@ -102,7 +101,7 @@ namespace investpor {
 
             if(Qt::BackgroundRole == role)
             {
-                if(Operation::BUY == transactionList.at(index.row()).getOperationType()) {
+                if(Util::Operation::BUY == transactionList.at(index.row()).getOperationType()) {
                     return QBrush(QColor(0, 255, 0, 100));
                 }
                 return QBrush(QColor(255, 0, 0, 100));

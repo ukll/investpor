@@ -1,7 +1,7 @@
 #ifndef DISCOUNTBONDTRANSACTION_H
 #define DISCOUNTBONDTRANSACTION_H
 
-#include "investpor/core/types.h"
+#include "investpor/core/util.h"
 #include "investpor/core/transaction.h"
 
 #include <QString>
@@ -15,12 +15,12 @@ namespace investpor {
         {
         public:
             DiscountBondTransaction(const quint16 &id = 0) : Transaction(id) { }
-            DiscountBondTransaction(const Operation &op, const QString &isin, const QDate &term, const double &nomValue,
+            DiscountBondTransaction(const Util::Operation &op, const QString &isin, const QDate &term, const double &nomValue,
                 const double &sPrice, quint32 cnt, const QDate &opDate, const quint16 &id = 0);
             virtual ~DiscountBondTransaction() { }
 
-            Operation getOperationType() const { return operationType; }
-            void setOperationType(const Operation &op) { operationType = op; }
+            Util::Operation getOperationType() const { return operationType; }
+            void setOperationType(const Util::Operation &op) { operationType = op; }
             QString getISIN() const { return ISIN; }
             void setISIN(const QString &isin) { ISIN = isin; }
             QDate getTerm() const { return termDate; }
@@ -35,7 +35,7 @@ namespace investpor {
             void setOperationDate(const QDate &opDate) { operationDate = opDate; }
 
         private:
-            Operation operationType;
+            Util::Operation operationType;
             QString ISIN;
             QDate termDate;
             double nominalValue;

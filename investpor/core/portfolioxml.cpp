@@ -1,8 +1,5 @@
 #include "investpor/core/portfolioxml.h"
 
-#include "investpor/core/types.h"
-#include "investpor/core/util.h"
-
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -44,7 +41,7 @@ namespace investpor {
             }
         }
 
-        PortfolioXML::PortfolioXML(const QString &filePath, const QString &pName, const Currency &bCurrency, QObject *parent) :
+        PortfolioXML::PortfolioXML(const QString &filePath, const QString &pName, const Util::Currency &bCurrency, QObject *parent) :
             QObject(parent), portfolioFile(new QFile(filePath, this)), portfolioName(pName), baseCurrency(bCurrency)
         {
             //Get the directory of the file.
@@ -76,24 +73,24 @@ namespace investpor {
             //create root element
             outStream.writeStartElement("portfolio");
             outStream.writeAttribute("name", pName);
-            outStream.writeAttribute("currency", Util::currencySymbol(bCurrency));
+            outStream.writeAttribute("currency", Util::currencySymbol(bCurrency).toLower());
 
-            outStream.writeStartElement(Util::getInvestmentTagName(Investment::CryptoCurrencyInvestment));
+            outStream.writeStartElement(Util::getInvestmentTagName(Util::Investment::CryptoCurrencyInvestment));
             outStream.writeEndElement();
 
-            outStream.writeStartElement(Util::getInvestmentTagName(Investment::DiscountBondInvestment));
+            outStream.writeStartElement(Util::getInvestmentTagName(Util::Investment::DiscountBondInvestment));
             outStream.writeEndElement();
 
-            outStream.writeStartElement(Util::getInvestmentTagName(Investment::ExchangeInvestment));
+            outStream.writeStartElement(Util::getInvestmentTagName(Util::Investment::ExchangeInvestment));
             outStream.writeEndElement();
 
-            outStream.writeStartElement(Util::getInvestmentTagName(Investment::FundInvestment));
+            outStream.writeStartElement(Util::getInvestmentTagName(Util::Investment::FundInvestment));
             outStream.writeEndElement();
 
-            outStream.writeStartElement(Util::getInvestmentTagName(Investment::GoldInvestment));
+            outStream.writeStartElement(Util::getInvestmentTagName(Util::Investment::GoldInvestment));
             outStream.writeEndElement();
 
-            outStream.writeStartElement(Util::getInvestmentTagName(Investment::StockInvestment));
+            outStream.writeStartElement(Util::getInvestmentTagName(Util::Investment::StockInvestment));
             outStream.writeEndElement();
 
             //Close XML document
@@ -132,7 +129,7 @@ namespace investpor {
             return true;
         }
 
-        bool PortfolioXML::setBaseCurrency(const Currency &bCurrency)
+        bool PortfolioXML::setBaseCurrency(const Util::Currency &bCurrency)
         {
             QDomDocument domDocument;
             //Load the DOM document
@@ -167,7 +164,7 @@ namespace investpor {
             }
 
             if(!findDomElementByTagName(domDocument, cryptoCurrencyInvestmentElement,
-                                        Util::getInvestmentTagName(Investment::CryptoCurrencyInvestment)))
+                                        Util::getInvestmentTagName(Util::Investment::CryptoCurrencyInvestment)))
             {
                 //Cryptocurrency investment element does not exist. File is not valid.
                 return false;
@@ -204,7 +201,7 @@ namespace investpor {
             dateTimeElement.appendChild(dateTimeText);
             transactionElement.appendChild(dateTimeElement);
 
-            if(transaction.getOperationType() == Operation::BUY)
+            if(transaction.getOperationType() == Util::Operation::BUY)
             {
                 QDomElement goalPriceElement = domDocument.createElement("goal-price");
                 QDomText goalPriceText = domDocument.createTextNode(QString::number(transaction.getGoalPrice()));
@@ -234,7 +231,7 @@ namespace investpor {
 
             QDomElement discountBondInvestmentElement;
             if(!findDomElementByTagName(domDocument, discountBondInvestmentElement,
-                                        Util::getInvestmentTagName(Investment::DiscountBondInvestment)))
+                                        Util::getInvestmentTagName(Util::Investment::DiscountBondInvestment)))
             {
                 //Discount bond investment element does not exist. File is not valid.
                 return false;
@@ -295,7 +292,7 @@ namespace investpor {
 
             QDomElement exchangeInvestmentElement;
             if(!findDomElementByTagName(domDocument, exchangeInvestmentElement,
-                                        Util::getInvestmentTagName(Investment::ExchangeInvestment)))
+                                        Util::getInvestmentTagName(Util::Investment::ExchangeInvestment)))
             {
                 //Exchange investment element does not exist. File is not valid.
                 return false;
@@ -332,7 +329,7 @@ namespace investpor {
             dateTimeElement.appendChild(dateTimeText);
             transactionElement.appendChild(dateTimeElement);
 
-            if(transaction.getOperationType() == Operation::BUY)
+            if(transaction.getOperationType() == Util::Operation::BUY)
             {
                 QDomElement goalPriceElement = domDocument.createElement("goal-price");
                 QDomText goalPriceText = domDocument.createTextNode(QString::number(transaction.getGoalPrice()));
@@ -362,7 +359,7 @@ namespace investpor {
 
             QDomElement fundInvestmentElement;
             if(!findDomElementByTagName(domDocument, fundInvestmentElement,
-                                        Util::getInvestmentTagName(Investment::FundInvestment)))
+                                        Util::getInvestmentTagName(Util::Investment::FundInvestment)))
             {
                 //Fund investment element does not exist. File is not valid.
                 return false;
@@ -404,7 +401,7 @@ namespace investpor {
             operationDateElement.appendChild(operationDateText);
             transactionElement.appendChild(operationDateElement);
 
-            if(transaction.getOperationType() == Operation::BUY)
+            if(transaction.getOperationType() == Util::Operation::BUY)
             {
                 QDomElement goalPriceElement = domDocument.createElement("goal-price");
                 QDomText goalPriceText = domDocument.createTextNode(QString::number(transaction.getGoalPrice()));
@@ -436,7 +433,7 @@ namespace investpor {
             }
 
             if(!findDomElementByTagName(domDocument, goldInvestmentElement,
-                                        Util::getInvestmentTagName(Investment::GoldInvestment)))
+                                        Util::getInvestmentTagName(Util::Investment::GoldInvestment)))
             {
                 //Gold investment element does not exist. File is not valid.
                 return false;
@@ -471,7 +468,7 @@ namespace investpor {
             dateTimeElement.appendChild(dateTimeText);
             transactionElement.appendChild(dateTimeElement);
 
-            if(transaction.getOperationType() == Operation::BUY)
+            if(transaction.getOperationType() == Util::Operation::BUY)
             {
                 QDomElement goalPriceElement = domDocument.createElement("goal-price");
                 QDomText goalPriceText = domDocument.createTextNode(QString::number(transaction.getGoalPrice()));
@@ -501,7 +498,7 @@ namespace investpor {
 
             QDomElement stockInvestmentElement;
             if(!findDomElementByTagName(domDocument, stockInvestmentElement,
-                                        Util::getInvestmentTagName(Investment::StockInvestment)))
+                                        Util::getInvestmentTagName(Util::Investment::StockInvestment)))
             {
                 //Stock investment element does not exist. File is not valid.
                 return false;
@@ -553,7 +550,7 @@ namespace investpor {
             dateTimeElement.appendChild(dateTimeText);
             transactionElement.appendChild(dateTimeElement);
 
-            if(transaction.getOperationType() == Operation::BUY)
+            if(transaction.getOperationType() == Util::Operation::BUY)
             {
                 QDomElement goalPriceElement = domDocument.createElement("goal-price");
                 QDomText goalPriceText = domDocument.createTextNode(QString::number(transaction.getGoalPrice()));
@@ -582,7 +579,7 @@ namespace investpor {
 
             QDomElement cryptoCurrencyInvestmentElement;
             if(!findDomElementByTagName(domDocument, cryptoCurrencyInvestmentElement,
-                                        Util::getInvestmentTagName(Investment::CryptoCurrencyInvestment)))
+                                        Util::getInvestmentTagName(Util::Investment::CryptoCurrencyInvestment)))
             {
                 //Cryptocurrency investment element does not exist. File is not valid.
                 return QList<CryptocurrencyTransaction>();
@@ -591,9 +588,9 @@ namespace investpor {
             QDomNodeList cryptoCurrencyNodeList = cryptoCurrencyInvestmentElement.childNodes();
             for(int cryptoCurrencyNode = 0; cryptoCurrencyNode < cryptoCurrencyNodeList.length(); ++cryptoCurrencyNode)
             {
-                Cryptocurrency currentCryptocurrency = Util::getCryptocurrency(
+                Util::Cryptocurrency currentCryptocurrency = Util::getCryptocurrency(
                             cryptoCurrencyNodeList.at(cryptoCurrencyNode).toElement().tagName());
-                if(currentCryptocurrency == Cryptocurrency::InvalidCryptocurrency)
+                if(currentCryptocurrency == Util::Cryptocurrency::InvalidCryptocurrency)
                 {
                     //Not yet supported Cryptocurrency. Skip this.
                     continue;
@@ -613,8 +610,8 @@ namespace investpor {
                     transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setCryptocurrency(currentCryptocurrency);
 
-                    Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
-                    if(operation == Operation::InvalidOperation)
+                    Util::Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
+                    if(operation == Util::Operation::InvalidOperation)
                     {
                         //Not yet supported Operation. Skip this one.
                         continue;
@@ -660,7 +657,7 @@ namespace investpor {
 
             QDomElement discountBondInvestmentElement;
             if(!findDomElementByTagName(domDocument, discountBondInvestmentElement,
-                                        Util::getInvestmentTagName(Investment::DiscountBondInvestment)))
+                                        Util::getInvestmentTagName(Util::Investment::DiscountBondInvestment)))
             {
                 //Discount bond investment element does not exist. File is not valid.
                 return QList<DiscountBondTransaction>();
@@ -685,8 +682,8 @@ namespace investpor {
                     transaction.setTerm(QDate::fromString(discountBondNodeList.at(discountBondNode).toElement().attribute("term"), "yyyy-MM-dd"));
                     transaction.setNominalValue(discountBondNodeList.at(discountBondNode).toElement().attribute("nominal-value").toDouble());
 
-                    Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
-                    if(operation == Operation::InvalidOperation)
+                    Util::Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
+                    if(operation == Util::Operation::InvalidOperation)
                     {
                         //Not yet supported Operation. Skip this one.
                         continue;
@@ -730,7 +727,7 @@ namespace investpor {
 
             QDomElement exchangeInvestmentElement;
             if(!findDomElementByTagName(domDocument, exchangeInvestmentElement,
-                                        Util::getInvestmentTagName(Investment::ExchangeInvestment)))
+                                        Util::getInvestmentTagName(Util::Investment::ExchangeInvestment)))
             {
                 //Exchange investment element does not exist. File is not valid.
                 return QList<ExchangeTransaction>();
@@ -739,8 +736,8 @@ namespace investpor {
             QDomNodeList exchangeNodeList = exchangeInvestmentElement.childNodes();
             for(int exchangeNode = 0; exchangeNode < exchangeNodeList.length(); ++exchangeNode)
             {
-                Currency currentCurrency = Util::getCurrency(exchangeNodeList.at(exchangeNode).toElement().tagName());
-                if(Currency::InvalidCurrency == currentCurrency)
+                Util::Currency currentCurrency = Util::getCurrency(exchangeNodeList.at(exchangeNode).toElement().tagName());
+                if(Util::Currency::InvalidCurrency == currentCurrency)
                 {
                     //Not yet supported currency. Skip this.
                     continue;
@@ -760,8 +757,8 @@ namespace investpor {
                     transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setCurrency(currentCurrency);
 
-                    Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
-                    if(operation == Operation::InvalidOperation)
+                    Util::Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
+                    if(operation == Util::Operation::InvalidOperation)
                     {
                         //Not yet supported Operation. Skip this one.
                         continue;
@@ -807,7 +804,7 @@ namespace investpor {
 
             QDomElement fundInvestmentElement;
             if(!findDomElementByTagName(domDocument, fundInvestmentElement,
-                                        Util::getInvestmentTagName(Investment::FundInvestment)))
+                                        Util::getInvestmentTagName(Util::Investment::FundInvestment)))
             {
                 //Fund investment element does not exist. File is not valid.
                 return QList<FundTransaction>();
@@ -831,8 +828,8 @@ namespace investpor {
                     transaction.setFundCode(fundNodeList.at(fundNode).toElement().tagName());
                     transaction.setFundName(fundNodeList.at(fundNode).toElement().attribute("name"));
 
-                    Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
-                    if(operation == Operation::InvalidOperation)
+                    Util::Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
+                    if(operation == Util::Operation::InvalidOperation)
                     {
                         //Not yet supported Operation. Skip this one.
                         continue;
@@ -880,7 +877,7 @@ namespace investpor {
 
             QDomElement goldInvestmentElement;
             if(!findDomElementByTagName(domDocument, goldInvestmentElement,
-                                        Util::getInvestmentTagName(Investment::GoldInvestment)))
+                                        Util::getInvestmentTagName(Util::Investment::GoldInvestment)))
             {
                 //Gold investment element does not exist. File is not valid.
                 return QList<GoldTransaction>();
@@ -889,8 +886,8 @@ namespace investpor {
             QDomNodeList goldNodeList = goldInvestmentElement.childNodes();
             for(int goldNode = 0; goldNode < goldNodeList.length(); ++goldNode)
             {
-                Gold currentGold = Util::getGold(goldNodeList.at(goldNode).toElement().tagName());
-                if(Gold::InvalidGold == currentGold)
+                Util::Gold currentGold = Util::getGold(goldNodeList.at(goldNode).toElement().tagName());
+                if(Util::Gold::InvalidGold == currentGold)
                 {
                     //Not yet supported gold. Skip this.
                     continue;
@@ -910,8 +907,8 @@ namespace investpor {
                     transaction.setTransactionId(transactionNodes.at(transactionNode).toElement().attribute("id").toUShort());
                     transaction.setGoldType(currentGold);
 
-                    Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
-                    if(operation == Operation::InvalidOperation)
+                    Util::Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
+                    if(operation == Util::Operation::InvalidOperation)
                     {
                         //Not yet supported Operation. Skip this one.
                         continue;
@@ -957,7 +954,7 @@ namespace investpor {
 
             QDomElement stockInvestmentElement;
             if(!findDomElementByTagName(domDocument, stockInvestmentElement,
-                                        Util::getInvestmentTagName(Investment::StockInvestment)))
+                                        Util::getInvestmentTagName(Util::Investment::StockInvestment)))
             {
                 //Stock investment element does not exist. File is not valid.
                 return QList<StockTransaction>();
@@ -966,9 +963,9 @@ namespace investpor {
             QDomNodeList stockMarketNodeList = stockInvestmentElement.childNodes();
             for(int stockMarketNode = 0; stockMarketNode < stockMarketNodeList.length(); ++stockMarketNode)
             {
-                StockMarket currentStockMarket =
+                Util::StockMarket currentStockMarket =
                         Util::getStockMarket(stockMarketNodeList.at(stockMarketNode).toElement().tagName());
-                if(StockMarket::InvalidStockMarket == currentStockMarket)
+                if(Util::StockMarket::InvalidStockMarket == currentStockMarket)
                 {
                     //Not yet supported stock market. Skip this.
                     continue;
@@ -993,8 +990,8 @@ namespace investpor {
                         transaction.setStockSymbol(stockNodeList.at(stockNode).toElement().tagName());
                         transaction.setStockName(stockNodeList.at(stockNode).toElement().attribute("name"));
 
-                        Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
-                        if(operation == Operation::InvalidOperation)
+                        Util::Operation operation = Util::getOperation(transactionNodes.at(transactionNode).toElement().attribute("type"));
+                        if(operation == Util::Operation::InvalidOperation)
                         {
                             //Not yet supported Operation. Skip this one.
                             continue;

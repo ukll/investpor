@@ -1,13 +1,10 @@
 #ifndef GOLDTRANSACTION_H
 #define GOLDTRANSACTION_H
 
-#include "investpor/core/types.h"
+#include "investpor/core/util.h"
 #include "investpor/core/transaction.h"
 
 #include <QDateTime>
-
-using investpor::core::Operation;
-using investpor::core::Gold;
 
 namespace investpor {
 
@@ -17,14 +14,14 @@ namespace investpor {
         {
         public:
             GoldTransaction(const quint16 &id = 0) : Transaction(id) { }
-            GoldTransaction(const Operation &op, const Gold &gType, const double &prc, const double &amnt,
+            GoldTransaction(const Util::Operation &op, const Util::Gold &gType, const double &prc, const double &amnt,
                 const QDateTime &dt, const double &gPrice, const quint16 &id = 0);
             virtual ~GoldTransaction() { }
 
-            Operation getOperationType() const { return operationType; }
-            void setOperationType(const Operation &op) { operationType = op; }
-            Gold getGoldType() const { return goldType; }
-            void setGoldType(const Gold &gType) { goldType = gType; }
+            Util::Operation getOperationType() const { return operationType; }
+            void setOperationType(const Util::Operation &op) { operationType = op; }
+            Util::Gold getGoldType() const { return goldType; }
+            void setGoldType(const Util::Gold &gType) { goldType = gType; }
             double getPrice() const { return price; }
             void setPrice(const double &prc) { price = prc; }
             double getAmount() const { return amount; }
@@ -35,8 +32,8 @@ namespace investpor {
             void setGoalPrice(const double &gPrice) { goalPrice = gPrice;}
 
         private:
-            Operation operationType;
-            Gold goldType;
+            Util::Operation operationType;
+            Util::Gold goldType;
             double price;
             double amount;
             QDateTime operationDateTime;

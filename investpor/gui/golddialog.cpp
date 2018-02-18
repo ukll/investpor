@@ -1,11 +1,8 @@
 #include "investpor/gui/golddialog.h"
 #include "ui_golddialog.h"
 
-#include "investpor/core/types.h"
 #include "investpor/core/util.h"
 
-using investpor::core::Gold;
-using investpor::core::Operation;
 using investpor::core::Util;
 
 namespace investpor {
@@ -19,12 +16,12 @@ namespace investpor {
             ui->setupUi(this);
             setWindowTitle(tr("Gold Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
-            ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
+            ui->cbOperationType->addItem(Util::operationName(Util::Operation::BUY));
+            ui->cbOperationType->addItem(Util::operationName(Util::Operation::SELL));
 
-            for(uint i = Gold::GRAMS; i <= Gold::ONS; ++i)
+            for(uint i = Util::Gold::GRAMS; i <= Util::Gold::ONS; ++i)
             {
-                ui->cbGoldType->addItem(Util::goldName(static_cast<Gold>(i)));
+                ui->cbGoldType->addItem(Util::goldName(static_cast<Util::Gold>(i)));
             }
 
             QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
@@ -40,7 +37,7 @@ namespace investpor {
 
         void GoldDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Operation::BUY == operationIndex) {
+            if(Util::Operation::BUY == operationIndex) {
                 ui->lblGoalPrice->setVisible(true);
                 ui->dsbGoalPrice->setVisible(true);
             } else {
@@ -72,7 +69,7 @@ namespace investpor {
             }
 
             //If it is a buy operation, check the validity of goal price.
-            if(Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(!ui->dsbGoalPrice->text().simplified().isEmpty() && !ui->dsbGoalPrice->hasAcceptableInput())
                 {
@@ -80,8 +77,8 @@ namespace investpor {
                 }
             }
 
-            transaction = GoldTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex() + 1),
-                                          static_cast<Gold>(ui->cbGoldType->currentIndex() + 1),
+            transaction = GoldTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentIndex() + 1),
+                                          static_cast<Util::Gold>(ui->cbGoldType->currentIndex() + 1),
                                           ui->dsbPrice->value(), ui->dsbAmount->value(),
                                           ui->dteDateTime->dateTime(), ui->dsbGoalPrice->value());
 

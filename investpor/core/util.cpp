@@ -1,10 +1,9 @@
 #include "investpor/core/util.h"
 
-#include "investpor/core/types.h"
-
 #include <cmath>
 
 #include <QObject>
+#include <QMetaEnum>
 #include <QRegularExpression>
 
 namespace investpor {
@@ -55,23 +54,19 @@ namespace investpor {
 
         const QString Util::cryptoCurrencySymbol(const Cryptocurrency &ccurrency)
         {
+            QMetaObject metaObject = Util::staticMetaObject;
+            QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Cryptocurrency"));
+
             switch (ccurrency) {
             case Cryptocurrency::BCH:
-                return "bch";
             case Cryptocurrency::DASH:
-                return "dash";
             case Cryptocurrency::ETC:
-                return "etc";
             case Cryptocurrency::ETH:
-                return "eth";
             case Cryptocurrency::LTC:
-                return "ltc";
             case Cryptocurrency::MIOTA:
-                return "miota";
             case Cryptocurrency::XBT:
-                return "xbt";
             case Cryptocurrency::XRP:
-                return "xrp";
+                return QString(metaEnum.valueToKey(ccurrency)).toUpper();
             default:
                 return QString();
             }
@@ -101,76 +96,55 @@ namespace investpor {
             }
         }
 
-        Cryptocurrency Util::getCryptocurrency(const QString &text)
+        Util::Cryptocurrency Util::getCryptocurrency(const QString &text)
         {
-            if(text == Util::cryptoCurrencySymbol(Cryptocurrency::BCH)){
-                return Cryptocurrency::BCH;
-            } else if(text == Util::cryptoCurrencySymbol(Cryptocurrency::DASH)) {
-                return Cryptocurrency::DASH;
-            } else if(text == Util::cryptoCurrencySymbol(Cryptocurrency::ETC)) {
-                return Cryptocurrency::ETC;
-            } else if(text == Util::cryptoCurrencySymbol(Cryptocurrency::ETH)) {
-                return Cryptocurrency::ETH;
-            } else if(text == Util::cryptoCurrencySymbol(Cryptocurrency::MIOTA)) {
-                return Cryptocurrency::MIOTA;
-            } else if(text == Util::cryptoCurrencySymbol(Cryptocurrency::LTC)) {
-                return Cryptocurrency::LTC;
-            } else if(text == Util::cryptoCurrencySymbol(Cryptocurrency::XBT)) {
-                return Cryptocurrency::XBT;
-            } else if(text == Util::cryptoCurrencySymbol(Cryptocurrency::XRP)) {
-                return Cryptocurrency::XRP;
-            } else {
+            QMetaObject metaObject = Util::staticMetaObject;
+            QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Cryptocurrency"));
+
+            switch (metaEnum.keysToValue(text.toLatin1().toUpper())) {
+            case Cryptocurrency::BCH:
+            case Cryptocurrency::DASH:
+            case Cryptocurrency::ETC:
+            case Cryptocurrency::ETH:
+            case Cryptocurrency::MIOTA:
+            case Cryptocurrency::LTC:
+            case Cryptocurrency::XBT:
+            case Cryptocurrency::XRP:
+                return static_cast<Cryptocurrency>(metaEnum.keyToValue(text.toLatin1().toUpper()));
+            default:
                 return Cryptocurrency::InvalidCryptocurrency;
             }
         }
 
         const QString Util::currencySymbol(const Currency &currency)
         {
+            QMetaObject metaObject = Util::staticMetaObject;
+            QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Currency"));
+
             switch (currency) {
             case Currency::ARS:
-                return "ars";
             case Currency::AUD:
-                return "aud";
             case Currency::BRL:
-                return "brl";
             case Currency::CAD:
-                return "cad";
             case Currency::CHF:
-                return "chf";
             case Currency::CNY:
-                return "cny";
             case Currency::EUR:
-                return "eur";
             case Currency::GBP:
-                return "gbp";
             case Currency::HKD:
-                return "hkd";
             case Currency::IDR:
-                return "idr";
             case Currency::INR:
-                return "inr";
             case Currency::JPY:
-                return "jpy";
             case Currency::KRW:
-                return "krw";
             case Currency::MXN:
-                return "mxn";
             case Currency::PLN:
-                return "pln";
             case Currency::QAR:
-                return "qar";
             case Currency::RUB:
-                return "rub";
             case Currency::SAR:
-                return "sar";
             case Currency::TND:
-                return "tnd";
             case Currency::TRY:
-                return "try";
             case Currency::USD:
-                return "usd";
             case Currency::ZAR:
-                return "zar";
+                return QString(metaEnum.valueToKey(currency)).toUpper();
             default:
                 return QString();
             }
@@ -228,64 +202,49 @@ namespace investpor {
             }
         }
 
-        Currency Util::getCurrency(const QString &text)
+        Util::Currency Util::getCurrency(const QString &text)
         {
-            if(Util::currencySymbol(Currency::ARS) == text) {
-                return Currency::ARS;
-            } else if(Util::currencySymbol(Currency::AUD) == text) {
-                return Currency::AUD;
-            } else if(Util::currencySymbol(Currency::BRL) == text) {
-                return Currency::BRL;
-            } else if(Util::currencySymbol(Currency::CAD) == text) {
-                return Currency::CAD;
-            } else if(Util::currencySymbol(Currency::CHF) == text) {
-                return Currency::CHF;
-            } else if(Util::currencySymbol(Currency::CNY) == text) {
-                return Currency::CNY;
-            } else if(Util::currencySymbol(Currency::EUR) == text) {
-                return Currency::EUR;
-            } else if(Util::currencySymbol(Currency::GBP) == text) {
-                return Currency::GBP;
-            } else if(Util::currencySymbol(Currency::HKD) == text) {
-                return Currency::HKD;
-            } else if(Util::currencySymbol(Currency::IDR) == text) {
-                return Currency::IDR;
-            } else if(Util::currencySymbol(Currency::INR) == text) {
-                return Currency::INR;
-            } else if(Util::currencySymbol(Currency::JPY) == text) {
-                return Currency::JPY;
-            } else if(Util::currencySymbol(Currency::KRW) == text) {
-                return Currency::KRW;
-            } else if(Util::currencySymbol(Currency::MXN) == text) {
-                return Currency::MXN;
-            } else if(Util::currencySymbol(Currency::PLN) == text) {
-                return Currency::PLN;
-            } else if(Util::currencySymbol(Currency::QAR) == text) {
-                return Currency::QAR;
-            } else if(Util::currencySymbol(Currency::RUB) == text) {
-                return Currency::RUB;
-            } else if(Util::currencySymbol(Currency::SAR) == text) {
-                return Currency::SAR;
-            } else if(Util::currencySymbol(Currency::TND) == text) {
-                return Currency::TND;
-            } else if(Util::currencySymbol(Currency::TRY) == text) {
-                return Currency::TRY;
-            } else if(Util::currencySymbol(Currency::USD) == text) {
-                return Currency::USD;
-            } else if(Util::currencySymbol(Currency::ZAR) == text) {
-                return Currency::ZAR;
-            } else {
-                return Currency::InvalidCurrency;
+            QMetaObject metaObject = Util::staticMetaObject;
+            QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Currency"));
+
+            switch (metaEnum.keysToValue(text.toLatin1().toUpper())) {
+            case Currency::ARS:
+            case Currency::AUD:
+            case Currency::BRL:
+            case Currency::CAD:
+            case Currency::CHF:
+            case Currency::CNY:
+            case Currency::EUR:
+            case Currency::GBP:
+            case Currency::HKD:
+            case Currency::IDR:
+            case Currency::INR:
+            case Currency::JPY:
+            case Currency::KRW:
+            case Currency::MXN:
+            case Currency::PLN:
+            case Currency::QAR:
+            case Currency::RUB:
+            case Currency::SAR:
+            case Currency::TND:
+            case Currency::TRY:
+            case Currency::USD:
+            case Currency::ZAR:
+                return static_cast<Util::Currency>(metaEnum.keyToValue(text.toLatin1().toUpper()));
+            default:
+                return Util::Currency::InvalidCurrency;
             }
         }
 
         const QString Util::goldSymbol(const Gold &gold)
         {
+            QMetaObject metaObject = Util::staticMetaObject;
+            QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Gold"));
+
             switch (gold) {
             case Gold::GRAMS:
-                return "grams";
             case Gold::ONS:
-                return "ons";
+                return QString(metaEnum.valueToKey(gold)).toUpper();
             default:
                 return QString();
             }
@@ -303,24 +262,29 @@ namespace investpor {
             }
         }
 
-        Gold Util::getGold(const QString &text)
+        Util::Gold Util::getGold(const QString &text)
         {
-            if(Util::goldSymbol(Gold::GRAMS) == text) {
-                return Gold::GRAMS;
-            } else if (Util::goldSymbol(Gold::ONS) == text) {
-                return Gold::ONS;
-            } else {
-                return Gold::InvalidGold;
+            QMetaObject metaObject= Util::staticMetaObject;
+            QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Gold"));
+
+            switch (metaEnum.keysToValue(text.toLatin1().toUpper())) {
+            case Gold::GRAMS:
+            case Gold::ONS:
+                return static_cast<Util::Gold>(metaEnum.keyToValue(text.toLatin1().toUpper()));
+            default:
+                return Util::Gold::InvalidGold;
             }
         }
 
         const QString Util::operationCode(const Operation &operation)
         {
+            QMetaObject metaObject = Util::staticMetaObject;
+            QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Operation"));
+
             switch (operation) {
             case Operation::BUY:
-                return "buy";
             case Operation::SELL:
-                return "sell";
+                return QString(metaEnum.valueToKey(operation)).toUpper();
             default:
                 return QString();
             }
@@ -338,68 +302,51 @@ namespace investpor {
             }
         }
 
-        Operation Util::getOperation(const QString &text)
+        Util::Operation Util::getOperation(const QString &text)
         {
-            if(Util::operationCode(Operation::BUY) == text) {
-                return Operation::BUY;
-            } else if(Util::operationCode(Operation::SELL) == text) {
-                return Operation::SELL;
-            } else {
+            QMetaObject metaObject = Util::staticMetaObject;
+            QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Operation"));
+
+            switch (metaEnum.keysToValue(text.toLatin1().toUpper())) {
+            case Operation::BUY:
+            case Operation::SELL:
+                return static_cast<Operation>(metaEnum.keysToValue(text.toLatin1().toUpper()));
+            default:
                 return Operation::InvalidOperation;
             }
         }
 
         const QString Util::stockMarketSymbol(const StockMarket &market)
         {
+            QMetaObject metaObject =Util::staticMetaObject;
+            QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("StockMarket"));
+
             switch (market) {
             case StockMarket::BMEX:
-                return QString("bmex");
             case StockMarket::BVMF:
-                return QString("bvmf");
             case StockMarket::MISX:
-                return QString("misx");
             case StockMarket::NAPA:
-                return QString("napa");
             case StockMarket::XAMS:
-                return QString("xams");
             case StockMarket::XASX:
-                return QString("xasx");
             case StockMarket::XBOM:
-                return QString("xbom");
             case StockMarket::XFRA:
-                return QString("xfra");
             case StockMarket::XIST:
-                return QString("xist");
             case StockMarket::XLON:
-                return QString("xlon");
             case StockMarket::XMIL:
-                return QString("xmil");
             case StockMarket::XHKG:
-                return QString("xhkg");
             case StockMarket::XJPX:
-                return QString("xjpx");
             case StockMarket::XJSE:
-                return QString("xjse");
             case StockMarket::XKRX:
-                return QString("xkrx");
             case StockMarket::XNAS:
-                return QString("xnas");
             case StockMarket::XNSE:
-                return QString("xnse");
             case StockMarket::XNYS:
-                return QString("xnys");
             case StockMarket::XPAR:
-                return QString("xpar");
             case StockMarket::XSHE:
-                return QString("xshe");
             case StockMarket::XSHG:
-                return QString("xshg");
             case StockMarket::XSWX:
-                return QString("xswx");
             case StockMarket::XTAI:
-                return QString("xtai");
             case StockMarket::XTSE:
-                return QString("xtse");
+                return QString(metaEnum.valueToKey(market)).toUpper();
             default:
                 return QString();
             }
@@ -461,57 +408,38 @@ namespace investpor {
             }
         }
 
-        StockMarket Util::getStockMarket(const QString &text)
+        Util::StockMarket Util::getStockMarket(const QString &text)
         {
-            if(Util::stockMarketSymbol(StockMarket::BMEX) == text) {
-                return StockMarket::BMEX;
-            } else if(Util::stockMarketSymbol(StockMarket::BVMF) == text) {
-                return StockMarket::BVMF;
-            } else if(Util::stockMarketSymbol(StockMarket::MISX) == text) {
-                return StockMarket::MISX;
-            } else if(Util::stockMarketSymbol(StockMarket::NAPA) == text) {
-                return StockMarket::NAPA;
-            } else if(Util::stockMarketSymbol(StockMarket::XAMS) == text) {
-                return StockMarket::XAMS;
-            } else if(Util::stockMarketSymbol(StockMarket::XASX) == text) {
-                return StockMarket::XASX;
-            } else if(Util::stockMarketSymbol(StockMarket::XBOM) == text) {
-                return StockMarket::XBOM;
-            } else if(Util::stockMarketSymbol(StockMarket::XFRA) == text) {
-                return StockMarket::XFRA;
-            } else if(Util::stockMarketSymbol(StockMarket::XIST) == text) {
-                return StockMarket::XIST;
-            } else if(Util::stockMarketSymbol(StockMarket::XLON) == text) {
-                return StockMarket::XLON;
-            } else if(Util::stockMarketSymbol(StockMarket::XMIL) == text) {
-                return StockMarket::XMIL;
-            } else if(Util::stockMarketSymbol(StockMarket::XHKG) == text) {
-                return StockMarket::XHKG;
-            } else if(Util::stockMarketSymbol(StockMarket::XJPX) == text) {
-                return StockMarket::XJPX;
-            } else if(Util::stockMarketSymbol(StockMarket::XJSE) == text) {
-                return StockMarket::XJSE;
-            } else if(Util::stockMarketSymbol(StockMarket::XKRX) == text) {
-                return StockMarket::XKRX;
-            } else if(Util::stockMarketSymbol(StockMarket::XNAS) == text) {
-                return StockMarket::XNAS;
-            } else if(Util::stockMarketSymbol(StockMarket::XNSE) == text) {
-                return StockMarket::XNSE;
-            } else if(Util::stockMarketSymbol(StockMarket::XNYS) == text) {
-                return StockMarket::XNYS;
-            } else if(Util::stockMarketSymbol(StockMarket::XPAR) == text) {
-                return StockMarket::XPAR;
-            } else if(Util::stockMarketSymbol(StockMarket::XSHE) == text) {
-                return StockMarket::XSHE;
-            } else if(Util::stockMarketSymbol(StockMarket::XSHG) == text) {
-                return StockMarket::XSHG;
-            } else if(Util::stockMarketSymbol(StockMarket::XSWX) == text) {
-                return StockMarket::XSWX;
-            } else if(Util::stockMarketSymbol(StockMarket::XTAI) == text) {
-                return StockMarket::XTAI;
-            } else if(Util::stockMarketSymbol(StockMarket::XTSE) == text) {
-                return StockMarket::XTSE;
-            } else {
+            QMetaObject metaObject = Util::staticMetaObject;
+            QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("StockMarket"));
+
+            switch (metaEnum.keysToValue(text.toLatin1().toUpper())) {
+            case StockMarket::BMEX:
+            case StockMarket::BVMF:
+            case StockMarket::MISX:
+            case StockMarket::NAPA:
+            case StockMarket::XAMS:
+            case StockMarket::XASX:
+            case StockMarket::XBOM:
+            case StockMarket::XFRA:
+            case StockMarket::XIST:
+            case StockMarket::XLON:
+            case StockMarket::XMIL:
+            case StockMarket::XHKG:
+            case StockMarket::XJPX:
+            case StockMarket::XJSE:
+            case StockMarket::XKRX:
+            case StockMarket::XNAS:
+            case StockMarket::XNSE:
+            case StockMarket::XNYS:
+            case StockMarket::XPAR:
+            case StockMarket::XSHE:
+            case StockMarket::XSHG:
+            case StockMarket::XSWX:
+            case StockMarket::XTAI:
+            case StockMarket::XTSE:
+                return static_cast<Util::StockMarket>(metaEnum.keyToValue(text.toLatin1().toUpper()));
+            default:
                 return StockMarket::InvalidStockMarket;
             }
         }

@@ -1,13 +1,11 @@
 #include "portfoliodialog.h"
 #include "ui_portfoliodialog.h"
 
-#include "investpor/core/types.h"
 #include "investpor/core/util.h"
 
 #include <QFileDialog>
 #include <QDir>
-#include <QDebug>
-using investpor::core::Currency;
+
 using investpor::core::Util;
 
 namespace investpor {
@@ -25,10 +23,10 @@ namespace investpor {
             setWindowTitle(tr("New Portfolio"));
             ui->vlStatusBarLayout->addWidget(&statusBar);
 
-            for(uint i = Currency::ARS; i <= Currency::ZAR; ++i)
+            for(uint i = Util::Currency::ARS; i <= Util::Currency::ZAR; ++i)
             {
-                ui->cbBaseCurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Currency>(i)).toUpper())
-                                            .arg(Util::currencyName(static_cast<Currency>(i))));
+                ui->cbBaseCurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Util::Currency>(i)).toUpper())
+                                            .arg(Util::currencyName(static_cast<Util::Currency>(i))));
             }
 
             QObject::connect(ui->btnBrowse, &QPushButton::clicked, this, &PortfolioDialog::browseForFile);
@@ -40,17 +38,17 @@ namespace investpor {
          * @param bCurrency : Current portfolio base currency.
          * @param parent : Parent object to own this dialog.
          */
-        PortfolioDialog::PortfolioDialog(const QString &pName, const Currency &bCurrency, QWidget *parent) :
+        PortfolioDialog::PortfolioDialog(const QString &pName, const Util::Currency &bCurrency, QWidget *parent) :
             QDialog(parent), isEditDialog(true),  ui(new Ui::PortfolioDialog), portfolioName(pName), baseCurrency(bCurrency)
         {
             ui->setupUi(this);
             setWindowTitle(tr("Edit Portfolio"));
             ui->vlStatusBarLayout->addWidget(&statusBar);
 
-            for(uint i = Currency::ARS; i <= Currency::ZAR; ++i)
+            for(uint i = Util::Currency::ARS; i <= Util::Currency::ZAR; ++i)
             {
-                ui->cbBaseCurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Currency>(i)).toUpper())
-                                            .arg(Util::currencyName(static_cast<Currency>(i))));
+                ui->cbBaseCurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Util::Currency>(i)).toUpper())
+                                            .arg(Util::currencyName(static_cast<Util::Currency>(i))));
             }
 
             ui->lePortfolioName->setText(portfolioName);
@@ -95,7 +93,7 @@ namespace investpor {
             }
 
             portfolioName = ui->lePortfolioName->text();
-            baseCurrency = static_cast<Currency>(ui->cbBaseCurrency->currentIndex() + 1);
+            baseCurrency = static_cast<Util::Currency>(ui->cbBaseCurrency->currentIndex() + 1);
 
             QDialog::accept();
         }

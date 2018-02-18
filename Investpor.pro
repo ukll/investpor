@@ -58,7 +58,6 @@ HEADERS += \
     investpor/gui/funddialog.h \
     investpor/gui/golddialog.h \
     investpor/gui/stockdialog.h \
-    investpor/core/types.h \
     investpor/core/util.h \
     investpor/core/transaction.h \
     investpor/core/cryptocurrencytransaction.h \

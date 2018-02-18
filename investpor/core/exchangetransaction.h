@@ -1,13 +1,11 @@
 #ifndef EXCHANGETRANSACTION_H
 #define EXCHANGETRANSACTION_H
 
-#include "investpor/core/types.h"
+#include "investpor/core/util.h"
 #include "investpor/core/transaction.h"
 
 #include <QDateTime>
 
-using investpor::core::Operation;
-using investpor::core::Currency;
 using investpor::core::Transaction;
 
 namespace investpor {
@@ -18,14 +16,14 @@ namespace investpor {
         {
         public:
             ExchangeTransaction(const quint16 &id = 0) : Transaction(id) { }
-            ExchangeTransaction(const Operation &op, const Currency &cur, const double &prc, const double &amnt,
+            ExchangeTransaction(const Util::Operation &op, const Util::Currency &cur, const double &prc, const double &amnt,
                 const QDateTime &dt, const double &gPrice, const quint16 &id = 0);
             virtual ~ExchangeTransaction() { }
 
-            Operation getOperationType() const { return operationType; }
-            void setOperationType(const Operation &op) { operationType = op; }
-            Currency getCurrency() const { return currency; }
-            void setCurrency(const Currency &cur) { currency = cur; }
+            Util::Operation getOperationType() const { return operationType; }
+            void setOperationType(const Util::Operation &op) { operationType = op; }
+            Util::Currency getCurrency() const { return currency; }
+            void setCurrency(const Util::Currency &cur) { currency = cur; }
             double getPrice() const { return price; }
             void setPrice(const double &prc) { price = prc; }
             double getAmount() const { return amount; }
@@ -36,8 +34,8 @@ namespace investpor {
             void setGoalPrice(const double &gPrice) { goalPrice = gPrice; }
 
         private:
-            Operation operationType;
-            Currency currency;
+            Util::Operation operationType;
+            Util::Currency currency;
             double price;
             double amount;
             QDateTime dateTime;

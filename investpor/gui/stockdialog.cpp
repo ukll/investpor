@@ -1,11 +1,8 @@
 #include "investpor/gui/stockdialog.h"
 #include "ui_stockdialog.h"
 
-#include "investpor/core/types.h"
 #include "investpor/core/util.h"
 
-using investpor::core::Operation;
-using investpor::core::StockMarket;
 using investpor::core::Util;
 
 namespace investpor {
@@ -23,13 +20,13 @@ namespace investpor {
             ui->leSymbol->setValidator(&symbolValidator);
             nameValidator.setRegularExpression(Util::stockNameRegularExpression());
             ui->leName->setValidator(&nameValidator);
-            ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
+            ui->cbOperationType->addItem(Util::operationName(Util::Operation::BUY));
+            ui->cbOperationType->addItem(Util::operationName(Util::Operation::SELL));
 
-            for(uint i = StockMarket::BMEX; i <= StockMarket::XTSE; ++i)
+            for(uint i = Util::StockMarket::BMEX; i <= Util::StockMarket::XTSE; ++i)
             {
-                ui->cbMarket->addItem(QString("%1 - %2").arg(Util::stockMarketSymbol(static_cast<StockMarket>(i))).toUpper()
-                                      .arg(Util::stockMarketName(static_cast<StockMarket>(i))));
+                ui->cbMarket->addItem(QString("%1 - %2").arg(Util::stockMarketSymbol(static_cast<Util::StockMarket>(i))).toUpper()
+                                      .arg(Util::stockMarketName(static_cast<Util::StockMarket>(i))));
             }
 
             QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
@@ -44,7 +41,7 @@ namespace investpor {
 
         void StockDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Operation::BUY == operationIndex) {
+            if(Util::Operation::BUY == operationIndex) {
                 ui->lblName->setVisible(true);
                 ui->leName->setVisible(true);
                 ui->lblGoalPrice->setVisible(true);
@@ -67,7 +64,7 @@ namespace investpor {
                 errorMessageList << tr("Symbol is invalid!");
             }
 
-            if(Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(ui->leName->text().simplified().isEmpty()) {
                     errorMessageList << tr("Stock name cannot be empty!");
@@ -101,15 +98,15 @@ namespace investpor {
             }
 
             //If it is a buy operation, check the validity of goal price.
-            if(Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(!ui->dsbGoalPrice->text().simplified().isEmpty() && !ui->dsbGoalPrice->hasAcceptableInput()) {
                     errorMessageList << tr("Goal price is invalid!");
                 }
             }
 
-            transaction = StockTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex() + 1),
-                                           static_cast<StockMarket>(ui->cbMarket->currentIndex() + 1),
+            transaction = StockTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentIndex() + 1),
+                                           static_cast<Util::StockMarket>(ui->cbMarket->currentIndex() + 1),
                                            ui->leSymbol->text(), ui->leName->text(), ui->dsbPrice->value(),
                                            ui->sbCount->value(), ui->dsbCommissionRate->value(),
                                            ui->dteDateTime->dateTime(), ui->dsbGoalPrice->value());

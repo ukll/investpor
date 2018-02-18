@@ -1,6 +1,7 @@
 #ifndef PORTFOLIOXML_H
 #define PORTFOLIOXML_H
 
+#include "investpor/core/util.h"
 #include "investpor/core/cryptocurrencytransaction.h"
 #include "investpor/core/discountbondtransaction.h"
 #include "investpor/core/exchangetransaction.h"
@@ -28,13 +29,13 @@ namespace investpor {
             };
 
             explicit PortfolioXML(const QString &filePath, QObject *parent = nullptr);
-            PortfolioXML(const QString &filePath, const QString &pName, const Currency &bCurrency, QObject *parent = nullptr);
+            PortfolioXML(const QString &filePath, const QString &pName, const Util::Currency &bCurrency, QObject *parent = nullptr);
             ~PortfolioXML();
 
             const QString getPortfolioName() const { return portfolioName; }
             bool setPortfolioName(const QString &pName);
-            Currency getBaseCurrency() const { return baseCurrency; }
-            bool setBaseCurrency(const Currency &bCurrency);
+            Util::Currency getBaseCurrency() const { return baseCurrency; }
+            bool setBaseCurrency(const Util::Currency &bCurrency);
             PortfolioState getState() const { return state; }
 
             bool saveCryptocurrencyTransaction(const CryptocurrencyTransaction &transaction);
@@ -54,7 +55,7 @@ namespace investpor {
         private:
             QFile *portfolioFile;
             QString portfolioName;
-            Currency baseCurrency;
+            Util::Currency baseCurrency;
             PortfolioState state;
 
             bool loadDomDocument(QDomDocument &domDocument) const;

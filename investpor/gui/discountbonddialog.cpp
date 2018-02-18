@@ -1,13 +1,11 @@
 #include "investpor/gui/discountbonddialog.h"
 #include "ui_discountbonddialog.h"
 
-#include "investpor/core/types.h"
 #include "investpor/core/util.h"
 #include "investpor/core/discountbondtransaction.h"
 
 #include <QStatusBar>
 
-using investpor::core::Operation;
 using investpor::core::Util;
 using investpor::core::DiscountBondTransaction;
 
@@ -24,8 +22,8 @@ namespace investpor {
             ui->vlStatusBar->addWidget(&statusBar);
             ISINValidator.setRegularExpression(Util::bondISINRegularExpression());
             ui->leISINCode->setValidator(&ISINValidator);
-            ui->cbOperationType->addItem(Util::operationName(Operation::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Operation::SELL));
+            ui->cbOperationType->addItem(Util::operationName(Util::Operation::BUY));
+            ui->cbOperationType->addItem(Util::operationName(Util::Operation::SELL));
 
             QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
                              [this](int index){ rearrangeDialog(++index); });
@@ -41,7 +39,7 @@ namespace investpor {
 
         void DiscountBondDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Operation::BUY == operationIndex) {
+            if(Util::Operation::BUY == operationIndex) {
                 ui->lblTerm->setVisible(true);
                 ui->deTerm->setVisible(true);
                 ui->lblNominalValue->setVisible(true);
@@ -64,7 +62,7 @@ namespace investpor {
                 errorMessageList << tr("ISIN code is not valid!");
             }
 
-            if(Operation::BUY == (ui->cbOperationType->currentIndex() + 1)) {
+            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1)) {
                 //If it is a BUY transacton, validate term and nominal value too.
                 if(ui->deTerm->text().simplified().isEmpty()) {
                     errorMessageList << tr("Term date cannot be empty!");
@@ -104,7 +102,7 @@ namespace investpor {
                 return;
             }
 
-            transaction = DiscountBondTransaction(static_cast<Operation>(ui->cbOperationType->currentIndex() + 1),
+            transaction = DiscountBondTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentIndex() + 1),
                                                   ui->leISINCode->text(), ui->deTerm->date(), ui->dsbNominalValue->value(),
                                                   ui->dsbSalePrice->value(), ui->sbCount->value(), ui->deDate->date());
             //Passed the validation
