@@ -21,8 +21,9 @@ namespace investpor {
             Q_OBJECT
 
         public:
-            explicit PortfolioDialog(QWidget *parent = nullptr);
-            PortfolioDialog(const QString &pName, const Util::Currency &bCurrency, QWidget *parent = nullptr);
+            static PortfolioDialog* newPortfolioDialog(QWidget *parent = nullptr);
+            static PortfolioDialog* editPortfolioDialog(const QString &pName, const Util::Currency &bCurrency, QWidget *parent = nullptr);
+
             ~PortfolioDialog();
 
             const QString getPortfolioName() const { return portfolioName; }
@@ -38,6 +39,9 @@ namespace investpor {
             QString portfolioURL;
             Util::Currency baseCurrency;
 
+            explicit PortfolioDialog(QWidget *parent = nullptr);
+            PortfolioDialog(const QString &pName, const Util::Currency &bCurrency, QWidget *parent = nullptr);
+            void prepareDialog();
             void browseForFile();
             virtual void accept() override;
         };

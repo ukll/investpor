@@ -12,23 +12,31 @@ namespace investpor {
 
     namespace gui {
 
+        PortfolioDialog* PortfolioDialog::newPortfolioDialog(QWidget *parent)
+        {
+            return new PortfolioDialog(parent);
+        }
+
+        PortfolioDialog* PortfolioDialog::editPortfolioDialog(const QString &pName, const Util::Currency &bCurrency, QWidget *parent)
+        {
+            return new PortfolioDialog(pName, bCurrency, parent);
+        }
+
+        PortfolioDialog::~PortfolioDialog()
+        {
+            delete ui;
+        }
+
         /**
          * @brief Constructor to use when creating a new portfolio.
          * @param parent : Parent object to own this dialog.
          */
         PortfolioDialog::PortfolioDialog(QWidget *parent) :
-            QDialog(parent), isEditDialog(false), ui(new Ui::PortfolioDialog)
+            QDialog(parent), ui(new Ui::PortfolioDialog), isEditDialog(false)
         {
             ui->setupUi(this);
             setWindowTitle(tr("New Portfolio"));
-            ui->vlStatusBarLayout->addWidget(&statusBar);
-
-            for(uint i = Util::Currency::ARS; i <= Util::Currency::ZAR; ++i)
-            {
-                ui->cbBaseCurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Util::Currency>(i)).toUpper())
-                                            .arg(Util::currencyName(static_cast<Util::Currency>(i))));
-            }
-
+            prepareDialog();
             QObject::connect(ui->btnBrowse, &QPushButton::clicked, this, &PortfolioDialog::browseForFile);
         }
 
@@ -39,10 +47,15 @@ namespace investpor {
          * @param parent : Parent object to own this dialog.
          */
         PortfolioDialog::PortfolioDialog(const QString &pName, const Util::Currency &bCurrency, QWidget *parent) :
-            QDialog(parent), isEditDialog(true),  ui(new Ui::PortfolioDialog), portfolioName(pName), baseCurrency(bCurrency)
+            QDialog(parent), ui(new Ui::PortfolioDialog), isEditDialog(true), portfolioName(pName), baseCurrency(bCurrency)
         {
             ui->setupUi(this);
             setWindowTitle(tr("Edit Portfolio"));
+            prepareDialog();
+        }
+
+        void PortfolioDialog::prepareDialog()
+        {
             ui->vlStatusBarLayout->addWidget(&statusBar);
 
             for(uint i = Util::Currency::ARS; i <= Util::Currency::ZAR; ++i)
@@ -51,17 +64,14 @@ namespace investpor {
                                             .arg(Util::currencyName(static_cast<Util::Currency>(i))));
             }
 
-            ui->lePortfolioName->setText(portfolioName);
-            ui->cbBaseCurrency->setCurrentIndex(static_cast<int>(baseCurrency - 1));
+            if(isEditDialog) {
+                ui->lePortfolioName->setText(portfolioName);
+                ui->cbBaseCurrency->setCurrentIndex(static_cast<int>(baseCurrency - 1));
 
-            ui->lblPortfolioFile->setHidden(true);
-            ui->lePortfolioFile->setHidden(true);
-            ui->btnBrowse->setHidden(true);
-        }
-
-        PortfolioDialog::~PortfolioDialog()
-        {
-            delete ui;
+                ui->lblPortfolioFile->setHidden(true);
+                ui->lePortfolioFile->setHidden(true);
+                ui->btnBrowse->setHidden(true);
+            }
         }
 
         /**

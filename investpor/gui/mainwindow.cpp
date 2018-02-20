@@ -126,12 +126,12 @@ namespace investpor {
          */
         void MainWindow::newPortfolio()
         {
-            PortfolioDialog pd(this);
-            if(pd.exec() == QDialog::Accepted)
+            PortfolioDialog *pd = PortfolioDialog::newPortfolioDialog(this);
+            if(pd->exec() == QDialog::Accepted)
             {
-                portfolio = new PortfolioXML(QDir::toNativeSeparators(pd.getPortfolioURL()),
-                                             pd.getPortfolioName(), pd.getBasecurrency(), this);
-                if(portfolio->getState() != PortfolioXML::PortfolioState::Valid)
+                portfolio = PortfolioXML::createPortfolio(QDir::toNativeSeparators(pd->getPortfolioURL()),
+                                             pd->getPortfolioName(), pd->getBasecurrency(), this);
+                if(portfolio->getState() != PortfolioXML::Valid)
                 {
                     QMessageBox::critical(this, tr("No Portfolio"),
                                           tr("Portfolio file could not be created!"));
@@ -153,11 +153,11 @@ namespace investpor {
          */
         void MainWindow::editPortfolio()
         {
-            PortfolioDialog pd(portfolio->getPortfolioName(), portfolio->getBaseCurrency(), this);
-            if(pd.exec() == QDialog::Accepted)
+            PortfolioDialog *pd = PortfolioDialog::editPortfolioDialog(portfolio->getPortfolioName(), portfolio->getBaseCurrency(), this);
+            if(pd->exec() == QDialog::Accepted)
             {
-                if(!portfolio->setPortfolioName(pd.getPortfolioName()) ||
-                        !portfolio->setBaseCurrency(pd.getBasecurrency()))
+                if(!portfolio->setPortfolioName(pd->getPortfolioName()) ||
+                        !portfolio->setBaseCurrency(pd->getBasecurrency()))
                 {
                     QMessageBox::warning(this, tr("Operation Failed!"),
                                          tr("Portfolio file could not be edited!"));
@@ -173,8 +173,8 @@ namespace investpor {
             QString portfolioURL =
                     QFileDialog::getOpenFileName(this, tr("Open a portfolio file"), QDir::homePath(), tr("XML Files (*.xml)"));
 
-            portfolio = new PortfolioXML(QDir::toNativeSeparators(portfolioURL), this);
-            if(portfolio->getState() != PortfolioXML::PortfolioState::Valid)
+            portfolio = PortfolioXML::openPortfolio(QDir::toNativeSeparators(portfolioURL), this);
+            if(portfolio->getState() != PortfolioXML::Valid)
             {
                 QMessageBox::critical(this, tr("No Portfolio"),
                                       tr("Portfolio file could not be opened!"));

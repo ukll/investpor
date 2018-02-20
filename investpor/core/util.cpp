@@ -34,22 +34,10 @@ namespace investpor {
 
         const QString Util::getInvestmentTagName(const Investment &investment)
         {
-            switch (investment) {
-            case Investment::CryptoCurrencyInvestment:
-                return "cryptocurrency-investments";
-            case Investment::DiscountBondInvestment:
-                return "discount-bond-investments";
-            case Investment::ExchangeInvestment:
-                return "exchange-investments";
-            case Investment::FundInvestment:
-                return "fund-investments";
-            case Investment::GoldInvestment:
-                return "gold-investments";
-            case Investment::StockInvestment:
-                return "stock-investments";
-            default:
-                return QString();
-            }
+            QMetaObject metaObject = Util::staticMetaObject;
+            QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Investment"));
+
+            return QString(metaEnum.valueToKey(investment));
         }
 
         const QString Util::cryptoCurrencySymbol(const Cryptocurrency &ccurrency)

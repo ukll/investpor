@@ -28,8 +28,8 @@ namespace investpor {
                 Valid = 0, FileContentIsNotValid, FileCouldNotBeOpened, FileCouldNotBeSaved, FolderCouldNotBeCreated
             };
 
-            explicit PortfolioXML(const QString &filePath, QObject *parent = nullptr);
-            PortfolioXML(const QString &filePath, const QString &pName, const Util::Currency &bCurrency, QObject *parent = nullptr);
+            static PortfolioXML* createPortfolio(const QString &filePath, const QString &pName, const Util::Currency &bCurrency, QObject *parent);
+            static PortfolioXML* openPortfolio(const QString &filePath, QObject *parent);
             ~PortfolioXML();
 
             const QString getPortfolioName() const { return portfolioName; }
@@ -57,6 +57,9 @@ namespace investpor {
             QString portfolioName;
             Util::Currency baseCurrency;
             PortfolioState state;
+
+            explicit PortfolioXML(const QString &filePath, QObject *parent = nullptr);
+            PortfolioXML(const QString &filePath, const QString &pName, const Util::Currency &bCurrency, QObject *parent = nullptr);
 
             bool loadDomDocument(QDomDocument &domDocument) const;
             bool findDomElementByTagName(const QDomDocument &domDocument, QDomElement &domElement, const QString &tagName) const;

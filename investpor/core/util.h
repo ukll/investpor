@@ -15,9 +15,10 @@ namespace investpor {
             Q_OBJECT
         public:
             enum Investment {
-                CryptoCurrencyInvestment = 0, DiscountBondInvestment, ExchangeInvestment,
+                CryptocurrencyInvestment = 0, DiscountBondInvestment, ExchangeInvestment,
                 FundInvestment, GoldInvestment, StockInvestment
             };
+            Q_ENUM(Investment)
 
             enum Cryptocurrency {
                 InvalidCryptocurrency = 0, BCH, DASH, ETC, ETH, LTC, MIOTA, XBT, XRP
