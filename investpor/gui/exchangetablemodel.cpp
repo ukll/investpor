@@ -33,7 +33,7 @@ namespace investpor {
             QList<ExchangeTransaction>::const_iterator iter;
             for(iter = transactionList.cbegin(); iter < transactionList.cend(); ++iter)
             {
-                if(Util::Operation::BUY == iter->getOperationType())
+                if(Util::BUY == iter->getOperationType())
                 {
                     buys += (iter->getPrice() * iter->getAmount());
                 }
@@ -49,7 +49,7 @@ namespace investpor {
             QList<ExchangeTransaction>::const_iterator iter;
             for(iter = transactionList.cbegin(); iter < transactionList.cend(); ++iter)
             {
-                if(Util::Operation::SELL == iter->getOperationType())
+                if(Util::SELL == iter->getOperationType())
                 {
                     sells += (iter->getPrice() * iter->getAmount());
                 }
@@ -74,7 +74,7 @@ namespace investpor {
             case 0:
                 return QString("Currency");
             case 1:
-                return QString("Operation Type");
+                return QString("Operation");
             case 2:
                 return QString("Price");
             case 3:
@@ -97,7 +97,7 @@ namespace investpor {
 
             if(Qt::BackgroundRole == role)
             {
-                if(Util::Operation::BUY == transactionList.at(index.row()).getOperationType()) {
+                if(Util::BUY == transactionList.at(index.row()).getOperationType()) {
                     return QBrush(QColor(0, 255, 0, 100));
                 }
                 return QBrush(QColor(255, 0, 0, 100));

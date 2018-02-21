@@ -16,14 +16,14 @@ namespace investpor {
         {
         public:
             CryptocurrencyTransaction() : Transaction() { }
-            CryptocurrencyTransaction(const Util::Operation &op, const Util::Cryptocurrency &ccurrency, const double &prc, const double &amnt,
+            CryptocurrencyTransaction(const Util::Operation &op, const Util::Currency &ccurrency, const double &prc, const double &amnt,
                 const QDateTime &opDateTime, const double &gPrice);
             virtual ~CryptocurrencyTransaction() { }
 
             Util::Operation getOperationType() const { return operationType; }
             void setOperationType(const Util::Operation &op) { operationType = op; }
-            Util::Cryptocurrency getCryptocurrency() const { return cryptoCurrency; }
-            void setCryptocurrency(const Util::Cryptocurrency &ccurrency) { cryptoCurrency = ccurrency; }
+            Util::Currency getCryptocurrency() const { return cryptoCurrency; }
+            void setCryptocurrency(const Util::Currency &ccurrency) { cryptoCurrency = ccurrency; }
             double getPrice() const { return price; }
             void setPrice(const double &prc) { price = prc; }
             double getAmount() const { return amount; }
@@ -35,7 +35,7 @@ namespace investpor {
 
         private:
             Util::Operation operationType;
-            Util::Cryptocurrency cryptoCurrency;
+            Util::Currency cryptoCurrency;
             double price;
             double amount;
             QDateTime operationDateTime;

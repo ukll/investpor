@@ -58,7 +58,7 @@ namespace investpor {
         {
             ui->vlStatusBarLayout->addWidget(&statusBar);
 
-            for(uint i = Util::Currency::ARS; i <= Util::Currency::ZAR; ++i)
+            for(uint i = Util::ARS; i <= Util::ZAR; ++i)
             {
                 ui->cbBaseCurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Util::Currency>(i)).toUpper())
                                             .arg(Util::currencyName(static_cast<Util::Currency>(i))));

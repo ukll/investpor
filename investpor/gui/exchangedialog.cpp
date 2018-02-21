@@ -17,10 +17,10 @@ namespace investpor {
             ui->setupUi(this);
             setWindowTitle(tr("Exchange Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
-            ui->cbOperationType->addItem(Util::operationName(Util::Operation::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Util::Operation::SELL));
+            ui->cbOperationType->addItem(Util::operationName(Util::BUY));
+            ui->cbOperationType->addItem(Util::operationName(Util::SELL));
 
-            for(uint i = Util::Currency::ARS; i <= Util::Currency::ZAR; ++i)
+            for(uint i = Util::ARS; i <= Util::ZAR; ++i)
             {
                 ui->cbCurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Util::Currency>(i)).toUpper())
                                         .arg(Util::currencyName(static_cast<Util::Currency>(i))));
@@ -38,7 +38,7 @@ namespace investpor {
 
         void ExchangeDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Util::Operation::BUY == operationIndex) {
+            if(Util::BUY == operationIndex) {
                 ui->lblGoalPrice->setVisible(true);
                 ui->dsbGoalPrice->setVisible(true);
             } else {
@@ -69,7 +69,7 @@ namespace investpor {
                 errorMessageList << tr("Operation datetime is invalid!");
             }
 
-            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(ui->dsbGoalPrice->text().simplified().isEmpty()) {
                     errorMessageList << tr("Goal price cannot be empty!");

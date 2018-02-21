@@ -109,10 +109,10 @@ namespace investpor {
             QDomElement cryptoCurrencyElement;
             QDomElement transactionElement = domDocument.createElement("transaction");
             if(!findDirectChildElementByTagName(cryptoCurrencyInvestmentElement, cryptoCurrencyElement,
-                                                Util::cryptoCurrencySymbol(transaction.getCryptocurrency()).toLower()))
+                                                Util::currencySymbol(transaction.getCryptocurrency()).toLower()))
             {
                 //Cryptocurrency element does not exist. Create a new one.
-                cryptoCurrencyElement = domDocument.createElement(Util::cryptoCurrencySymbol(transaction.getCryptocurrency()).toLower());
+                cryptoCurrencyElement = domDocument.createElement(Util::currencySymbol(transaction.getCryptocurrency()).toLower());
                 cryptoCurrencyInvestmentElement.appendChild(cryptoCurrencyElement);
             }
 
@@ -506,9 +506,9 @@ namespace investpor {
             QDomNodeList cryptoCurrencyNodeList = cryptoCurrencyInvestmentElement.childNodes();
             for(int cryptoCurrencyNode = 0; cryptoCurrencyNode < cryptoCurrencyNodeList.length(); ++cryptoCurrencyNode)
             {
-                Util::Cryptocurrency currentCryptocurrency = Util::getCryptocurrency(
+                Util::Currency currentCryptocurrency = Util::getCurrency(
                             cryptoCurrencyNodeList.at(cryptoCurrencyNode).toElement().tagName());
-                if(currentCryptocurrency == Util::InvalidCryptocurrency)
+                if(currentCryptocurrency == Util::InvalidCurrency)
                 {
                     //Not yet supported Cryptocurrency. Skip this.
                     continue;

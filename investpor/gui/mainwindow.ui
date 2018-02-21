@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -40,7 +40,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalCryptocurrencyBuys">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -57,7 +57,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalCryptocurrencySells">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -142,7 +142,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalDiscountBondBuys">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -159,7 +159,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalDiscountBondSells">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -229,7 +229,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalExchangeBuys">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -246,7 +246,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalExchangeSells">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -316,7 +316,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalFundBuys">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -333,7 +333,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalFundSells">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -406,7 +406,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalGoldBuys">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -426,7 +426,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalGoldSells">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -499,7 +499,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalStockBuys">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -519,7 +519,7 @@
           <item>
            <widget class="QLineEdit" name="leTotalStockSells">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -589,7 +589,7 @@
       <item>
        <widget class="QLineEdit" name="leTotalBuys">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="readOnly">
          <bool>true</bool>
@@ -609,7 +609,7 @@
       <item>
        <widget class="QLineEdit" name="leTotalSells">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="readOnly">
          <bool>true</bool>

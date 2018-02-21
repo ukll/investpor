@@ -20,10 +20,10 @@ namespace investpor {
             ui->leSymbol->setValidator(&symbolValidator);
             nameValidator.setRegularExpression(Util::stockNameRegularExpression());
             ui->leName->setValidator(&nameValidator);
-            ui->cbOperationType->addItem(Util::operationName(Util::Operation::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Util::Operation::SELL));
+            ui->cbOperationType->addItem(Util::operationName(Util::BUY));
+            ui->cbOperationType->addItem(Util::operationName(Util::SELL));
 
-            for(uint i = Util::StockMarket::BMEX; i <= Util::StockMarket::XTSE; ++i)
+            for(uint i = Util::BMEX; i <= Util::XTSE; ++i)
             {
                 ui->cbMarket->addItem(QString("%1 - %2").arg(Util::stockMarketSymbol(static_cast<Util::StockMarket>(i))).toUpper()
                                       .arg(Util::stockMarketName(static_cast<Util::StockMarket>(i))));
@@ -41,7 +41,7 @@ namespace investpor {
 
         void StockDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Util::Operation::BUY == operationIndex) {
+            if(Util::BUY == operationIndex) {
                 ui->lblName->setVisible(true);
                 ui->leName->setVisible(true);
                 ui->lblGoalPrice->setVisible(true);
@@ -64,7 +64,7 @@ namespace investpor {
                 errorMessageList << tr("Symbol is invalid!");
             }
 
-            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(ui->leName->text().simplified().isEmpty()) {
                     errorMessageList << tr("Stock name cannot be empty!");
@@ -98,7 +98,7 @@ namespace investpor {
             }
 
             //If it is a buy operation, check the validity of goal price.
-            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(!ui->dsbGoalPrice->text().simplified().isEmpty() && !ui->dsbGoalPrice->hasAcceptableInput()) {
                     errorMessageList << tr("Goal price is invalid!");

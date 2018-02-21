@@ -33,7 +33,7 @@ namespace investpor {
             QList<DiscountBondTransaction>::const_iterator iter;
             for(iter = transactionList.cbegin(); iter < transactionList.cend(); ++iter)
             {
-                if(iter->getOperationType() == Util::Operation::BUY)
+                if(iter->getOperationType() == Util::BUY)
                 {
                     buys += (iter->getSalePrice() * iter->getCount());
                 }
@@ -49,7 +49,7 @@ namespace investpor {
             QList<DiscountBondTransaction>::const_iterator iter;
             for(iter = transactionList.cbegin(); iter < transactionList.cend(); ++iter)
             {
-                if(iter->getOperationType() == Util::Operation::SELL)
+                if(iter->getOperationType() == Util::SELL)
                 {
                     sells += (iter->getSalePrice() * iter->getCount());
                 }
@@ -74,7 +74,7 @@ namespace investpor {
             case 0:
                 return QString("ISIN");
             case 1:
-                return QString("Operation Type");
+                return QString("Operation");
             case 2:
                 return QString("Term");
             case 3:
@@ -99,7 +99,7 @@ namespace investpor {
 
             if(Qt::BackgroundRole == role)
             {
-                if(Util::Operation::BUY == transactionList.at(index.row()).getOperationType()) {
+                if(Util::BUY == transactionList.at(index.row()).getOperationType()) {
                     return QBrush(QColor(0, 255, 0, 100));
                 }
                 return QBrush(QColor(255, 0, 0, 100));

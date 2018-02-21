@@ -18,13 +18,13 @@ namespace investpor {
             ui->setupUi(this);
             setWindowTitle(tr("Cryptocurrency Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
-            ui->cbOperationType->addItem(Util::operationName(Util::Operation::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Util::Operation::SELL));
+            ui->cbOperationType->addItem(Util::operationName(Util::BUY));
+            ui->cbOperationType->addItem(Util::operationName(Util::SELL));
 
-            for(int i = Util::Cryptocurrency::BCH; i <= Util::Cryptocurrency::XRP; ++i)
+            for(int i = Util::BCH; i <= Util::XRP; ++i)
             {
-                ui->cbCryptocurrency->addItem(QString("%1 - %2").arg(Util::cryptoCurrencySymbol(static_cast<Util::Cryptocurrency>(i)).toUpper())
-                                              .arg(Util::cryptoCurrencyName(static_cast<Util::Cryptocurrency>(i)))
+                ui->cbCryptocurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Util::Currency>(i)).toUpper())
+                                              .arg(Util::currencyName(static_cast<Util::Currency>(i)))
                                               );
             }
 
@@ -41,7 +41,7 @@ namespace investpor {
 
         void CryptocurrencyDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Util::Operation::BUY == operationIndex) {
+            if(Util::BUY == operationIndex) {
                 ui->lblGoalPrice->setVisible(true);
                 ui->dsbGoalPrice->setVisible(true);
             } else {
@@ -73,7 +73,7 @@ namespace investpor {
             }
 
 
-            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(ui->dsbGoalPrice->text().simplified().isEmpty()) {
                     errorMessageList << tr("Goal price cannot be empty!");
@@ -90,7 +90,7 @@ namespace investpor {
             }
 
             transaction = CryptocurrencyTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentIndex() + 1),
-                                                    static_cast<Util::Cryptocurrency>(ui->cbCryptocurrency->currentIndex() + 1),
+                                                    static_cast<Util::Currency>(ui->cbCryptocurrency->currentIndex() + 1),
                                                     ui->dsbPrice->value(), ui->dsbAmount->value(), ui->dteDateTime->dateTime(),
                                                     ui->dsbGoalPrice->value());
 

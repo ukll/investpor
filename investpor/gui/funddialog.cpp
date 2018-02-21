@@ -20,8 +20,8 @@ namespace investpor {
             ui->leCode->setValidator(&fundCodeValidator);
             fundNameValidator.setRegularExpression(Util::fundNameRegularExpression());
             ui->leName->setValidator(&fundNameValidator);
-            ui->cbOperationType->addItem(Util::operationName(Util::Operation::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Util::Operation::SELL));
+            ui->cbOperationType->addItem(Util::operationName(Util::BUY));
+            ui->cbOperationType->addItem(Util::operationName(Util::SELL));
 
             QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
                              [this](int index){ rearrangeDialog(++index); });
@@ -36,7 +36,7 @@ namespace investpor {
 
         void FundDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Util::Operation::BUY == operationIndex) {
+            if(Util::BUY == operationIndex) {
                 ui->lblName->setVisible(true);
                 ui->leName->setVisible(true);
                 ui->lblGoalPrice->setVisible(true);
@@ -59,7 +59,7 @@ namespace investpor {
                 errorMessageList << tr("Fund code is invalid!");
             }
 
-            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1)) {
+            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1)) {
                 if(ui->leName->text().simplified().isEmpty()) {
                     errorMessageList << tr("Fund name cannot be empty!");
                 } else if(!ui->leName->hasAcceptableInput()) {
@@ -90,7 +90,7 @@ namespace investpor {
             }
 
             //If it is a buy operation, check the validity of goal price.
-            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(!ui->dsbGoalPrice->text().simplified().isEmpty() && !ui->dsbGoalPrice->hasAcceptableInput()) {
                     errorMessageList << tr("Goal price is invalid!");

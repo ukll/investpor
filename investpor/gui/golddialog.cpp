@@ -16,10 +16,10 @@ namespace investpor {
             ui->setupUi(this);
             setWindowTitle(tr("Gold Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
-            ui->cbOperationType->addItem(Util::operationName(Util::Operation::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Util::Operation::SELL));
+            ui->cbOperationType->addItem(Util::operationName(Util::BUY));
+            ui->cbOperationType->addItem(Util::operationName(Util::SELL));
 
-            for(uint i = Util::Gold::GRAMS; i <= Util::Gold::ONS; ++i)
+            for(uint i = Util::GRAMS; i <= Util::ONS; ++i)
             {
                 ui->cbGoldType->addItem(Util::goldName(static_cast<Util::Gold>(i)));
             }
@@ -37,7 +37,7 @@ namespace investpor {
 
         void GoldDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Util::Operation::BUY == operationIndex) {
+            if(Util::BUY == operationIndex) {
                 ui->lblGoalPrice->setVisible(true);
                 ui->dsbGoalPrice->setVisible(true);
             } else {
@@ -69,7 +69,7 @@ namespace investpor {
             }
 
             //If it is a buy operation, check the validity of goal price.
-            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1))
             {
                 if(!ui->dsbGoalPrice->text().simplified().isEmpty() && !ui->dsbGoalPrice->hasAcceptableInput())
                 {

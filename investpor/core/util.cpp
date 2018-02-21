@@ -40,70 +40,6 @@ namespace investpor {
             return QString(metaEnum.valueToKey(investment));
         }
 
-        const QString Util::cryptoCurrencySymbol(const Cryptocurrency &ccurrency)
-        {
-            QMetaObject metaObject = Util::staticMetaObject;
-            QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Cryptocurrency"));
-
-            switch (ccurrency) {
-            case Cryptocurrency::BCH:
-            case Cryptocurrency::DASH:
-            case Cryptocurrency::ETC:
-            case Cryptocurrency::ETH:
-            case Cryptocurrency::LTC:
-            case Cryptocurrency::MIOTA:
-            case Cryptocurrency::XBT:
-            case Cryptocurrency::XRP:
-                return QString(metaEnum.valueToKey(ccurrency)).toUpper();
-            default:
-                return QString();
-            }
-        }
-
-        const QString Util::cryptoCurrencyName(const Cryptocurrency &ccurrency)
-        {
-            switch (ccurrency) {
-            case Cryptocurrency::BCH:
-                return QObject::tr("Bitcoin Cash");
-            case Cryptocurrency::DASH:
-                return QObject::tr("Dash");
-            case Cryptocurrency::ETC:
-                return QObject::tr("Ethereum Classic");
-            case Cryptocurrency::ETH:
-                return QObject::tr("Ethereum");
-            case Cryptocurrency::LTC:
-                return QObject::tr("Litecoin");
-            case Cryptocurrency::MIOTA:
-                return QObject::tr("IOTA");
-            case Cryptocurrency::XBT:
-                return QObject::tr("Bitcoin");
-            case Cryptocurrency::XRP:
-                return QObject::tr("Ripple");
-            default:
-                return QString();
-            }
-        }
-
-        Util::Cryptocurrency Util::getCryptocurrency(const QString &text)
-        {
-            QMetaObject metaObject = Util::staticMetaObject;
-            QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Cryptocurrency"));
-
-            switch (metaEnum.keysToValue(text.toLatin1().toUpper())) {
-            case Cryptocurrency::BCH:
-            case Cryptocurrency::DASH:
-            case Cryptocurrency::ETC:
-            case Cryptocurrency::ETH:
-            case Cryptocurrency::MIOTA:
-            case Cryptocurrency::LTC:
-            case Cryptocurrency::XBT:
-            case Cryptocurrency::XRP:
-                return static_cast<Cryptocurrency>(metaEnum.keyToValue(text.toLatin1().toUpper()));
-            default:
-                return Cryptocurrency::InvalidCryptocurrency;
-            }
-        }
-
         const QString Util::currencySymbol(const Currency &currency)
         {
             QMetaObject metaObject = Util::staticMetaObject;
@@ -132,6 +68,16 @@ namespace investpor {
             case Currency::TRY:
             case Currency::USD:
             case Currency::ZAR:
+
+                //Cryptocurrency list begins
+            case Currency::BCH:
+            case Currency::DASH:
+            case Currency::ETC:
+            case Currency::ETH:
+            case Currency::LTC:
+            case Currency::MIOTA:
+            case Currency::XBT:
+            case Currency::XRP:
                 return QString(metaEnum.valueToKey(currency)).toUpper();
             default:
                 return QString();
@@ -185,6 +131,24 @@ namespace investpor {
                 return QObject::tr("United States Dollar");
             case Currency::ZAR:
                 return QObject::tr("South African Rand");
+
+                //Cryptocurrency list begins
+            case Currency::BCH:
+                return QObject::tr("Bitcoin Cash");
+            case Currency::DASH:
+                return QObject::tr("Dash");
+            case Currency::ETC:
+                return QObject::tr("Ethereum Classic");
+            case Currency::ETH:
+                return QObject::tr("Ethereum");
+            case Currency::LTC:
+                return QObject::tr("Litecoin");
+            case Currency::MIOTA:
+                return QObject::tr("IOTA");
+            case Currency::XBT:
+                return QObject::tr("Bitcoin");
+            case Currency::XRP:
+                return QObject::tr("Ripple");
             default:
                 return QString();
             }
@@ -218,6 +182,16 @@ namespace investpor {
             case Currency::TRY:
             case Currency::USD:
             case Currency::ZAR:
+
+                //Cryptocurrency list begins
+            case Currency::BCH:
+            case Currency::DASH:
+            case Currency::ETC:
+            case Currency::ETH:
+            case Currency::LTC:
+            case Currency::MIOTA:
+            case Currency::XBT:
+            case Currency::XRP:
                 return static_cast<Util::Currency>(metaEnum.keyToValue(text.toLatin1().toUpper()));
             default:
                 return Util::Currency::InvalidCurrency;

@@ -20,14 +20,15 @@ namespace investpor {
             };
             Q_ENUM(Investment)
 
-            enum Cryptocurrency {
-                InvalidCryptocurrency = 0, BCH, DASH, ETC, ETH, LTC, MIOTA, XBT, XRP
-            };
-            Q_ENUM(Cryptocurrency)
-
             enum Currency {
-                InvalidCurrency = 0, ARS, AUD, BRL, CAD, CHF, CNY, EUR, GBP,
-                HKD, IDR, INR, JPY, KRW, MXN, PLN, QAR, RUB, SAR, TND, TRY, USD, ZAR
+                InvalidCurrency = 0,
+
+                //Currency list
+                ARS, AUD, BRL, CAD, CHF, CNY, EUR, GBP,
+                HKD, IDR, INR, JPY, KRW, MXN, PLN, QAR, RUB, SAR, TND, TRY, USD, ZAR,
+
+                //Cryptocurrency list
+                BCH, DASH, ETC, ETH, LTC, MIOTA, XBT, XRP
             };
             Q_ENUM(Currency)
 
@@ -54,9 +55,6 @@ namespace investpor {
 
             static const QString getInvestmentTagName(const Investment &investment);
 
-            static const QString cryptoCurrencySymbol(const Cryptocurrency &ccurrency);
-            static const QString cryptoCurrencyName(const Cryptocurrency &ccurrency);
-            static Cryptocurrency getCryptocurrency(const QString &text);
             static const QString currencySymbol(const Currency &currency);
             static const QString currencyName(const Currency &currency);
             static Currency getCurrency(const QString &text);

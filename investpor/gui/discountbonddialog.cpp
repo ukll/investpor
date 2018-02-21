@@ -22,8 +22,8 @@ namespace investpor {
             ui->vlStatusBar->addWidget(&statusBar);
             ISINValidator.setRegularExpression(Util::bondISINRegularExpression());
             ui->leISINCode->setValidator(&ISINValidator);
-            ui->cbOperationType->addItem(Util::operationName(Util::Operation::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Util::Operation::SELL));
+            ui->cbOperationType->addItem(Util::operationName(Util::BUY));
+            ui->cbOperationType->addItem(Util::operationName(Util::SELL));
 
             QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
                              [this](int index){ rearrangeDialog(++index); });
@@ -39,7 +39,7 @@ namespace investpor {
 
         void DiscountBondDialog::rearrangeDialog(int &operationIndex)
         {
-            if(Util::Operation::BUY == operationIndex) {
+            if(Util::BUY == operationIndex) {
                 ui->lblTerm->setVisible(true);
                 ui->deTerm->setVisible(true);
                 ui->lblNominalValue->setVisible(true);
@@ -62,7 +62,7 @@ namespace investpor {
                 errorMessageList << tr("ISIN code is not valid!");
             }
 
-            if(Util::Operation::BUY == (ui->cbOperationType->currentIndex() + 1)) {
+            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1)) {
                 //If it is a BUY transacton, validate term and nominal value too.
                 if(ui->deTerm->text().simplified().isEmpty()) {
                     errorMessageList << tr("Term date cannot be empty!");
