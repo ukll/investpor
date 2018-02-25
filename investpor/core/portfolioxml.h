@@ -25,17 +25,17 @@ namespace investpor {
             Q_OBJECT
         public:
             enum PortfolioState {
-                Valid = 0, FileContentIsNotValid, FileCouldNotBeOpened, FileCouldNotBeSaved, FolderCouldNotBeCreated
+                Valid = 0, FileContentIsNotValid, FileCouldNotBeCreated, FileCouldNotBeOpened, FileCouldNotBeSaved
             };
 
-            static PortfolioXML* createPortfolio(const QString &filePath, const QString &pName, const Util::Currency &bCurrency, QObject *parent);
-            static PortfolioXML* openPortfolio(const QString &filePath, QObject *parent);
+            static PortfolioXML* createPortfolio(const QString &filePath, const QString &pName,
+                                                 const Util::Currency &bCurrency, QObject *parent = nullptr);
+            static PortfolioXML* openPortfolio(const QString &filePath, QObject *parent = nullptr);
             ~PortfolioXML();
 
+            bool editPortfolio(const QString &pName, const Util::Currency &bCurrency);
             const QString getPortfolioName() const { return portfolioName; }
-            bool setPortfolioName(const QString &pName);
             Util::Currency getBaseCurrency() const { return baseCurrency; }
-            bool setBaseCurrency(const Util::Currency &bCurrency);
             PortfolioState getState() const { return state; }
 
             bool saveCryptocurrencyTransaction(const CryptocurrencyTransaction &transaction);
@@ -59,11 +59,9 @@ namespace investpor {
             PortfolioState state;
 
             explicit PortfolioXML(const QString &filePath, QObject *parent = nullptr);
-            PortfolioXML(const QString &filePath, const QString &pName, const Util::Currency &bCurrency, QObject *parent = nullptr);
 
             bool loadDomDocument(QDomDocument &domDocument) const;
-            bool findDomElementByTagName(const QDomDocument &domDocument, QDomElement &domElement, const QString &tagName) const;
-            bool findDirectChildElementByTagName(const QDomElement &parent, QDomElement &child, const QString &tagName) const;
+            bool findChildElementByTagName(const QDomElement &parent, QDomElement &child, const QString &tagName) const;
             bool savePortfolio(const QDomDocument &domDocument) const;
         };
 

@@ -31,8 +31,10 @@ namespace investpor {
             QStatusBar statusBar;
             ExchangeTransaction transaction;
 
-            void rearrangeDialog(int &operationIndex);
             virtual void accept() override;
+
+        private slots:
+            void rearrangeDialog();
         };
 
     }

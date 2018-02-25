@@ -12,26 +12,28 @@ namespace investpor {
     namespace gui {
 
         CryptocurrencyDialog::CryptocurrencyDialog(QWidget *parent) :
-            QDialog(parent),
-            ui(new Ui::CryptocurrencyDialog)
+            QDialog(parent), ui(new Ui::CryptocurrencyDialog)
         {
             ui->setupUi(this);
             setWindowTitle(tr("Cryptocurrency Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
-            ui->cbOperationType->addItem(Util::operationName(Util::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Util::SELL));
 
-            for(int i = Util::BCH; i <= Util::XRP; ++i)
+            for(int i = Util::BUY, cbOpIndex = 0; i <= Util::SELL; ++i, ++cbOpIndex)
             {
-                ui->cbCryptocurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Util::Currency>(i)).toUpper())
-                                              .arg(Util::currencyName(static_cast<Util::Currency>(i)))
-                                              );
+                ui->cbOperationType->addItem(Util::operationName(static_cast<Util::Operation>(i)));
+                ui->cbOperationType->setItemData(cbOpIndex, i);
             }
 
-            QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
-                             [this](int index){ rearrangeDialog(++index); });
+            for(int i = Util::BCH, cbCryptIndex = 0; i <= Util::XRP; ++i, ++cbCryptIndex)
+            {
+                ui->cbCryptocurrency->addItem(QString("%1 - %2")
+                                              .arg(Util::currencySymbol(static_cast<Util::Currency>(i)).toUpper())
+                                              .arg(Util::currencyName(static_cast<Util::Currency>(i))));
+                ui->cbCryptocurrency->setItemData(cbCryptIndex, i);
+            }
 
-            QObject::connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &CryptocurrencyDialog::accept);
+            connect(ui->cbOperationType, SIGNAL(currentIndexChanged(int)), this, SLOT(rearrangeDialog()));
+            connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &CryptocurrencyDialog::accept);
         }
 
         CryptocurrencyDialog::~CryptocurrencyDialog()
@@ -39,9 +41,9 @@ namespace investpor {
             delete ui;
         }
 
-        void CryptocurrencyDialog::rearrangeDialog(int &operationIndex)
+        void CryptocurrencyDialog::rearrangeDialog()
         {
-            if(Util::BUY == operationIndex) {
+            if(Util::BUY == ui->cbOperationType->currentData().toInt()) {
                 ui->lblGoalPrice->setVisible(true);
                 ui->dsbGoalPrice->setVisible(true);
             } else {
@@ -73,7 +75,7 @@ namespace investpor {
             }
 
 
-            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::BUY == ui->cbOperationType->currentData().toInt())
             {
                 if(ui->dsbGoalPrice->text().simplified().isEmpty()) {
                     errorMessageList << tr("Goal price cannot be empty!");
@@ -89,9 +91,11 @@ namespace investpor {
                 return;
             }
 
-            transaction = CryptocurrencyTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentIndex() + 1),
-                                                    static_cast<Util::Currency>(ui->cbCryptocurrency->currentIndex() + 1),
-                                                    ui->dsbPrice->value(), ui->dsbAmount->value(), ui->dteDateTime->dateTime(),
+            transaction = CryptocurrencyTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentData().toInt()),
+                                                    static_cast<Util::Currency>(ui->cbCryptocurrency->currentData().toInt()),
+                                                    ui->dsbPrice->value(),
+                                                    ui->dsbAmount->value(),
+                                                    ui->dteDateTime->dateTime(),
                                                     ui->dsbGoalPrice->value());
 
             //Values are valid.

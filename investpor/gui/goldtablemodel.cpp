@@ -72,7 +72,7 @@ namespace investpor {
 
             switch (section) {
             case 0:
-                return QString("Gold Type");
+                return QString("Type");
             case 1:
                 return QString("Operation");
             case 2:

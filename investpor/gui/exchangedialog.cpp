@@ -11,24 +11,28 @@ namespace investpor {
     namespace gui {
 
         ExchangeDialog::ExchangeDialog(QWidget *parent) :
-            QDialog(parent),
-            ui(new Ui::ExchangeDialog)
+            QDialog(parent), ui(new Ui::ExchangeDialog)
         {
             ui->setupUi(this);
             setWindowTitle(tr("Exchange Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
-            ui->cbOperationType->addItem(Util::operationName(Util::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Util::SELL));
 
-            for(uint i = Util::ARS; i <= Util::ZAR; ++i)
+            for(int i = Util::BUY, cbOpIndex = 0; i <= Util::SELL; ++i, ++cbOpIndex)
             {
-                ui->cbCurrency->addItem(QString("%1 - %2").arg(Util::currencySymbol(static_cast<Util::Currency>(i)).toUpper())
-                                        .arg(Util::currencyName(static_cast<Util::Currency>(i))));
+                ui->cbOperationType->addItem(Util::operationName(static_cast<Util::Operation>(i)));
+                ui->cbOperationType->setItemData(cbOpIndex, i);
             }
 
-            QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
-                             [this](int index){ rearrangeDialog(++index); });
-            QObject::connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &ExchangeDialog::accept);
+            for(uint i = Util::ARS, cbCurrencyIndex = 0; i <= Util::ZAR; ++i, ++cbCurrencyIndex)
+            {
+                ui->cbCurrency->addItem(QString("%1 - %2")
+                                        .arg(Util::currencySymbol(static_cast<Util::Currency>(i)).toUpper())
+                                        .arg(Util::currencyName(static_cast<Util::Currency>(i))));
+                ui->cbCurrency->setItemData(cbCurrencyIndex, i);
+            }
+
+            connect(ui->cbOperationType, SIGNAL(currentIndexChanged(int)), this, SLOT(rearrangeDialog()));
+            connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &ExchangeDialog::accept);
         }
 
         ExchangeDialog::~ExchangeDialog()
@@ -36,9 +40,9 @@ namespace investpor {
             delete ui;
         }
 
-        void ExchangeDialog::rearrangeDialog(int &operationIndex)
+        void ExchangeDialog::rearrangeDialog()
         {
-            if(Util::BUY == operationIndex) {
+            if(Util::BUY == ui->cbOperationType->currentData().toInt()) {
                 ui->lblGoalPrice->setVisible(true);
                 ui->dsbGoalPrice->setVisible(true);
             } else {
@@ -69,7 +73,7 @@ namespace investpor {
                 errorMessageList << tr("Operation datetime is invalid!");
             }
 
-            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::BUY == ui->cbOperationType->currentData().toInt())
             {
                 if(ui->dsbGoalPrice->text().simplified().isEmpty()) {
                     errorMessageList << tr("Goal price cannot be empty!");
@@ -84,9 +88,11 @@ namespace investpor {
                 return;
             }
 
-            transaction = ExchangeTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentIndex() + 1),
-                                              static_cast<Util::Currency>(ui->cbCurrency->currentIndex() + 1),
-                                              ui->dsbPrice->value(), ui->dsbAmount->value(), ui->dteDateTime->dateTime(),
+            transaction = ExchangeTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentData().toInt()),
+                                              static_cast<Util::Currency>(ui->cbCurrency->currentData().toInt()),
+                                              ui->dsbPrice->value(),
+                                              ui->dsbAmount->value(),
+                                              ui->dteDateTime->dateTime(),
                                               ui->dsbGoalPrice->value());
 
             //Passed the validation.

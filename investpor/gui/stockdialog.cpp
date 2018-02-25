@@ -20,18 +20,23 @@ namespace investpor {
             ui->leSymbol->setValidator(&symbolValidator);
             nameValidator.setRegularExpression(Util::stockNameRegularExpression());
             ui->leName->setValidator(&nameValidator);
-            ui->cbOperationType->addItem(Util::operationName(Util::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Util::SELL));
 
-            for(uint i = Util::BMEX; i <= Util::XTSE; ++i)
+            for(int i = Util::BUY, cbOpIndex = 0; i <= Util::SELL; ++i, ++cbOpIndex)
             {
-                ui->cbMarket->addItem(QString("%1 - %2").arg(Util::stockMarketSymbol(static_cast<Util::StockMarket>(i))).toUpper()
-                                      .arg(Util::stockMarketName(static_cast<Util::StockMarket>(i))));
+                ui->cbOperationType->addItem(Util::operationName(static_cast<Util::Operation>(i)));
+                ui->cbOperationType->setItemData(cbOpIndex, i);
             }
 
-            QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
-                             [this](int index){ rearrangeDialog(++index); });
-            QObject::connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &StockDialog::accept);
+            for(uint i = Util::BMEX, cbStockMarketIndex = 0; i <= Util::XTSE; ++i, ++cbStockMarketIndex)
+            {
+                ui->cbMarket->addItem(QString("%1 - %2")
+                                      .arg(Util::stockMarketSymbol(static_cast<Util::StockMarket>(i))).toUpper()
+                                      .arg(Util::stockMarketName(static_cast<Util::StockMarket>(i))));
+                ui->cbMarket->setItemData(cbStockMarketIndex, i);
+            }
+
+            connect(ui->cbOperationType, SIGNAL(currentIndexChanged(int)), this, SLOT(rearrangeDialog()));
+            connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &StockDialog::accept);
         }
 
         StockDialog::~StockDialog()
@@ -39,9 +44,9 @@ namespace investpor {
             delete ui;
         }
 
-        void StockDialog::rearrangeDialog(int &operationIndex)
+        void StockDialog::rearrangeDialog()
         {
-            if(Util::BUY == operationIndex) {
+            if(Util::BUY == ui->cbOperationType->currentData().toInt()) {
                 ui->lblName->setVisible(true);
                 ui->leName->setVisible(true);
                 ui->lblGoalPrice->setVisible(true);
@@ -64,7 +69,7 @@ namespace investpor {
                 errorMessageList << tr("Symbol is invalid!");
             }
 
-            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::BUY == ui->cbOperationType->currentData().toInt())
             {
                 if(ui->leName->text().simplified().isEmpty()) {
                     errorMessageList << tr("Stock name cannot be empty!");
@@ -98,18 +103,22 @@ namespace investpor {
             }
 
             //If it is a buy operation, check the validity of goal price.
-            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::BUY == ui->cbOperationType->currentData().toInt())
             {
                 if(!ui->dsbGoalPrice->text().simplified().isEmpty() && !ui->dsbGoalPrice->hasAcceptableInput()) {
                     errorMessageList << tr("Goal price is invalid!");
                 }
             }
 
-            transaction = StockTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentIndex() + 1),
-                                           static_cast<Util::StockMarket>(ui->cbMarket->currentIndex() + 1),
-                                           ui->leSymbol->text(), ui->leName->text(), ui->dsbPrice->value(),
-                                           ui->sbCount->value(), ui->dsbCommissionRate->value(),
-                                           ui->dteDateTime->dateTime(), ui->dsbGoalPrice->value());
+            transaction = StockTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentData().toInt()),
+                                           static_cast<Util::StockMarket>(ui->cbMarket->currentData().toInt()),
+                                           ui->leSymbol->text(),
+                                           ui->leName->text(),
+                                           ui->dsbPrice->value(),
+                                           ui->sbCount->value(),
+                                           ui->dsbCommissionRate->value(),
+                                           ui->dteDateTime->dateTime(),
+                                           ui->dsbGoalPrice->value());
 
             //If there is an error, warn the user.
             if(!errorMessageList.isEmpty())

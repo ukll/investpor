@@ -15,26 +15,104 @@ namespace investpor {
 
         /**
          * @brief Creates a new portfolio by using the provided parameters.
-         * @param filePath
-         * @param pName
-         * @param bCurrency
+         * @param filePath : File path of portfolio file.
+         * @param pName : Name of portfolio.
+         * @param bCurrency : Base currency of portfolio.
          * @param parent
          * @return
          */
-        PortfolioXML* PortfolioXML::createPortfolio(const QString &filePath, const QString &pName, const Util::Currency &bCurrency, QObject *parent)
+        PortfolioXML* PortfolioXML::createPortfolio(const QString &filePath, const QString &pName,
+                                                    const Util::Currency &bCurrency, QObject *parent)
         {
-            return new PortfolioXML(filePath, pName, bCurrency, parent);
+            PortfolioXML *portfolio = new PortfolioXML(filePath, parent);
+
+            //Get the directory of the file.
+            QFileInfo fileInfo(*(portfolio->portfolioFile));
+            QDir dir(fileInfo.absolutePath());
+
+            //Create the directory if not exists.
+            if(!dir.exists())
+            {
+                if(!dir.mkpath(dir.absolutePath()))
+                {
+                    portfolio->state = FileCouldNotBeCreated;
+                    return portfolio;
+                }
+            }
+
+            //Open the file with write permission.
+            if(!portfolio->portfolioFile->open(QIODevice::WriteOnly | QIODevice::Text))
+            {
+                portfolio->state = FileCouldNotBeOpened;
+                return portfolio;
+            }
+
+            //Create XML document
+            QXmlStreamWriter outStream(portfolio->portfolioFile);
+            outStream.setAutoFormatting(true);
+            outStream.writeStartDocument();
+
+            //create root element
+            outStream.writeStartElement("portfolio");
+            outStream.writeAttribute("name", pName);
+            outStream.writeAttribute("currency", Util::currencySymbol(bCurrency).toLower());
+
+            outStream.writeStartElement(Util::getInvestmentTagName(Util::CryptocurrencyInvestment));
+            outStream.writeEndElement();
+
+            outStream.writeStartElement(Util::getInvestmentTagName(Util::DiscountBondInvestment));
+            outStream.writeEndElement();
+
+            outStream.writeStartElement(Util::getInvestmentTagName(Util::ExchangeInvestment));
+            outStream.writeEndElement();
+
+            outStream.writeStartElement(Util::getInvestmentTagName(Util::FundInvestment));
+            outStream.writeEndElement();
+
+            outStream.writeStartElement(Util::getInvestmentTagName(Util::GoldInvestment));
+            outStream.writeEndElement();
+
+            outStream.writeStartElement(Util::getInvestmentTagName(Util::StockInvestment));
+            outStream.writeEndElement();
+
+            //Close XML document
+            outStream.writeEndDocument();
+
+            portfolio->portfolioFile->close();
+            portfolio->portfolioName = pName;
+            portfolio->baseCurrency = bCurrency;
+            portfolio->state = Valid;
+
+            return portfolio;
         }
 
         /**
          * @brief Opens a portfolio by using the provided filePath.
-         * @param filePath
+         * @param filePath : File path of portfolio file.
          * @param parent
          * @return
          */
         PortfolioXML* PortfolioXML::openPortfolio(const QString &filePath, QObject *parent)
         {
-            return new PortfolioXML(filePath, parent);
+            PortfolioXML *portfolio = new PortfolioXML(filePath, parent);
+
+            if(portfolio->portfolioFile->exists()) {
+                //Check if portfolio file is valid.
+                QDomDocument domDocument;
+                if(portfolio->loadDomDocument(domDocument))
+                {
+                    QDomElement portfolioElement = domDocument.documentElement();
+                    portfolio->portfolioName = portfolioElement.attribute("name");
+                    portfolio->baseCurrency = Util::getCurrency(portfolioElement.attribute("currency"));
+                    portfolio->state = Valid;
+                } else {
+                    portfolio->state = FileContentIsNotValid;
+                }
+
+                return portfolio;
+            }
+
+            return nullptr;
         }
 
         PortfolioXML::~PortfolioXML()
@@ -42,7 +120,7 @@ namespace investpor {
 
         }
 
-        bool PortfolioXML::setPortfolioName(const QString &pName)
+        bool PortfolioXML::editPortfolio(const QString &pName, const Util::Currency &bCurrency)
         {
             QDomDocument domDocument;
             //Load the DOM document
@@ -53,28 +131,6 @@ namespace investpor {
 
             QDomElement portfolioElement = domDocument.documentElement();
             portfolioElement.setAttribute("name", pName);
-
-            //Save the transaction
-            if(!savePortfolio(domDocument))
-            {
-                state = FileCouldNotBeSaved;
-                return false;
-            }
-
-            portfolioName = pName;
-            return true;
-        }
-
-        bool PortfolioXML::setBaseCurrency(const Util::Currency &bCurrency)
-        {
-            QDomDocument domDocument;
-            //Load the DOM document
-            if(!loadDomDocument(domDocument))
-            {
-                return false;
-            }
-
-            QDomElement portfolioElement = domDocument.documentElement();
             portfolioElement.setAttribute("currency", Util::currencySymbol(bCurrency));
 
             //Save the transaction
@@ -84,6 +140,7 @@ namespace investpor {
                 return false;
             }
 
+            portfolioName = pName;
             baseCurrency = bCurrency;
             return true;
         }
@@ -99,16 +156,15 @@ namespace investpor {
                 return false;
             }
 
-            if(!findDomElementByTagName(domDocument, cryptoCurrencyInvestmentElement,
-                                        Util::getInvestmentTagName(Util::CryptocurrencyInvestment)))
+            if(!findChildElementByTagName(domDocument.documentElement(), cryptoCurrencyInvestmentElement,
+                                                Util::getInvestmentTagName(Util::CryptocurrencyInvestment)))
             {
                 //Cryptocurrency investment element does not exist. File is not valid.
                 return false;
             }
 
             QDomElement cryptoCurrencyElement;
-            QDomElement transactionElement = domDocument.createElement("transaction");
-            if(!findDirectChildElementByTagName(cryptoCurrencyInvestmentElement, cryptoCurrencyElement,
+            if(!findChildElementByTagName(cryptoCurrencyInvestmentElement, cryptoCurrencyElement,
                                                 Util::currencySymbol(transaction.getCryptocurrency()).toLower()))
             {
                 //Cryptocurrency element does not exist. Create a new one.
@@ -116,6 +172,7 @@ namespace investpor {
                 cryptoCurrencyInvestmentElement.appendChild(cryptoCurrencyElement);
             }
 
+            QDomElement transactionElement = domDocument.createElement("transaction");
             transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()).toLower());
             cryptoCurrencyElement.appendChild(transactionElement);
 
@@ -163,16 +220,16 @@ namespace investpor {
             }
 
             QDomElement discountBondInvestmentElement;
-            if(!findDomElementByTagName(domDocument, discountBondInvestmentElement,
-                                        Util::getInvestmentTagName(Util::DiscountBondInvestment)))
+
+            if(!findChildElementByTagName(domDocument.documentElement(), discountBondInvestmentElement,
+                                                Util::getInvestmentTagName(Util::DiscountBondInvestment)))
             {
                 //Discount bond investment element does not exist. File is not valid.
                 return false;
             }
 
             QDomElement discountBondElement;
-            QDomElement transactionElement = domDocument.createElement("transaction");
-            if(!findDirectChildElementByTagName(discountBondInvestmentElement, discountBondElement,
+            if(!findChildElementByTagName(discountBondInvestmentElement, discountBondElement,
                                                 transaction.getISIN().toLower()))
             {
                 //Discount bond element does not exist. Create a new one.
@@ -182,6 +239,7 @@ namespace investpor {
                 discountBondInvestmentElement.appendChild(discountBondElement);
             }
 
+            QDomElement transactionElement = domDocument.createElement("transaction");
             transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()).toLower());
             discountBondElement.appendChild(transactionElement);
 
@@ -221,16 +279,15 @@ namespace investpor {
             }
 
             QDomElement exchangeInvestmentElement;
-            if(!findDomElementByTagName(domDocument, exchangeInvestmentElement,
-                                        Util::getInvestmentTagName(Util::ExchangeInvestment)))
+            if(!findChildElementByTagName(domDocument.documentElement(), exchangeInvestmentElement,
+                                                Util::getInvestmentTagName(Util::ExchangeInvestment)))
             {
                 //Exchange investment element does not exist. File is not valid.
                 return false;
             }
 
             QDomElement exchangeElement;
-            QDomElement transactionElement = domDocument.createElement("transaction");
-            if(!findDirectChildElementByTagName(exchangeInvestmentElement, exchangeElement,
+            if(!findChildElementByTagName(exchangeInvestmentElement, exchangeElement,
                                                 Util::currencySymbol(transaction.getCurrency()).toLower()))
             {
                 //Exchange element does not exist. Create a new one.
@@ -238,6 +295,7 @@ namespace investpor {
                 exchangeInvestmentElement.appendChild(exchangeElement);
             }
 
+            QDomElement transactionElement = domDocument.createElement("transaction");
             transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()).toLower());
             exchangeElement.appendChild(transactionElement);
 
@@ -285,16 +343,15 @@ namespace investpor {
             }
 
             QDomElement fundInvestmentElement;
-            if(!findDomElementByTagName(domDocument, fundInvestmentElement,
-                                        Util::getInvestmentTagName(Util::FundInvestment)))
+            if(!findChildElementByTagName(domDocument.documentElement(), fundInvestmentElement,
+                                                Util::getInvestmentTagName(Util::FundInvestment)))
             {
                 //Fund investment element does not exist. File is not valid.
                 return false;
             }
 
             QDomElement fundElement;
-            QDomElement transactionElement = domDocument.createElement("transaction");
-            if(!findDirectChildElementByTagName(fundInvestmentElement, fundElement, transaction.getFundCode().toLower()))
+            if(!findChildElementByTagName(fundInvestmentElement, fundElement, transaction.getFundCode().toLower()))
             {
                 //Fund element does not exist. Create a new one.
                 fundElement = domDocument.createElement(transaction.getFundCode().toLower());
@@ -302,6 +359,7 @@ namespace investpor {
                 fundInvestmentElement.appendChild(fundElement);
             }
 
+            QDomElement transactionElement = domDocument.createElement("transaction");
             transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()).toLower());
             fundElement.appendChild(transactionElement);
 
@@ -348,7 +406,6 @@ namespace investpor {
             QDomDocument domDocument;
             QDomElement goldInvestmentElement;
             QDomElement goldElement;
-            QDomElement transactionElement = domDocument.createElement("transaction");
 
             //Load the DOM document
             if(!loadDomDocument(domDocument))
@@ -356,14 +413,14 @@ namespace investpor {
                 return false;
             }
 
-            if(!findDomElementByTagName(domDocument, goldInvestmentElement,
-                                        Util::getInvestmentTagName(Util::GoldInvestment)))
+            if(!findChildElementByTagName(domDocument.documentElement(), goldInvestmentElement,
+                                                Util::getInvestmentTagName(Util::GoldInvestment)))
             {
                 //Gold investment element does not exist. File is not valid.
                 return false;
             }
 
-            if(!findDirectChildElementByTagName(goldInvestmentElement, goldElement,
+            if(!findChildElementByTagName(goldInvestmentElement, goldElement,
                                                 Util::goldSymbol(transaction.getGoldType()).toLower()))
             {
                 //Gold element does not exist. Create a new one.
@@ -371,6 +428,7 @@ namespace investpor {
                 goldInvestmentElement.appendChild(goldElement);
             }
 
+            QDomElement transactionElement = domDocument.createElement("transaction");
             transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()).toLower());
             goldElement.appendChild(transactionElement);
 
@@ -418,8 +476,8 @@ namespace investpor {
             }
 
             QDomElement stockInvestmentElement;
-            if(!findDomElementByTagName(domDocument, stockInvestmentElement,
-                                        Util::getInvestmentTagName(Util::StockInvestment)))
+            if(!findChildElementByTagName(domDocument.documentElement(), stockInvestmentElement,
+                                                Util::getInvestmentTagName(Util::StockInvestment)))
             {
                 //Stock investment element does not exist. File is not valid.
                 return false;
@@ -427,8 +485,7 @@ namespace investpor {
 
             QDomElement stockMarketElement;
             QDomElement stockElement;
-            QDomElement transactionElement = domDocument.createElement("transaction");
-            if(!findDirectChildElementByTagName(stockInvestmentElement, stockMarketElement,
+            if(!findChildElementByTagName(stockInvestmentElement, stockMarketElement,
                                                 Util::stockMarketSymbol(transaction.getStockMarket()).toLower()))
             {
                 //Stock market element does not exist. Create a new one.
@@ -437,7 +494,7 @@ namespace investpor {
             }
 
             //Check if stock element exists.
-            if(!findDirectChildElementByTagName(stockMarketElement, stockElement, transaction.getStockSymbol().toLower()))
+            if(!findChildElementByTagName(stockMarketElement, stockElement, transaction.getStockSymbol().toLower()))
             {
                 //Stock element does not exist. Create a new one.
                 stockElement = domDocument.createElement(transaction.getStockSymbol().toLower());
@@ -445,6 +502,7 @@ namespace investpor {
                 stockElement.setAttribute("name", transaction.getStockName().toLower());
             }
 
+            QDomElement transactionElement = domDocument.createElement("transaction");
             transactionElement.setAttribute("type", Util::operationCode(transaction.getOperationType()).toLower());
             stockElement.appendChild(transactionElement);
 
@@ -496,8 +554,8 @@ namespace investpor {
             }
 
             QDomElement cryptoCurrencyInvestmentElement;
-            if(!findDomElementByTagName(domDocument, cryptoCurrencyInvestmentElement,
-                                        Util::getInvestmentTagName(Util::CryptocurrencyInvestment)))
+            if(!findChildElementByTagName(domDocument.documentElement(), cryptoCurrencyInvestmentElement,
+                                                Util::getInvestmentTagName(Util::CryptocurrencyInvestment)))
             {
                 //Cryptocurrency investment element does not exist. File is not valid.
                 return QList<CryptocurrencyTransaction>();
@@ -573,8 +631,8 @@ namespace investpor {
             }
 
             QDomElement discountBondInvestmentElement;
-            if(!findDomElementByTagName(domDocument, discountBondInvestmentElement,
-                                        Util::getInvestmentTagName(Util::DiscountBondInvestment)))
+            if(!findChildElementByTagName(domDocument.documentElement(), discountBondInvestmentElement,
+                                                Util::getInvestmentTagName(Util::DiscountBondInvestment)))
             {
                 //Discount bond investment element does not exist. File is not valid.
                 return QList<DiscountBondTransaction>();
@@ -642,8 +700,8 @@ namespace investpor {
             }
 
             QDomElement exchangeInvestmentElement;
-            if(!findDomElementByTagName(domDocument, exchangeInvestmentElement,
-                                        Util::getInvestmentTagName(Util::ExchangeInvestment)))
+            if(!findChildElementByTagName(domDocument.documentElement(), exchangeInvestmentElement,
+                                                Util::getInvestmentTagName(Util::ExchangeInvestment)))
             {
                 //Exchange investment element does not exist. File is not valid.
                 return QList<ExchangeTransaction>();
@@ -718,8 +776,8 @@ namespace investpor {
             }
 
             QDomElement fundInvestmentElement;
-            if(!findDomElementByTagName(domDocument, fundInvestmentElement,
-                                        Util::getInvestmentTagName(Util::FundInvestment)))
+            if(!findChildElementByTagName(domDocument.documentElement(), fundInvestmentElement,
+                                                Util::getInvestmentTagName(Util::FundInvestment)))
             {
                 //Fund investment element does not exist. File is not valid.
                 return QList<FundTransaction>();
@@ -790,8 +848,8 @@ namespace investpor {
             }
 
             QDomElement goldInvestmentElement;
-            if(!findDomElementByTagName(domDocument, goldInvestmentElement,
-                                        Util::getInvestmentTagName(Util::GoldInvestment)))
+            if(!findChildElementByTagName(domDocument.documentElement(), goldInvestmentElement,
+                                                Util::getInvestmentTagName(Util::GoldInvestment)))
             {
                 //Gold investment element does not exist. File is not valid.
                 return QList<GoldTransaction>();
@@ -866,8 +924,8 @@ namespace investpor {
             }
 
             QDomElement stockInvestmentElement;
-            if(!findDomElementByTagName(domDocument, stockInvestmentElement,
-                                        Util::getInvestmentTagName(Util::StockInvestment)))
+            if(!findChildElementByTagName(domDocument.documentElement(), stockInvestmentElement,
+                                                Util::getInvestmentTagName(Util::StockInvestment)))
             {
                 //Stock investment element does not exist. File is not valid.
                 return QList<StockTransaction>();
@@ -943,91 +1001,14 @@ namespace investpor {
         }
 
         /**
-         * @brief Constructor to create a portfolio object when opening an existing portfolio file.
+         * @brief Constructs a new object with the given file path.
          * @param filePath : Filepath of portfolio file.
          * @param parent : Parent to own portfolio.
          */
         PortfolioXML::PortfolioXML(const QString &filePath, QObject *parent) :
             QObject(parent), portfolioFile(new QFile(filePath, this))
         {
-            QDomDocument domDocument;
 
-            if(portfolioFile->exists()) {
-                //Check if portfolio file is valid.
-                if(loadDomDocument(domDocument))
-                {
-                    state = Valid;
-
-                    QDomElement portfolioElement = domDocument.documentElement();
-                    portfolioName = portfolioElement.attribute("name");
-                    baseCurrency = Util::getCurrency(portfolioElement.attribute("currency"));
-
-                    return;
-                }
-
-                state = FileContentIsNotValid;
-                return;
-            }
-        }
-
-        PortfolioXML::PortfolioXML(const QString &filePath, const QString &pName, const Util::Currency &bCurrency, QObject *parent) :
-            QObject(parent), portfolioFile(new QFile(filePath, this)), portfolioName(pName), baseCurrency(bCurrency)
-        {
-            //Get the directory of the file.
-            QFileInfo fileInfo(*portfolioFile);
-            QDir dir(fileInfo.absolutePath());
-
-            //Create the directory if not exists.
-            if(!dir.exists())
-            {
-                if(!dir.mkpath(dir.absolutePath()))
-                {
-                    state = FolderCouldNotBeCreated;
-                    return;
-                }
-            }
-
-            //Open the file with write permission.
-            if(!portfolioFile->open(QIODevice::WriteOnly | QIODevice::Text))
-            {
-                state = FileCouldNotBeOpened;
-                return;
-            }
-
-            //Create XML document
-            QXmlStreamWriter outStream(portfolioFile);
-            outStream.setAutoFormatting(true);
-            outStream.writeStartDocument();
-
-            //create root element
-            outStream.writeStartElement("portfolio");
-            outStream.writeAttribute("name", pName);
-            outStream.writeAttribute("currency", Util::currencySymbol(bCurrency).toLower());
-
-            outStream.writeStartElement(Util::getInvestmentTagName(Util::CryptocurrencyInvestment));
-            outStream.writeEndElement();
-
-            outStream.writeStartElement(Util::getInvestmentTagName(Util::DiscountBondInvestment));
-            outStream.writeEndElement();
-
-            outStream.writeStartElement(Util::getInvestmentTagName(Util::ExchangeInvestment));
-            outStream.writeEndElement();
-
-            outStream.writeStartElement(Util::getInvestmentTagName(Util::FundInvestment));
-            outStream.writeEndElement();
-
-            outStream.writeStartElement(Util::getInvestmentTagName(Util::GoldInvestment));
-            outStream.writeEndElement();
-
-            outStream.writeStartElement(Util::getInvestmentTagName(Util::StockInvestment));
-            outStream.writeEndElement();
-
-            //Close XML document
-            outStream.writeEndDocument();
-
-            portfolioFile->close();
-
-            state = Valid;
         }
 
         bool PortfolioXML::loadDomDocument(QDomDocument &domDocument) const
@@ -1042,20 +1023,7 @@ namespace investpor {
             return true;
         }
 
-        bool PortfolioXML::findDomElementByTagName(const QDomDocument &domDocument, QDomElement &domElement, const QString &tagName) const
-        {
-            //Find out if the child element has been created previously.
-            QDomNodeList domElementNodes = domDocument.elementsByTagName(tagName);
-            if(domElementNodes.length() == 1)
-            {
-                domElement = domElementNodes.at(0).toElement();
-                return true;
-            }
-
-            return false;
-        }
-
-        bool PortfolioXML::findDirectChildElementByTagName(const QDomElement &parent, QDomElement &child, const QString &tagName) const
+        bool PortfolioXML::findChildElementByTagName(const QDomElement &parent, QDomElement &child, const QString &tagName) const
         {
             QDomNodeList childNodes = parent.elementsByTagName(tagName);
             if(childNodes.length() == 1)
@@ -1067,6 +1035,11 @@ namespace investpor {
             return false;
         }
 
+        /**
+         * @brief Saves the QDomDocument to portfolio file.
+         * @param domDocument : QDomDocument to save.
+         * @return
+         */
         bool PortfolioXML::savePortfolio(const QDomDocument &domDocument) const
         {
             if(!portfolioFile->open(QIODevice::Text | QIODevice::WriteOnly)){

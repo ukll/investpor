@@ -34,8 +34,10 @@ namespace investpor {
             QRegularExpressionValidator fundCodeValidator;
             QRegularExpressionValidator fundNameValidator;
 
-            void rearrangeDialog(int &operationIndex);
             virtual void accept() override;
+
+        private slots:
+            void rearrangeDialog();
         };
 
     }

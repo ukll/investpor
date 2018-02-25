@@ -34,8 +34,10 @@ namespace investpor {
             QRegularExpressionValidator nameValidator;
             StockTransaction transaction;
 
-            void rearrangeDialog(int &operationIndex);
             virtual void accept() override;
+
+        private slots:
+            void rearrangeDialog();
         };
 
     }

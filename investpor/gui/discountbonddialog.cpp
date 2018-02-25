@@ -14,22 +14,23 @@ namespace investpor {
     namespace gui {
 
         DiscountBondDialog::DiscountBondDialog(QWidget *parent) :
-            QDialog(parent),
-            ui(new Ui::DiscountBondDialog)
+            QDialog(parent), ui(new Ui::DiscountBondDialog)
         {
             ui->setupUi(this);
             setWindowTitle(tr("Discount Bond Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
             ISINValidator.setRegularExpression(Util::bondISINRegularExpression());
             ui->leISINCode->setValidator(&ISINValidator);
-            ui->cbOperationType->addItem(Util::operationName(Util::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Util::SELL));
 
-            QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
-                             [this](int index){ rearrangeDialog(++index); });
-            QObject::connect(ui->deTerm, &QDateEdit::dateChanged, ui->deDate, &QDateEdit::setMaximumDate);
+            for(int i = Util::BUY, cbOpIndex = 0; i <= Util::SELL; ++i, ++cbOpIndex)
+            {
+                ui->cbOperationType->addItem(Util::operationName(static_cast<Util::Operation>(i)));
+                ui->cbOperationType->setItemData(cbOpIndex, i);
+            }
 
-            QObject::connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &DiscountBondDialog::accept);
+            connect(ui->cbOperationType, SIGNAL(currentIndexChanged(int)), this, SLOT(rearrangeDialog()));
+            connect(ui->deTerm, &QDateEdit::dateChanged, ui->deDate, &QDateEdit::setMaximumDate);
+            connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &DiscountBondDialog::accept);
         }
 
         DiscountBondDialog::~DiscountBondDialog()
@@ -37,9 +38,9 @@ namespace investpor {
             delete ui;
         }
 
-        void DiscountBondDialog::rearrangeDialog(int &operationIndex)
+        void DiscountBondDialog::rearrangeDialog()
         {
-            if(Util::BUY == operationIndex) {
+            if(Util::BUY == ui->cbOperationType->currentData().toInt()) {
                 ui->lblTerm->setVisible(true);
                 ui->deTerm->setVisible(true);
                 ui->lblNominalValue->setVisible(true);
@@ -62,7 +63,7 @@ namespace investpor {
                 errorMessageList << tr("ISIN code is not valid!");
             }
 
-            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1)) {
+            if(Util::BUY == ui->cbOperationType->currentData().toInt()) {
                 //If it is a BUY transacton, validate term and nominal value too.
                 if(ui->deTerm->text().simplified().isEmpty()) {
                     errorMessageList << tr("Term date cannot be empty!");
@@ -102,9 +103,13 @@ namespace investpor {
                 return;
             }
 
-            transaction = DiscountBondTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentIndex() + 1),
-                                                  ui->leISINCode->text(), ui->deTerm->date(), ui->dsbNominalValue->value(),
-                                                  ui->dsbSalePrice->value(), ui->sbCount->value(), ui->deDate->date());
+            transaction = DiscountBondTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentData().toInt()),
+                                                  ui->leISINCode->text(),
+                                                  ui->deTerm->date(),
+                                                  ui->dsbNominalValue->value(),
+                                                  ui->dsbSalePrice->value(),
+                                                  ui->sbCount->value(),
+                                                  ui->deDate->date());
             //Passed the validation
             QDialog::accept();
         }

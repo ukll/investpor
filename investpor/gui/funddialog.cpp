@@ -10,8 +10,7 @@ namespace investpor {
     namespace gui {
 
         FundDialog::FundDialog(QWidget *parent) :
-            QDialog(parent),
-            ui(new Ui::FundDialog)
+            QDialog(parent), ui(new Ui::FundDialog)
         {
             ui->setupUi(this);
             setWindowTitle(tr("Fund Transaction"));
@@ -20,13 +19,16 @@ namespace investpor {
             ui->leCode->setValidator(&fundCodeValidator);
             fundNameValidator.setRegularExpression(Util::fundNameRegularExpression());
             ui->leName->setValidator(&fundNameValidator);
-            ui->cbOperationType->addItem(Util::operationName(Util::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Util::SELL));
 
-            QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
-                             [this](int index){ rearrangeDialog(++index); });
-            QObject::connect(ui->deOrderDate, &QDateEdit::dateChanged, ui->deOperationDate, &QDateEdit::setMinimumDate);
-            QObject::connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &FundDialog::accept);
+            for(int i = Util::BUY, cbOpIndex = 0; i <= Util::SELL; ++i, ++cbOpIndex)
+            {
+                ui->cbOperationType->addItem(Util::operationName(static_cast<Util::Operation>(i)));
+                ui->cbOperationType->setItemData(cbOpIndex, i);
+            }
+
+            connect(ui->cbOperationType, SIGNAL(currentIndexChanged(int)), this, SLOT(rearrangeDialog()));
+            connect(ui->deOrderDate, &QDateEdit::dateChanged, ui->deOperationDate, &QDateEdit::setMinimumDate);
+            connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &FundDialog::accept);
         }
 
         FundDialog::~FundDialog()
@@ -34,9 +36,9 @@ namespace investpor {
             delete ui;
         }
 
-        void FundDialog::rearrangeDialog(int &operationIndex)
+        void FundDialog::rearrangeDialog()
         {
-            if(Util::BUY == operationIndex) {
+            if(Util::BUY == ui->cbOperationType->currentData().toInt()) {
                 ui->lblName->setVisible(true);
                 ui->leName->setVisible(true);
                 ui->lblGoalPrice->setVisible(true);
@@ -59,7 +61,7 @@ namespace investpor {
                 errorMessageList << tr("Fund code is invalid!");
             }
 
-            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1)) {
+            if(Util::BUY == ui->cbOperationType->currentData().toInt()) {
                 if(ui->leName->text().simplified().isEmpty()) {
                     errorMessageList << tr("Fund name cannot be empty!");
                 } else if(!ui->leName->hasAcceptableInput()) {
@@ -90,7 +92,7 @@ namespace investpor {
             }
 
             //If it is a buy operation, check the validity of goal price.
-            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::BUY == ui->cbOperationType->currentData().toInt())
             {
                 if(!ui->dsbGoalPrice->text().simplified().isEmpty() && !ui->dsbGoalPrice->hasAcceptableInput()) {
                     errorMessageList << tr("Goal price is invalid!");
@@ -104,10 +106,14 @@ namespace investpor {
                 return;
             }
 
-            transaction = FundTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentIndex() + 1),
-                                          ui->leCode->text().simplified(), ui->leName->text().simplified(),
-                                          ui->dsbPrice->value(), static_cast<quint32>(ui->sbCount->value()),
-                                          ui->deOrderDate->date(), ui->deOperationDate->date(), ui->dsbGoalPrice->value());
+            transaction = FundTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentData().toInt()),
+                                          ui->leCode->text().simplified(),
+                                          ui->leName->text().simplified(),
+                                          ui->dsbPrice->value(),
+                                          ui->sbCount->value(),
+                                          ui->deOrderDate->date(),
+                                          ui->deOperationDate->date(),
+                                          ui->dsbGoalPrice->value());
 
             //Passed the validation
             QDialog::accept();

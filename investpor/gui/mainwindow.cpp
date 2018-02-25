@@ -31,7 +31,7 @@ namespace investpor {
         {
             ui->setupUi(this);
             ui->centralWidget->setEnabled(false);
-            setWindowTitle(QString("%1 v%2 - Investment Portfolio Tracker").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
+            setTitle("");
 
             readApplicationSettings();
 
@@ -77,6 +77,31 @@ namespace investpor {
         }
 
         /**
+         * @brief Interrupts closeEvent for some important operations.
+         * @param event : QCloseEvent object that is sent when window is closing.
+         */
+        void MainWindow::closeEvent(QCloseEvent *event)
+        {
+            writeApplicationSettings();
+            event->accept();
+        }
+
+        void MainWindow::setTitle(const QString &title)
+        {
+            if(title.isEmpty())
+            {
+                setWindowTitle(QStringLiteral("%1 v%2")
+                               .arg(qApp->applicationName())
+                               .arg(qApp->applicationVersion()));
+            } else {
+                setWindowTitle(QStringLiteral("%1 - %2 v%3")
+                               .arg(title)
+                               .arg(qApp->applicationName())
+                               .arg(qApp->applicationVersion()));
+            }
+        }
+
+        /**
          * @brief Reads application settings from previous session
          */
         void MainWindow::readApplicationSettings()
@@ -109,7 +134,7 @@ namespace investpor {
             if(pd->exec() == QDialog::Accepted)
             {
                 portfolio = PortfolioXML::createPortfolio(QDir::toNativeSeparators(pd->getPortfolioURL()),
-                                             pd->getPortfolioName(), pd->getBasecurrency(), this);
+                                                          pd->getPortfolioName(), pd->getBasecurrency(), this);
                 if(portfolio->getState() != PortfolioXML::Valid)
                 {
                     QMessageBox::critical(this, tr("No Portfolio"),
@@ -118,9 +143,9 @@ namespace investpor {
                     return;
                 }
 
-
                 connectModels();
                 updateTotals();
+                setTitle(portfolio->getPortfolioName());
                 ui->centralWidget->setEnabled(true);
                 ui->actionEdit_Portfolio->setEnabled(true);
                 ui->menuNew_Transaction->setEnabled(true);
@@ -135,12 +160,12 @@ namespace investpor {
             PortfolioDialog *pd = PortfolioDialog::editPortfolioDialog(portfolio->getPortfolioName(), portfolio->getBaseCurrency(), this);
             if(pd->exec() == QDialog::Accepted)
             {
-                if(!portfolio->setPortfolioName(pd->getPortfolioName()) ||
-                        !portfolio->setBaseCurrency(pd->getBasecurrency()))
+                if(!portfolio->editPortfolio(pd->getPortfolioName(), pd->getBasecurrency()))
                 {
                     QMessageBox::warning(this, tr("Operation Failed!"),
                                          tr("Portfolio file could not be edited!"));
                 }
+                setTitle(portfolio->getPortfolioName());
             }
         }
 
@@ -158,7 +183,7 @@ namespace investpor {
             }
 
             portfolio = PortfolioXML::openPortfolio(QDir::toNativeSeparators(portfolioURL), this);
-            if(portfolio->getState() != PortfolioXML::Valid)
+            if(portfolio == nullptr || portfolio->getState() != PortfolioXML::Valid)
             {
                 QMessageBox::critical(this, tr("No Portfolio"),
                                       tr("Portfolio file could not be opened!"));
@@ -169,6 +194,7 @@ namespace investpor {
 
             connectModels();
             updateTotals();
+            setTitle(portfolio->getPortfolioName());
             ui->centralWidget->setEnabled(true);
             ui->actionEdit_Portfolio->setEnabled(true);
             ui->menuNew_Transaction->setEnabled(true);
@@ -376,16 +402,6 @@ namespace investpor {
                     statusBar()->showMessage(tr("Stock transaction has been saved successfully!"), 3000);
                 }
             }
-        }
-
-        /**
-         * @brief Interrupts closeEvent for some important operations.
-         * @param event : QCloseEvent object that is sent when window is closing.
-         */
-        void MainWindow::closeEvent(QCloseEvent *event)
-        {
-            writeApplicationSettings();
-            event->accept();
         }
 
     }

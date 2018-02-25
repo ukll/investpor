@@ -10,24 +10,26 @@ namespace investpor {
     namespace gui {
 
         GoldDialog::GoldDialog(QWidget *parent) :
-            QDialog(parent),
-            ui(new Ui::GoldDialog)
+            QDialog(parent), ui(new Ui::GoldDialog)
         {
             ui->setupUi(this);
             setWindowTitle(tr("Gold Transaction"));
             ui->vlStatusBar->addWidget(&statusBar);
-            ui->cbOperationType->addItem(Util::operationName(Util::BUY));
-            ui->cbOperationType->addItem(Util::operationName(Util::SELL));
 
-            for(uint i = Util::GRAMS; i <= Util::ONS; ++i)
+            for(int i = Util::BUY, cbOpIndex = 0; i <= Util::SELL; ++i, ++cbOpIndex)
             {
-                ui->cbGoldType->addItem(Util::goldName(static_cast<Util::Gold>(i)));
+                ui->cbOperationType->addItem(Util::operationName(static_cast<Util::Operation>(i)));
+                ui->cbOperationType->setItemData(cbOpIndex, i);
             }
 
-            QObject::connect(ui->cbOperationType, QOverload<int>::of(&QComboBox::currentIndexChanged),
-                             [this](int index){ rearrangeDialog(++index); });
-            QObject::connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &GoldDialog::accept);
+            for(uint i = Util::GRAM, cbGoldIndex = 0; i <= Util::OUNCE; ++i, ++cbGoldIndex)
+            {
+                ui->cbGoldType->addItem(Util::goldName(static_cast<Util::Gold>(i)));
+                ui->cbGoldType->setItemData(cbGoldIndex, i);
+            }
 
+            connect(ui->cbOperationType, SIGNAL(currentIndexChanged(int)), this, SLOT(rearrangeDialog()));
+            connect(ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &GoldDialog::accept);
         }
 
         GoldDialog::~GoldDialog()
@@ -35,9 +37,9 @@ namespace investpor {
             delete ui;
         }
 
-        void GoldDialog::rearrangeDialog(int &operationIndex)
+        void GoldDialog::rearrangeDialog()
         {
-            if(Util::BUY == operationIndex) {
+            if(Util::BUY == ui->cbOperationType->currentData().toInt()) {
                 ui->lblGoalPrice->setVisible(true);
                 ui->dsbGoalPrice->setVisible(true);
             } else {
@@ -69,7 +71,7 @@ namespace investpor {
             }
 
             //If it is a buy operation, check the validity of goal price.
-            if(Util::BUY == (ui->cbOperationType->currentIndex() + 1))
+            if(Util::BUY == ui->cbOperationType->currentData().toInt())
             {
                 if(!ui->dsbGoalPrice->text().simplified().isEmpty() && !ui->dsbGoalPrice->hasAcceptableInput())
                 {
@@ -77,10 +79,12 @@ namespace investpor {
                 }
             }
 
-            transaction = GoldTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentIndex() + 1),
-                                          static_cast<Util::Gold>(ui->cbGoldType->currentIndex() + 1),
-                                          ui->dsbPrice->value(), ui->dsbAmount->value(),
-                                          ui->dteDateTime->dateTime(), ui->dsbGoalPrice->value());
+            transaction = GoldTransaction(static_cast<Util::Operation>(ui->cbOperationType->currentData().toInt()),
+                                          static_cast<Util::Gold>(ui->cbGoldType->currentData().toInt()),
+                                          ui->dsbPrice->value(),
+                                          ui->dsbAmount->value(),
+                                          ui->dteDateTime->dateTime(),
+                                          ui->dsbGoalPrice->value());
 
             if(!errorMessageList.isEmpty())
             {
