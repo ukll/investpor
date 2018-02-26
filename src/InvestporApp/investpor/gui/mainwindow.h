@@ -46,10 +46,13 @@ namespace investpor {
             void setTitle(const QString &title = QString());
             void readApplicationSettings();
             void writeApplicationSettings() const;
+            void loadRecentPortfoliosList();
+            void saveRecentPortfoliosList(const QString &lastPortfolioUrl) const;
 
             void newPortfolio();
             void editPortfolio();
             void openPortfolio();
+            void loadPortfolio(const QString &portfolioUrl = QString());
             void connectModels();
             void updateTotals();
 

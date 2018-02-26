@@ -34,6 +34,7 @@ namespace investpor {
             ~PortfolioXML();
 
             bool editPortfolio(const QString &pName, const Util::Currency &bCurrency);
+            const QString getPortfolioFilePath() const;
             const QString getPortfolioName() const { return portfolioName; }
             Util::Currency getBaseCurrency() const { return baseCurrency; }
             PortfolioState getState() const { return state; }

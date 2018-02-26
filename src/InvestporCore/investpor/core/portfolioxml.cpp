@@ -145,6 +145,16 @@ namespace investpor {
             return true;
         }
 
+        /**
+         * @brief Returns CanonicalFilePath of portfolio file.
+         * @return CanonicalFilePath of portfolio file.
+         */
+        const QString PortfolioXML::getPortfolioFilePath() const
+        {
+            QFileInfo fileInfo(*portfolioFile);
+            return fileInfo.canonicalFilePath();
+        }
+
         bool PortfolioXML::saveCryptocurrencyTransaction(const CryptocurrencyTransaction &transaction)
         {
             QDomDocument domDocument;

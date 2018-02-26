@@ -633,8 +633,15 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <widget class="QMenu" name="menuOpen_Recent_Portfolios">
+     <property name="title">
+      <string>Open Recent Portfolios</string>
+     </property>
+    </widget>
     <addaction name="actionNew_Portfolio"/>
     <addaction name="actionOpen_Portfolio"/>
+    <addaction name="menuOpen_Recent_Portfolios"/>
+    <addaction name="separator"/>
     <addaction name="actionClose"/>
    </widget>
    <widget class="QMenu" name="menu_Edit">
@@ -656,6 +663,7 @@
      <addaction name="actionStock"/>
     </widget>
     <addaction name="actionEdit_Portfolio"/>
+    <addaction name="separator"/>
     <addaction name="menuNew_Transaction"/>
    </widget>
    <addaction name="menu_File"/>
@@ -730,6 +738,11 @@
    </property>
    <property name="text">
     <string>Edit Portfolio</string>
+   </property>
+  </action>
+  <action name="actiona">
+   <property name="text">
+    <string>a</string>
    </property>
   </action>
  </widget>

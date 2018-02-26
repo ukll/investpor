@@ -11,6 +11,8 @@
 #include "investpor/gui/stockdialog.h"
 
 #include <QSettings>
+#include <QJsonDocument>
+#include <QJsonArray>
 #include <QDir>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -31,7 +33,7 @@ namespace investpor {
         {
             ui->setupUi(this);
             ui->centralWidget->setEnabled(false);
-            setTitle("");
+            setTitle();
 
             readApplicationSettings();
 
@@ -69,7 +71,7 @@ namespace investpor {
         }
 
         /**
-         * @brief Delete non-decendants of QObject & objects without a parent
+         * @brief Delete non-decendants of QObject & objects without a parent.
          */
         MainWindow::~MainWindow()
         {
@@ -86,18 +88,19 @@ namespace investpor {
             event->accept();
         }
 
+        /**
+         * @brief Sets the window title to include portfolio name if one is provided.
+         * @param title : New window title.
+         */
         void MainWindow::setTitle(const QString &title)
         {
-            if(title.isEmpty())
-            {
-                setWindowTitle(QStringLiteral("%1 v%2")
-                               .arg(qApp->applicationName())
-                               .arg(qApp->applicationVersion()));
+            if(title.isEmpty()) {
+                //Do not include portfolio name.
+                setWindowTitle(QStringLiteral("%1 v%2").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
             } else {
-                setWindowTitle(QStringLiteral("%1 - %2 v%3")
-                               .arg(title)
-                               .arg(qApp->applicationName())
-                               .arg(qApp->applicationVersion()));
+                //Include portfolio name.
+                setWindowTitle(QStringLiteral("%1 - %2 v%3").arg(title)
+                               .arg(qApp->applicationName()).arg(qApp->applicationVersion()));
             }
         }
 
@@ -107,10 +110,16 @@ namespace investpor {
         void MainWindow::readApplicationSettings()
         {
             QSettings settings;
-            settings.beginGroup("MainWindow");
-            resize(settings.value("size", QSize(1100, 575)).toSize());
-            move(settings.value("pos", QPoint(200, 200)).toPoint());
+            settings.beginGroup(QStringLiteral("MainWindow"));
+
+            //Load MainWindow size from previous session.
+            resize(settings.value(QStringLiteral("size"), QSize(1100, 575)).toSize());
+
+            //Load MainWindow position from previous session.
+            move(settings.value(QStringLiteral("pos"), QPoint(200, 200)).toPoint());
+
             settings.endGroup();
+            loadRecentPortfoliosList();
         }
 
         /**
@@ -119,14 +128,97 @@ namespace investpor {
         void MainWindow::writeApplicationSettings() const
         {
             QSettings settings;
-            settings.beginGroup("MainWindow");
-            settings.setValue("size", size());
-            settings.setValue("pos", pos());
+            settings.beginGroup(QStringLiteral("MainWindow"));
+
+            //Save MainWindow size for next session.
+            settings.setValue(QStringLiteral("size"), size());
+
+            //Save MainWindow position for next session.
+            settings.setValue(QStringLiteral("pos"), pos());
             settings.endGroup();
         }
 
         /**
-         * @brief Creates a new portfolio by using portfolio filepath, name and base currency.
+         * @brief Loads recently opened portfolios list from settings
+         * and adds corresponding QAction's for last 10 portfolios to menu.
+         */
+        void MainWindow::loadRecentPortfoliosList()
+        {
+            QSettings settings;
+            settings.beginGroup(QStringLiteral("RecentPortfolios"));
+            QJsonDocument jsonDocument = QJsonDocument::fromVariant(settings.value(QStringLiteral("PortfolioList")));
+            settings.endGroup();
+
+            ui->menuOpen_Recent_Portfolios->clear(); //Clear the menu.
+
+            //Create new actions for the menu.
+            QJsonArray portfolioUrlsArray = jsonDocument.array();
+            for(QJsonArray::const_iterator iter = portfolioUrlsArray.constBegin();
+                iter < portfolioUrlsArray.constEnd();
+                ++iter)
+            {
+                PortfolioXML *tempPortfolio = PortfolioXML::openPortfolio(iter->toString());
+                QAction *tempAction = nullptr;
+                if(tempPortfolio->getState() == PortfolioXML::Valid)
+                {
+                    tempAction = new QAction(QStringLiteral("%1 (%2) - %3")
+                                             .arg(tempPortfolio->getPortfolioName())
+                                             .arg(Util::currencySymbol(tempPortfolio->getBaseCurrency()))
+                                             .arg(tempPortfolio->getPortfolioFilePath()), this);
+
+                    //Connect actions to loadPortfolio function.
+                    QString tempPortfolioUrl = tempPortfolio->getPortfolioFilePath();
+                    connect(tempAction, &QAction::triggered, [=](){ loadPortfolio(tempPortfolioUrl); });
+                    ui->menuOpen_Recent_Portfolios->addAction(tempAction);
+                }
+
+                delete tempPortfolio; //Delete temporary portfolio object.
+            }
+        }
+
+        /**
+         * @brief Saves the list of recently opened portfolios to settings.
+         * @param lastPortfolioUrl : CanonicalFilePath of last opened portfolio.
+         */
+        void MainWindow::saveRecentPortfoliosList(const QString &lastPortfolioUrl) const
+        {
+            QSettings settings;
+            settings.beginGroup(QStringLiteral("RecentPortfolios"));
+            QJsonDocument jsonDocument = QJsonDocument::fromVariant(settings.value(QStringLiteral("PortfolioList")));
+            QJsonArray portfolioArray = (jsonDocument.isArray() ? jsonDocument.array() : QJsonArray());
+
+            //If list currenly includes newly opened portfolio, remove previous occurences.
+            if(portfolioArray.contains(lastPortfolioUrl)) {
+                for(int i = 0; i <= portfolioArray.size(); ++i)
+                {
+                    if(portfolioArray.at(i) == lastPortfolioUrl)
+                    {
+                        portfolioArray.removeAt(i);
+                    }
+                }
+            }
+
+            //Prepend newly opened portfolio to portfolio Urls list.
+            portfolioArray.prepend(lastPortfolioUrl);
+
+            //Reduce the list to 10 portfolios.
+            if(portfolioArray.size() > 10)
+            {
+                for(int i = (portfolioArray.size() - 1); i > 9; --i)
+                {
+                    portfolioArray.removeLast();
+                }
+            }
+
+            //Save the new list to settings.
+            jsonDocument = QJsonDocument(portfolioArray);
+            settings.setValue(QStringLiteral("PortfolioList"), jsonDocument.toVariant());
+            settings.endGroup();
+        }
+
+        /**
+         * @brief Creates a new portfolio
+         * by using portfolio filepath, name and base currency returned from PortfolioDialog.
          */
         void MainWindow::newPortfolio()
         {
@@ -135,20 +227,7 @@ namespace investpor {
             {
                 portfolio = PortfolioXML::createPortfolio(QDir::toNativeSeparators(pd->getPortfolioURL()),
                                                           pd->getPortfolioName(), pd->getBasecurrency(), this);
-                if(portfolio->getState() != PortfolioXML::Valid)
-                {
-                    QMessageBox::critical(this, tr("No Portfolio"),
-                                          tr("Portfolio file could not be created!"));
-                    ui->centralWidget->setEnabled(false);
-                    return;
-                }
-
-                connectModels();
-                updateTotals();
-                setTitle(portfolio->getPortfolioName());
-                ui->centralWidget->setEnabled(true);
-                ui->actionEdit_Portfolio->setEnabled(true);
-                ui->menuNew_Transaction->setEnabled(true);
+                loadPortfolio(); //Load newly created portfolio.
             }
         }
 
@@ -160,12 +239,15 @@ namespace investpor {
             PortfolioDialog *pd = PortfolioDialog::editPortfolioDialog(portfolio->getPortfolioName(), portfolio->getBaseCurrency(), this);
             if(pd->exec() == QDialog::Accepted)
             {
-                if(!portfolio->editPortfolio(pd->getPortfolioName(), pd->getBasecurrency()))
-                {
-                    QMessageBox::warning(this, tr("Operation Failed!"),
-                                         tr("Portfolio file could not be edited!"));
+                if(!portfolio->editPortfolio(pd->getPortfolioName(), pd->getBasecurrency())) {
+                    //Problem with editing portfolio.
+                    QMessageBox::warning(this, tr("Operation Failed!"), tr("Portfolio file could not be edited!"));
+                } else {
+                    //Edit is successful. Update GUI.
+                    setTitle(portfolio->getPortfolioName());
+                    saveRecentPortfoliosList(portfolio->getPortfolioFilePath());
+                    loadRecentPortfoliosList();
                 }
-                setTitle(portfolio->getPortfolioName());
             }
         }
 
@@ -179,22 +261,39 @@ namespace investpor {
 
             if(portfolioURL.isEmpty())
             {
+                //User has closed the dialog without selecting a file.
                 return;
             }
 
             portfolio = PortfolioXML::openPortfolio(QDir::toNativeSeparators(portfolioURL), this);
+            loadPortfolio(); //Load the newly opened portfolio.
+        }
+
+        /**
+         * @brief Loads current portfolio values to MainWindow.
+         * @param portfolioUrl : CanonicalFilePath to be used if portfolio is selected from menu.
+         */
+        void MainWindow::loadPortfolio(const QString &portfolioUrl)
+        {
+            if(!portfolioUrl.isEmpty())
+            {
+                //Portfolio is selected from the recently opened portfolios list.
+                portfolio = PortfolioXML::openPortfolio(QDir::toNativeSeparators(portfolioUrl), this);
+            }
+
+            //Check the validity of portfolio object.
             if(portfolio == nullptr || portfolio->getState() != PortfolioXML::Valid)
             {
-                QMessageBox::critical(this, tr("No Portfolio"),
-                                      tr("Portfolio file could not be opened!"));
+                QMessageBox::critical(this, tr("No Portfolio"), tr("Portfolio file could not be opened!"));
                 ui->centralWidget->setEnabled(false);
                 return;
             }
 
-
-            connectModels();
+            saveRecentPortfoliosList(portfolio->getPortfolioFilePath()); //List has been changed. Save the new one.
+            loadRecentPortfoliosList(); //Update the menu with new list.
+            connectModels(); //Connect new models to views.
             updateTotals();
-            setTitle(portfolio->getPortfolioName());
+            setTitle(portfolio->getPortfolioName()); //Change the window title to include new portfolio name.
             ui->centralWidget->setEnabled(true);
             ui->actionEdit_Portfolio->setEnabled(true);
             ui->menuNew_Transaction->setEnabled(true);
@@ -281,11 +380,9 @@ namespace investpor {
             CryptocurrencyDialog cd(this);
             if(cd.exec() == QDialog::Accepted)
             {
-                if(!portfolio->saveCryptocurrencyTransaction(cd.getTransaction()))
-                {
-                    QMessageBox::information(this,
-                                             tr("Operation result"), tr("Cryptocurrency transaction could not be saved!"),
-                                             QMessageBox::Ok);
+                if(!portfolio->saveCryptocurrencyTransaction(cd.getTransaction())) {
+                    QMessageBox::information(this, tr("Operation result"),
+                                             tr("Cryptocurrency transaction could not be saved!"), QMessageBox::Ok);
                 } else {
                     //Update cryptocurrencyModel
                     cryptoCurrencyModel->updateTransactionList(portfolio->getCryptocurrencyTransactionList());
@@ -304,9 +401,8 @@ namespace investpor {
             if(dbd.exec() == QDialog::Accepted)
             {
                 if(!portfolio->saveDiscountBondTransaction(dbd.getTransaction())) {
-                    QMessageBox::information(this,
-                                             tr("Operation result"), tr("Discount bond transaction could not be saved!"),
-                                             QMessageBox::Ok);
+                    QMessageBox::information(this, tr("Operation result"),
+                                             tr("Discount bond transaction could not be saved!"), QMessageBox::Ok);
                 } else {
                     //Update discountBondModel
                     discountBondModel->updateTransactionList(portfolio->getDiscountBondTransactionList());
@@ -324,11 +420,9 @@ namespace investpor {
             ExchangeDialog ed(this);
             if(ed.exec() == QDialog::Accepted)
             {
-                if(!portfolio->saveExchangeTransaction(ed.getTransaction()))
-                {
-                    QMessageBox::information(this,
-                                             tr("Operation result"), tr("Exchange transaction could not be saved!"),
-                                             QMessageBox::Ok);
+                if(!portfolio->saveExchangeTransaction(ed.getTransaction())) {
+                    QMessageBox::information(this, tr("Operation result"),
+                                             tr("Exchange transaction could not be saved!"), QMessageBox::Ok);
                 } else {
                     //Update exchangeModel
                     exchangeModel->updateTransactionList(portfolio->getExchangeTransactionList());
@@ -346,11 +440,9 @@ namespace investpor {
             FundDialog fd(this);
             if(fd.exec() == QDialog::Accepted)
             {
-                if(!portfolio->saveFundTransaction(fd.getTransaction()))
-                {
-                    QMessageBox::information(this,
-                                             tr("Operation result"), tr("Fund transaction could not be saved!"),
-                                             QMessageBox::Ok);
+                if(!portfolio->saveFundTransaction(fd.getTransaction())) {
+                    QMessageBox::information(this, tr("Operation result"),
+                                             tr("Fund transaction could not be saved!"), QMessageBox::Ok);
                 } else {
                     //Update fundModel
                     fundModel->updateTransactionList(portfolio->getFundTransactionList());
@@ -368,11 +460,9 @@ namespace investpor {
             GoldDialog gd(this);
             if(gd.exec() == QDialog::Accepted)
             {
-                if(!portfolio->saveGoldTransaction(gd.getTransaction()))
-                {
-                    QMessageBox::information(this,
-                                             tr("Operation result"), tr("Gold transaction could not be saved!"),
-                                             QMessageBox::Ok);
+                if(!portfolio->saveGoldTransaction(gd.getTransaction())) {
+                    QMessageBox::information(this, tr("Operation result"),
+                                             tr("Gold transaction could not be saved!"), QMessageBox::Ok);
                 } else {
                     //Update goldModel
                     goldModel->updateTransactionList(portfolio->getGoldTransactionList());
@@ -390,11 +480,9 @@ namespace investpor {
             StockDialog sd(this);
             if(sd.exec() == QDialog::Accepted)
             {
-                if(!portfolio->saveStockTransaction(sd.getTransaction()))
-                {
-                    QMessageBox::information(this,
-                                             tr("Operation result"), tr("Stock transaction could not be saved!"),
-                                             QMessageBox::Ok);
+                if(!portfolio->saveStockTransaction(sd.getTransaction())) {
+                    QMessageBox::information(this, tr("Operation result"),
+                                             tr("Stock transaction could not be saved!"), QMessageBox::Ok);
                 } else {
                     //Update stockModel
                     stockModel->updateTransactionList(portfolio->getStockTransactionList());
