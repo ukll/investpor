@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>translations/InvestporLib_en.qm</file>
+        <file>translations/InvestporLib_tr.qm</file>
+    </qresource>
+</RCC>

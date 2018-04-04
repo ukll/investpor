@@ -1,0 +1,5 @@
+#Ignore the files
+*.pro.user
+.qmake.stash
+Makefile
+target_wrapper.sh

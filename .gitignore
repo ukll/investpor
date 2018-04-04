@@ -1,1 +1,9 @@
+#Files to ignore
 *.pro.user
+.qmake.stash
+Makefile
+/bin/*
+/lib/*
+
+#Files to keep
+!**.gitignore

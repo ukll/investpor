@@ -1,0 +1,4 @@
+#Ignore the files
+*.pro.user
+.qmake.stash
+Makefile
