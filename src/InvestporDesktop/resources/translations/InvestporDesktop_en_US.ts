@@ -2,578 +2,66 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
-    <name>CryptocurrencyDialog</name>
-    <message>
-        <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.ui" line="20"/>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.ui" line="26"/>
-        <source>Cryptocurrency Transaction Details</source>
-        <translation>Cryptocurrency Transaction Details</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.ui" line="34"/>
-        <source>Operation Type :</source>
-        <translation>Operation Type :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.ui" line="47"/>
-        <source>Cryptocurrency :</source>
-        <translation>Cryptocurrency :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.ui" line="60"/>
-        <source>Amount :</source>
-        <translation>Amount :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.ui" line="80"/>
-        <source>Base Currency :</source>
-        <translation>Base Currency :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.ui" line="93"/>
-        <source>Price :</source>
-        <translation>Price :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.ui" line="113"/>
-        <source>Extra Expenses :</source>
-        <translation>Extra Expenses :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.ui" line="133"/>
-        <source>Date and Time :</source>
-        <translation>Date and Time :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.ui" line="164"/>
-        <source>yyyy-MM-dd hh:mm:ss</source>
-        <translation>yyyy-MM-dd hh:mm:ss</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.ui" line="177"/>
-        <source>Goal Price :</source>
-        <translation>Goal Price :</translation>
-    </message>
-</context>
-<context>
-    <name>DiscountBondDialog</name>
-    <message>
-        <location filename="../../src/com/investpor/desktop/discountbonddialog.ui" line="20"/>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/discountbonddialog.ui" line="26"/>
-        <source>Discount Bond Transaction Details</source>
-        <translation>Discount Bond Transaction Details</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/discountbonddialog.ui" line="32"/>
-        <source>Operation Type :</source>
-        <translation>Operation Type :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/discountbonddialog.ui" line="42"/>
-        <source>ISIN Code :</source>
-        <translation>ISIN Code :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/discountbonddialog.ui" line="52"/>
-        <source>TR010120185</source>
-        <translation>TR010120185</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/discountbonddialog.ui" line="62"/>
-        <source>Term :</source>
-        <translation>Term :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/discountbonddialog.ui" line="69"/>
-        <location filename="../../src/com/investpor/desktop/discountbonddialog.ui" line="141"/>
-        <source>yyyy-MM-dd</source>
-        <translation>yyyy-MM-dd</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/discountbonddialog.ui" line="79"/>
-        <source>Nominal Value :</source>
-        <translation>Nominal Value :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/discountbonddialog.ui" line="96"/>
-        <source>Sale Price :</source>
-        <translation>Sale Price :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/discountbonddialog.ui" line="113"/>
-        <source>Count:</source>
-        <translation>Count:</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/discountbonddialog.ui" line="120"/>
-        <source>Operation Date :</source>
-        <translation>Operation Date :</translation>
-    </message>
-</context>
-<context>
-    <name>ExchangeDialog</name>
-    <message>
-        <location filename="../../src/com/investpor/desktop/exchangedialog.ui" line="20"/>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/exchangedialog.ui" line="26"/>
-        <source>Exchange Transaction Details</source>
-        <translation>Exchange Transaction Details</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/exchangedialog.ui" line="32"/>
-        <source>Currency :</source>
-        <translation>Currency :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/exchangedialog.ui" line="42"/>
-        <source>Price :</source>
-        <translation>Price :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/exchangedialog.ui" line="59"/>
-        <source>Amount :</source>
-        <translation>Amount :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/exchangedialog.ui" line="76"/>
-        <source>Date and Time :</source>
-        <translation>Date and Time :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/exchangedialog.ui" line="97"/>
-        <source>yyyy-MM-dd hh:mm:ss</source>
-        <translation>yyyy-MM-dd hh:mm:ss</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/exchangedialog.ui" line="107"/>
-        <source>Goal Price :</source>
-        <translation>Goal Price :</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/exchangedialog.ui" line="124"/>
-        <source>Operation Type :</source>
-        <translation>Operation Type :</translation>
-    </message>
-</context>
-<context>
-    <name>FundDialog</name>
-    <message>
-        <location filename="../../src/com/investpor/desktop/funddialog.ui" line="20"/>
-        <source>Dialog</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/funddialog.ui" line="26"/>
-        <source>Fund Transaction Details</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/funddialog.ui" line="32"/>
-        <source>Code :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/funddialog.ui" line="49"/>
-        <source>Name :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/funddialog.ui" line="66"/>
-        <source>Price :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/funddialog.ui" line="83"/>
-        <source>Count :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/funddialog.ui" line="106"/>
-        <source>Order Date :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/funddialog.ui" line="127"/>
-        <location filename="../../src/com/investpor/desktop/funddialog.ui" line="158"/>
-        <source>yyyy-MM-dd</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/funddialog.ui" line="137"/>
-        <source>Operation Date :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/funddialog.ui" line="168"/>
-        <source>Goal Price :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/funddialog.ui" line="185"/>
-        <source>Operation Type :</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
-    <name>GoldDialog</name>
-    <message>
-        <location filename="../../src/com/investpor/desktop/golddialog.ui" line="20"/>
-        <source>Dialog</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/golddialog.ui" line="26"/>
-        <source>Gold Transaction Details</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/golddialog.ui" line="32"/>
-        <source>Gold Type :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/golddialog.ui" line="42"/>
-        <source>Price :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/golddialog.ui" line="59"/>
-        <source>Amount :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/golddialog.ui" line="76"/>
-        <source>Date and Time :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/golddialog.ui" line="83"/>
-        <source>Goal Price :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/golddialog.ui" line="114"/>
-        <source>yyyy-MM-dd hh:mm:ss</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/golddialog.ui" line="124"/>
-        <source>Operation Type :</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
-    <name>MainWindow</name>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="14"/>
-        <source>MainWindow</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="28"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="474"/>
-        <source>Cryptocurrency</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="52"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="113"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="174"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="235"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="296"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="357"/>
-        <source>Add</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="59"/>
-        <source>Edit</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="66"/>
-        <source>Remove</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="89"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="463"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="466"/>
-        <source>Discount Bond</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="120"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="127"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="181"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="188"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="242"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="249"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="303"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="310"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="364"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="371"/>
-        <source>PushButton</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="150"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="484"/>
-        <source>Exchange</source>
-        <translation>Exchange</translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="211"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="479"/>
-        <source>Fund</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="272"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="489"/>
-        <source>Gold</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="333"/>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="494"/>
-        <source>Stock</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="407"/>
-        <source>&amp;File</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="411"/>
-        <source>Open &amp;Recent Portfolios</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="429"/>
-        <source>&amp;Tools</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="433"/>
-        <source>&amp;Language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="455"/>
-        <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="499"/>
-        <source>&amp;Open Portfolio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="504"/>
-        <source>&amp;New Portfolio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="512"/>
-        <source>E&amp;dit Portfolio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="520"/>
-        <source>&amp;English</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="528"/>
-        <source>&amp;Türkçe</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="531"/>
-        <source>Türkçe</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/mainwindow.ui" line="422"/>
-        <source>&amp;Edit</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
-    <name>PortfolioDialog</name>
-    <message>
-        <location filename="../../src/com/investpor/desktop/portfoliodialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/portfoliodialog.ui" line="20"/>
-        <source>Portfolio Details</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/portfoliodialog.ui" line="28"/>
-        <source>Portfolio Name:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/portfoliodialog.ui" line="35"/>
-        <source>My Portfolio</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/portfoliodialog.ui" line="42"/>
-        <source>Base Currency:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/portfoliodialog.ui" line="52"/>
-        <source>Portfolio File:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/portfoliodialog.ui" line="68"/>
-        <source>Browse</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
-    <name>StockDialog</name>
-    <message>
-        <location filename="../../src/com/investpor/desktop/stockdialog.ui" line="20"/>
-        <source>Dialog</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/stockdialog.ui" line="26"/>
-        <source>Stock Transaction Details</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/stockdialog.ui" line="32"/>
-        <source>Market :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/stockdialog.ui" line="45"/>
-        <source>Symbol :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/stockdialog.ui" line="65"/>
-        <source>Name :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/stockdialog.ui" line="85"/>
-        <source>Price :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/stockdialog.ui" line="108"/>
-        <source>Count :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/stockdialog.ui" line="125"/>
-        <source>Commission Rate :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/stockdialog.ui" line="145"/>
-        <source>Date and Time :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/stockdialog.ui" line="176"/>
-        <source>yyyy-MM-dd hh:mm:ss</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/stockdialog.ui" line="186"/>
-        <source>Goal Price :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/com/investpor/desktop/stockdialog.ui" line="206"/>
-        <source>Operation Type :</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
     <name>desktop::CryptocurrencyDialog</name>
     <message>
         <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.cpp" line="16"/>
         <source>Cryptocurrency Transaction</source>
-        <translation type="unfinished"></translation>
+        <translation>Cryptocurrency Transaction</translation>
     </message>
     <message>
         <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.cpp" line="60"/>
         <source>Amount cannot be empty!</source>
-        <translation type="unfinished"></translation>
+        <translation>Amount cannot be empty!</translation>
     </message>
     <message>
         <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.cpp" line="62"/>
         <source>Amount is invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>Amount is invalid!</translation>
     </message>
     <message>
         <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.cpp" line="64"/>
         <source>Amount cannot be 0!</source>
-        <translation type="unfinished"></translation>
+        <translation>Amount cannot be 0!</translation>
     </message>
     <message>
         <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.cpp" line="66"/>
         <source>Price cannot be empty!</source>
-        <translation type="unfinished"></translation>
+        <translation>Price cannot be empty!</translation>
     </message>
     <message>
         <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.cpp" line="68"/>
         <source>Price is invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>Price is invalid!</translation>
     </message>
     <message>
         <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.cpp" line="70"/>
         <source>Price cannot be 0!</source>
-        <translation type="unfinished"></translation>
+        <translation>Price cannot be 0!</translation>
     </message>
     <message>
         <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.cpp" line="72"/>
         <source>Extra expense is not valid!</source>
-        <translation type="unfinished"></translation>
+        <translation>Extra expense is not valid!</translation>
     </message>
     <message>
         <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.cpp" line="74"/>
         <source>Operation datetime cannot be emtpy!</source>
-        <translation type="unfinished"></translation>
+        <translation>Operation datetime cannot be emtpy!</translation>
     </message>
     <message>
         <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.cpp" line="76"/>
         <source>Operation datetime is not valid!</source>
-        <translation type="unfinished"></translation>
+        <translation>Operation datetime is not valid!</translation>
     </message>
     <message>
         <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.cpp" line="83"/>
         <source>Goal price cannot be empty!</source>
-        <translation type="unfinished"></translation>
+        <translation>Goal price cannot be empty!</translation>
     </message>
     <message>
         <location filename="../../src/com/investpor/desktop/cryptocurrencydialog.cpp" line="85"/>
         <source>Goal price is invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>Goal price is invalid!</translation>
     </message>
 </context>
 <context>

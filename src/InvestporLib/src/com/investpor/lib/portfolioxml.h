@@ -34,12 +34,13 @@ namespace lib {
 
         virtual bool editPortfolio(const QString &pName, const Util::Currency &bCurrency) override;
 
-        bool saveCryptocurrencyTransaction(const CryptocurrencyTransaction &transaction);
         bool saveDiscountBondTransaction(const DiscountBondTransaction &transaction);
         bool saveExchangeTransaction(const ExchangeTransaction &transaction);
         bool saveFundTransaction(const FundTransaction &transaction);
         bool saveGoldTransaction(const GoldTransaction &transaction);
         bool saveStockTransaction(const StockTransaction &transaction);
+
+        virtual bool newCryptocurrencyTransaction(CryptocurrencyTreeItem cti) override;
 
         virtual QSortFilterProxyModel *getCryptocurrencyProxyModel(
                 const QList<CryptocurrencyTreeModel::CryptocurrencyFieldHeaderPair> &headerDataList) override;

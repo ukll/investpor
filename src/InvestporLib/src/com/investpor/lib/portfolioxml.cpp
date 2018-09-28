@@ -180,93 +180,6 @@ namespace lib {
         return true;
     }
 
-    bool PortfolioXML::saveCryptocurrencyTransaction(const CryptocurrencyTransaction &transaction)
-    {
-        QDomDocument domDocument;
-        QDomElement cryptoCurrencyInvestmentElement;
-
-        //Load the DOM document
-        if(!loadDomDocument(domDocument))
-        {
-            return false;
-        }
-
-        if(!findChildElementByTagName(domDocument.documentElement(),
-                                      cryptoCurrencyInvestmentElement, CRYPTOCURRENCY_INVESTMENT_TAGNAME))
-        {
-            //Cryptocurrency investment element does not exist. File is not valid.
-            return false;
-        }
-
-        QDomElement cryptoCurrencyElement;
-        QDomNodeList cryptoCurrencyNodes = cryptoCurrencyInvestmentElement.childNodes();
-        for(int i = 0; i < cryptoCurrencyNodes.length(); ++i)
-        {
-            if(cryptoCurrencyNodes.at(i).isElement() &&
-                    cryptoCurrencyNodes.at(i).nodeName() == CRYPTOCURRENCY_ELEMENT_TAGNAME &&
-                    cryptoCurrencyNodes.at(i).toElement().attribute(CODE_ATTRIBUTE_NAME) ==
-                    QVariant::fromValue(transaction.getCryptocurrency()).toString())
-            {
-                cryptoCurrencyElement = cryptoCurrencyNodes.at(i).toElement();
-                break;
-            }
-        }
-
-        if(cryptoCurrencyElement.isNull())
-        {
-            cryptoCurrencyElement = domDocument.createElement(CRYPTOCURRENCY_ELEMENT_TAGNAME);
-            cryptoCurrencyElement.setAttribute(CODE_ATTRIBUTE_NAME, QVariant::fromValue(transaction.getCryptocurrency()).toString());
-            cryptoCurrencyInvestmentElement.appendChild(cryptoCurrencyElement);
-        }
-
-        QDomElement transactionElement = domDocument.createElement(TRANSACTION_ELEMENT_TAGNAME);
-        transactionElement.setAttribute(ID_ATTRIBUTE_NAME, transaction.getId().toString(Qt::ISODate));
-        transactionElement.setAttribute(OPERATION_TYPE_ATTRIBUTE_NAME, QVariant::fromValue(transaction.getOperationType()).toString());
-        cryptoCurrencyElement.appendChild(transactionElement);
-
-        QDomElement amountElement = domDocument.createElement(AMOUNT_ELEMENT_TAGNAME);
-        QDomText amountText = domDocument.createTextNode(QString::number(transaction.getAmount()));
-        amountElement.appendChild(amountText);
-        transactionElement.appendChild(amountElement);
-
-        QDomElement baseCurrencyElement = domDocument.createElement(BASE_CURRENCY_ELEMENT_TAGNAME);
-        QDomText baseCurencyText = domDocument.createTextNode(QVariant::fromValue(transaction.getBaseCurrency()).toString());
-        baseCurrencyElement.appendChild(baseCurencyText);
-        transactionElement.appendChild(baseCurrencyElement);
-
-        QDomElement priceElement = domDocument.createElement(PRICE_ELEMENT_TAGNAME);
-        QDomText priceText = domDocument.createTextNode(QString::number(transaction.getPrice()));
-        priceElement.appendChild(priceText);
-        transactionElement.appendChild(priceElement);
-
-        QDomElement extraExpensesElement = domDocument.createElement(EXTRA_EXPENSES_ELEMENT_TAGNAME);
-        QDomText extraExpensesText = domDocument.createTextNode(QString::number(transaction.getExtraExpenses()));
-        extraExpensesElement.appendChild(extraExpensesText);
-        transactionElement.appendChild(extraExpensesElement);
-
-        QDomElement dateTimeElement = domDocument.createElement(DATETIME_ELEMENT_TAGNAME);
-        QDomText dateTimeText = domDocument.createTextNode(transaction.getOperationDateTime().toString(Qt::ISODate));
-        dateTimeElement.appendChild(dateTimeText);
-        transactionElement.appendChild(dateTimeElement);
-
-        if(transaction.getOperationType() == Util::BUY)
-        {
-            QDomElement goalPriceElement = domDocument.createElement(GOAL_PRICE_ELEMENT_TAGNAME);
-            QDomText goalPriceText = domDocument.createTextNode(QString::number(transaction.getGoalPrice()));
-            goalPriceElement.appendChild(goalPriceText);
-            transactionElement.appendChild(goalPriceElement);
-        }
-
-        //Save the transaction
-        if(!savePortfolio(domDocument))
-        {
-            m_state = FileCouldNotBeSaved;
-            return false;
-        }
-
-        return true;
-    }
-
     bool PortfolioXML::saveDiscountBondTransaction(const DiscountBondTransaction &transaction)
     {
         QDomDocument domDocument;
@@ -598,6 +511,97 @@ namespace lib {
         return true;
     }
 
+    bool PortfolioXML::newCryptocurrencyTransaction(CryptocurrencyTreeItem cti)
+    {
+        QDomDocument domDocument;
+        QDomElement cryptoCurrencyInvestmentElement;
+
+        //Load the DOM document
+        if(!loadDomDocument(domDocument))
+        {
+            return false;
+        }
+
+        if(!findChildElementByTagName(domDocument.documentElement(),
+                                      cryptoCurrencyInvestmentElement, CRYPTOCURRENCY_INVESTMENT_TAGNAME))
+        {
+            //Cryptocurrency investment element does not exist. File is not valid.
+            return false;
+        }
+
+        QDomElement cryptoCurrencyElement;
+        QDomNodeList cryptoCurrencyNodes = cryptoCurrencyInvestmentElement.childNodes();
+        for(int i = 0; i < cryptoCurrencyNodes.length(); ++i)
+        {
+            if(cryptoCurrencyNodes.at(i).isElement() &&
+                    cryptoCurrencyNodes.at(i).nodeName() == CRYPTOCURRENCY_ELEMENT_TAGNAME &&
+                    cryptoCurrencyNodes.at(i).toElement().attribute(CODE_ATTRIBUTE_NAME) ==
+                    QVariant::fromValue(cti.getCryptocurrency()).toString())
+            {
+                cryptoCurrencyElement = cryptoCurrencyNodes.at(i).toElement();
+                break;
+            }
+        }
+
+        if(cryptoCurrencyElement.isNull())
+        {
+            cryptoCurrencyElement = domDocument.createElement(CRYPTOCURRENCY_ELEMENT_TAGNAME);
+            cryptoCurrencyElement.setAttribute(CODE_ATTRIBUTE_NAME, QVariant::fromValue(cti.getCryptocurrency()).toString());
+            cryptoCurrencyInvestmentElement.appendChild(cryptoCurrencyElement);
+        }
+
+        QDomElement transactionElement = domDocument.createElement(TRANSACTION_ELEMENT_TAGNAME);
+        transactionElement.setAttribute(ID_ATTRIBUTE_NAME, cti.getTransactionId().toString(Qt::ISODate));
+        transactionElement.setAttribute(OPERATION_TYPE_ATTRIBUTE_NAME, QVariant::fromValue(cti.getOperation()).toString());
+        cryptoCurrencyElement.appendChild(transactionElement);
+
+        QDomElement amountElement = domDocument.createElement(AMOUNT_ELEMENT_TAGNAME);
+        QDomText amountText = domDocument.createTextNode(QString::number(cti.getAmount()));
+        amountElement.appendChild(amountText);
+        transactionElement.appendChild(amountElement);
+
+        QDomElement referenceCurrencyElement = domDocument.createElement(BASE_CURRENCY_ELEMENT_TAGNAME);
+        QDomText referenceCurencyText = domDocument.createTextNode(QVariant::fromValue(cti.getReferenceCurrency()).toString());
+        referenceCurrencyElement.appendChild(referenceCurencyText);
+        transactionElement.appendChild(referenceCurrencyElement);
+
+        QDomElement priceElement = domDocument.createElement(PRICE_ELEMENT_TAGNAME);
+        QDomText priceText = domDocument.createTextNode(QString::number(cti.getPricePerShare()));
+        priceElement.appendChild(priceText);
+        transactionElement.appendChild(priceElement);
+
+        QDomElement extraExpensesElement = domDocument.createElement(EXTRA_EXPENSES_ELEMENT_TAGNAME);
+        QDomText extraExpensesText = domDocument.createTextNode(QString::number(cti.getExtraExpensesPerTransaction()));
+        extraExpensesElement.appendChild(extraExpensesText);
+        transactionElement.appendChild(extraExpensesElement);
+
+        QDomElement dateTimeElement = domDocument.createElement(DATETIME_ELEMENT_TAGNAME);
+        QDomText dateTimeText = domDocument.createTextNode(cti.getOperationDateTime().toString(Qt::ISODate));
+        dateTimeElement.appendChild(dateTimeText);
+        transactionElement.appendChild(dateTimeElement);
+
+        if(cti.getOperation() == Util::BUY)
+        {
+            QDomElement goalPriceElement = domDocument.createElement(GOAL_PRICE_ELEMENT_TAGNAME);
+            QDomText goalPriceText = domDocument.createTextNode(QString::number(cti.getGoalPricePerShare()));
+            goalPriceElement.appendChild(goalPriceText);
+            transactionElement.appendChild(goalPriceElement);
+        }
+
+        //Save the transaction
+        if(!savePortfolio(domDocument))
+        {
+            m_state = FileCouldNotBeSaved;
+            return false;
+        }
+
+        if(m_cryptocurrencyModel->insertTransaction(cti)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     QSortFilterProxyModel *PortfolioXML::getCryptocurrencyProxyModel(
             const QList<CryptocurrencyTreeModel::CryptocurrencyFieldHeaderPair> &headerDataList)
     {
@@ -649,7 +653,7 @@ namespace lib {
                 transactionItem = new CryptocurrencyTreeItem();
                 cryptocurrencyItem->appendChildItem(transactionItem);
 
-                transactionItem->setId(QDateTime::fromString(transactionElement.attribute(ID_ATTRIBUTE_NAME), Qt::ISODate));
+                transactionItem->setTransactionId(QDateTime::fromString(transactionElement.attribute(ID_ATTRIBUTE_NAME), Qt::ISODate));
                 transactionItem->setCryptocurrency(QVariant(cryptoCurrencyElement.attribute(CODE_ATTRIBUTE_NAME)).value<Util::Currency>());
                 transactionItem->setOperation(QVariant(transactionElement.attribute(OPERATION_TYPE_ATTRIBUTE_NAME)).value<Util::Operation>());
 
@@ -660,15 +664,15 @@ namespace lib {
                     if(transactionChildNode.nodeName() == BASE_CURRENCY_ELEMENT_TAGNAME) {
                         transactionItem->setReferenceCurrency(QVariant(transactionChildNode.toElement().text()).value<Util::Currency>());
                     } else if(transactionChildNode.nodeName() == PRICE_ELEMENT_TAGNAME) {
-                        transactionItem->setPrice(transactionChildNode.toElement().text().toDouble());
+                        transactionItem->setPricePerShare(transactionChildNode.toElement().text().toDouble());
                     } else if(transactionChildNode.nodeName() == AMOUNT_ELEMENT_TAGNAME) {
                         transactionItem->setAmount(transactionChildNode.toElement().text().toDouble());
                     } else if(transactionChildNode.nodeName() == EXTRA_EXPENSES_ELEMENT_TAGNAME) {
-                        transactionItem->setExtraExpenses(transactionChildNode.toElement().text().toDouble());
+                        transactionItem->setExtraExpensesPerTransaction(transactionChildNode.toElement().text().toDouble());
                     } else if(transactionChildNode.nodeName() == DATETIME_ELEMENT_TAGNAME) {
-                        transactionItem->setDateTime(QDateTime::fromString(transactionChildNode.toElement().text(), Qt::ISODate));
+                        transactionItem->setOperationDateTime(QDateTime::fromString(transactionChildNode.toElement().text(), Qt::ISODate));
                     } else if(transactionChildNode.nodeName() == GOAL_PRICE_ELEMENT_TAGNAME) {
-                        transactionItem->setGoalPrice(transactionChildNode.toElement().text().toDouble());
+                        transactionItem->setGoalPricePerShare(transactionChildNode.toElement().text().toDouble());
                     } else {
                         //Not yet supported transaction info.
                         continue;

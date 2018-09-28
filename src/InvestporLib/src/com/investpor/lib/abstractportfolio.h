@@ -3,6 +3,7 @@
 
 #include "lib/util.h"
 #include "lib/cryptocurrencytreemodel.h"
+#include "lib/cryptocurrencytreeitem.h"
 //#include "lib/discountbondtreemodel.h"
 //#include "lib/exchangetreemodel.h"
 //#include "lib/fundtreemodel.h"
@@ -36,6 +37,9 @@ namespace lib {
         const QString getPortfolioName() const { return m_portfolioName; }
         Util::Currency getBaseCurrency() const { return m_baseCurrency; }
         PortfolioState getState() const { return m_state; }
+
+        virtual bool newCryptocurrencyTransaction(CryptocurrencyTreeItem cti) = 0;
+//        virtual bool newCryptocurrencyTransaction(const DiscountBondTreeItem dbti) = 0;
 
         virtual QSortFilterProxyModel *getCryptocurrencyProxyModel(
                 const QList<CryptocurrencyTreeModel::CryptocurrencyFieldHeaderPair> &headerDataList) = 0;

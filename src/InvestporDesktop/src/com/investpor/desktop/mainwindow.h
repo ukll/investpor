@@ -61,7 +61,9 @@ namespace desktop {
         void loadPortfolio(const QString &portfolioUrl = QString());
         void connectModels();
 
-        void cryptoCurrencyTransaction();
+        void newCryptocurrencyTransaction();
+//        void editCryptocurrencyTransaction();
+        void deleteCryptocurrencyTransaction();
         void discountBondTransaction();
         void exchangeTransaction();
         void fundTransaction();

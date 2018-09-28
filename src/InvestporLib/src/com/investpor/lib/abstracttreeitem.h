@@ -13,7 +13,7 @@ namespace lib {
         virtual ~AbstractTreeItem() = 0;
 
         //Transaction related functions
-        const QDateTime getId() const { return m_transactionId; }
+        const QDateTime getTransactionId() const { return m_transactionId; }
 
         //Model related functions
         void appendChildItem(AbstractTreeItem *child);
@@ -26,7 +26,7 @@ namespace lib {
     protected:
         //Transaction related functions
         //To prevent other classes (except those which inherit) to call setId method.
-        void setId(const QDateTime &id) { m_transactionId = id; }
+        void setTransactionId(const QDateTime &id) { m_transactionId = id; }
         //Only PortfolioXML class can alter an existing item id.
         friend class PortfolioXML;
 

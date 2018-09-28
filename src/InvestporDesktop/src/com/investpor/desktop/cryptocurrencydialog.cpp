@@ -2,10 +2,10 @@
 #include "ui_cryptocurrencydialog.h"
 
 #include "lib/util.h"
-#include "lib/cryptocurrencytransaction.h"
+#include "lib/cryptocurrencytreeitem.h"
 
 using lib::Util;
-using lib::CryptocurrencyTransaction;
+using lib::CryptocurrencyTreeItem;
 
 namespace desktop {
 
@@ -42,6 +42,7 @@ namespace desktop {
         }
 
         m_ui->dteDateTime->setDate(QDate::currentDate());
+        m_ui->dteDateTime->setDisplayFormat(locale().dateTimeFormat());
 
         connect(m_ui->cbOperationType, SIGNAL(currentIndexChanged(int)), this, SLOT(rearrangeDialog()));
         connect(m_ui->bbTransactionApproval, &QDialogButtonBox::accepted, this, &CryptocurrencyDialog::accept);
@@ -93,14 +94,14 @@ namespace desktop {
             return;
         }
 
-        m_transaction.setOperationType(static_cast<Util::Operation>(m_ui->cbOperationType->currentData().toInt()));
+        m_transaction.setOperation(static_cast<Util::Operation>(m_ui->cbOperationType->currentData().toInt()));
         m_transaction.setCryptocurrency(static_cast<Util::Currency>(m_ui->cbCryptocurrency->currentData().toInt()));
         m_transaction.setAmount(m_ui->dsbAmount->value());
-        m_transaction.setBaseCurrency(static_cast<Util::Currency>(m_ui->cbBaseCurrency->currentData().toInt()));
-        m_transaction.setPrice(m_ui->dsbPrice->value());
-        m_transaction.setExtraExpenses(m_ui->dsbExtraExpenses->value());
+        m_transaction.setReferenceCurrency(static_cast<Util::Currency>(m_ui->cbBaseCurrency->currentData().toInt()));
+        m_transaction.setPricePerShare(m_ui->dsbPrice->value());
+        m_transaction.setExtraExpensesPerTransaction(m_ui->dsbExtraExpenses->value());
         m_transaction.setOperationDateTime(m_ui->dteDateTime->dateTime());
-        m_transaction.setGoalPrice(m_ui->dsbGoalPrice->value());
+        m_transaction.setGoalPricePerShare(m_ui->dsbGoalPrice->value());
 
         //Values are valid.
         QDialog::accept();

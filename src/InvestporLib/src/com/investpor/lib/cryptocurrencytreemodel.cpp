@@ -2,6 +2,7 @@
 
 #include <QBrush>
 #include <QColor>
+#include <QPen>
 
 namespace lib {
 
@@ -37,7 +38,8 @@ namespace lib {
         }
 
         CryptocurrencyTreeItem *childItem = static_cast<CryptocurrencyTreeItem*>(parentItem->getChildItem(row));
-        if(childItem) {
+        if(childItem)
+        {
             return createIndex(row, column, childItem);
         }
 
@@ -70,6 +72,11 @@ namespace lib {
         }
 
         CryptocurrencyTreeItem *item = static_cast<CryptocurrencyTreeItem*>(index.internalPointer());
+
+        if(Qt::ForegroundRole == role)
+        {
+            return QPen(QColor(0, 0, 0, 100));
+        }
 
         if(Qt::BackgroundRole == role)
         {
@@ -118,7 +125,7 @@ namespace lib {
 
         switch (m_headersList.at(index.column()).m_field) {
         case Id:
-            return item->getId().toString(Qt::ISODate);
+            return item->getTransactionId().toString(Qt::ISODate);
         case Cryptocurrency:
             return QVariant();
         case Operation:
@@ -126,15 +133,15 @@ namespace lib {
         case ReferenceCurrency:
             return QVariant::fromValue(item->getReferenceCurrency()).toString();
         case Price:
-            return item->getPrice();
+            return item->getPricePerShare();
         case Amount:
             return item->getAmount();
         case ExtraExpenses:
-            return item->getExtraExpenses();
+            return item->getExtraExpensesPerTransaction();
         case GoalPrice:
-            return item->getGoalPrice();
+            return item->getGoalPricePerShare();
         case DateTime:
-            return item->getDateTime().toString(Qt::ISODate);
+            return item->getOperationDateTime().toString(Qt::ISODate);
         default:
             return QVariant();
         }
@@ -156,6 +163,53 @@ namespace lib {
     int CryptocurrencyTreeModel::columnCount(const QModelIndex &parent) const
     {
         return m_headersList.length();
+    }
+
+    Qt::ItemFlags CryptocurrencyTreeModel::flags(const QModelIndex &index) const
+    {
+        if(!index.parent().isValid())
+        {
+            return Qt::NoItemFlags;
+        }
+
+        return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    }
+
+    bool CryptocurrencyTreeModel::insertTransaction(CryptocurrencyTreeItem cti)
+    {
+        beginResetModel();
+
+        CryptocurrencyTreeItem *rootItem = static_cast<CryptocurrencyTreeItem*>(getRootItem());
+        CryptocurrencyTreeItem *newItem = new CryptocurrencyTreeItem(cti);
+        bool inserted = false;
+
+        if(rootItem->getChildCount() != 0)
+        {
+            for(int i = 0; i < rootItem->getChildCount(); ++i)
+            {
+                CryptocurrencyTreeItem *childItem = static_cast<CryptocurrencyTreeItem*>(rootItem->getChildItem(i));
+
+                if(childItem->getCryptocurrency() == newItem->getCryptocurrency())
+                {
+                    childItem->appendChildItem(newItem);
+                    inserted = true;
+                    break;
+                }
+            }
+        }
+
+        if(!inserted)
+        {
+            CryptocurrencyTreeItem *emptyItem = new CryptocurrencyTreeItem();
+            emptyItem->setCryptocurrency(newItem->getCryptocurrency());
+            emptyItem->appendChildItem(newItem);
+            rootItem->appendChildItem(emptyItem);
+            inserted = true;
+        }
+
+        endResetModel();
+
+        return inserted;
     }
 
 }

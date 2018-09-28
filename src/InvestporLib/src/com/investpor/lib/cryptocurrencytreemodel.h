@@ -13,18 +13,15 @@ namespace lib {
     class CryptocurrencyTreeModel final : public AbstractTreeModel
     {
     public:
-        /**
-             * To prevent other classes to call the constructor.
-             * Only PortfolioXML class can create an object.
-             */
-        friend class PortfolioXML;
 
         enum CryptocurrencyField {
-            Id, Cryptocurrency, Operation, ReferenceCurrency, Price, Amount, ExtraExpenses, GoalPrice, DateTime
+            Id, Cryptocurrency, Operation, ReferenceCurrency, Price,
+            Amount, ExtraExpenses, GoalPrice, DateTime
         };
 
         struct CryptocurrencyFieldHeaderPair {
-            CryptocurrencyFieldHeaderPair(const CryptocurrencyField &f, const QString &h) : m_field(f), m_header(h) {}
+            CryptocurrencyFieldHeaderPair(const CryptocurrencyField &f, const QString &h) :
+                m_field(f), m_header(h) {}
             CryptocurrencyField m_field;
             QString m_header;
         };
@@ -35,10 +32,18 @@ namespace lib {
         virtual QVariant data(const QModelIndex &index, int role) const override;
         virtual int rowCount(const QModelIndex &parent) const override;
         virtual int columnCount(const QModelIndex &parent) const override;
+        virtual Qt::ItemFlags flags(const QModelIndex &index) const override;
+
+        bool insertTransaction(CryptocurrencyTreeItem cti);
 
     private:
         QList<CryptocurrencyFieldHeaderPair> m_headersList;
 
+        /**
+        * To prevent other classes to call the constructor.
+        * Only PortfolioXML class can create an object.
+        */
+        friend class PortfolioXML;
         CryptocurrencyTreeModel(const QList<CryptocurrencyFieldHeaderPair> &headerDataList,
                                 CryptocurrencyTreeItem* const root,
                                 QObject *parent = nullptr);

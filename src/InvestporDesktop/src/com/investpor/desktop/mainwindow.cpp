@@ -18,7 +18,7 @@
 #include <QMessageBox>
 #include <QSortFilterProxyModel>
 #include <QTranslator>
-
+#include <QDebug>
 using lib::PortfolioXML;
 
 namespace desktop {
@@ -54,7 +54,8 @@ namespace desktop {
 
         //CryptocurrencyDialog connections
         connect(m_ui->btnNewCryptocurrencyTransaction, &QPushButton::clicked, m_ui->actionCryptocurrency, &QAction::trigger);
-        connect(m_ui->actionCryptocurrency, &QAction::triggered, this, &MainWindow::cryptoCurrencyTransaction);
+        connect(m_ui->actionCryptocurrency, &QAction::triggered, this, &MainWindow::newCryptocurrencyTransaction);
+        connect(m_ui->btnDeleteCryptocurrency, &QPushButton::clicked, this, &MainWindow::deleteCryptocurrencyTransaction);
 
         //DiscountBondDialog connections
         connect(m_ui->btnNewDiscountBondTransaction, &QPushButton::clicked, m_ui->actionDiscountBond, &QAction::trigger);
@@ -96,7 +97,7 @@ namespace desktop {
                 m_ui->actionEnglish->setChecked(true);
                 m_ui->actionTurkish->setChecked(false);
 
-                for(QTranslator *translator : m_translatorMap->value(QStringLiteral("en")))
+                for(QTranslator *translator : m_translatorMap->value(QStringLiteral("en_US")))
                 {
                     //Load provided translations for English.
                     qApp->installTranslator(translator);
@@ -105,7 +106,7 @@ namespace desktop {
                 m_ui->actionTurkish->setChecked(true);
                 m_ui->actionEnglish->setChecked(false);
 
-                for(QTranslator *translator : m_translatorMap->value(QStringLiteral("tr")))
+                for(QTranslator *translator : m_translatorMap->value(QStringLiteral("tr_TR")))
                 {
                     //Load provided translations for Turkish.
                     qApp->installTranslator(translator);
@@ -150,8 +151,14 @@ namespace desktop {
         QLocale newLocale;
         if(localeAction == nullptr || localeAction == m_ui->actionEnglish) {
             newLocale = QLocale(QLocale::English, QLocale::UnitedStates);
+
+            m_ui->actionEnglish->setChecked(true);
+            m_ui->actionTurkish->setChecked(false);
         } else if(localeAction == m_ui->actionTurkish) {
             newLocale = QLocale(QLocale::Turkish, QLocale::Turkey);
+
+            m_ui->actionTurkish->setChecked(true);
+            m_ui->actionEnglish->setChecked(false);
         }
         setLocale(newLocale);
         QLocale::setDefault(newLocale);
@@ -398,20 +405,31 @@ namespace desktop {
     /**
     * @brief Send CryptocurrencyTransaction received from CryptocurrencyDialog to Portfolio
     */
-    void MainWindow::cryptoCurrencyTransaction()
+    void MainWindow::newCryptocurrencyTransaction()
     {
         CryptocurrencyDialog cd(this);
         if(cd.exec() == QDialog::Accepted)
         {
-            if(!m_portfolio->saveCryptocurrencyTransaction(cd.getTransaction())) {
+            if(!m_portfolio->newCryptocurrencyTransaction(cd.getTransaction())) {
                 QMessageBox::information(this, tr("Operation result"),
                                          tr("Cryptocurrency transaction could not be saved!"), QMessageBox::Ok);
             } else {
-                //Update cryptocurrencyModel
-                //cryptoCurrencyModel->updateTransactionList(portfolio->getCryptocurrencyTransactionList());
                 statusBar()->showMessage(tr("Cryptocurrency transaction has been saved successfully!"), 3000);
             }
         }
+    }
+
+    void MainWindow::deleteCryptocurrencyTransaction()
+    {
+        QModelIndex selectedIndex = m_ui->trvCryptocurrencyView->selectionModel()->selectedIndexes().at(0);
+        CryptocurrencyTreeItem *selectedItem = static_cast<CryptocurrencyTreeItem*>(selectedIndex.internalPointer());
+        QString crp = QVariant::fromValue(static_cast<lib::Util::Currency>(selectedItem->getCryptocurrency())).toString();
+        m_ui->statusBar->showMessage(QString("Hello"), 3000);
+
+qDebug() << selectedItem->getCryptocurrency();
+qDebug() << QVariant::fromValue(static_cast<lib::Util::Currency>(selectedItem->getCryptocurrency())).toString();
+qDebug() << selectedItem->getReferenceCurrency();
+qDebug() << QVariant::fromValue(static_cast<lib::Util::Currency>(selectedItem->getReferenceCurrency())).toString();
     }
 
     /**

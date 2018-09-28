@@ -68,8 +68,8 @@ HEADERS += \
     src/com/investpor/lib/abstractportfolio.h
 
 TRANSLATIONS += \
-    resources/translations/$${TARGET}_en.ts \
-    resources/translations/$${TARGET}_tr.ts
+    resources/translations/$${TARGET}_en_US.ts \
+    resources/translations/$${TARGET}_tr_TR.ts
 
 RESOURCES += \
     resources/InvestporLib.qrc

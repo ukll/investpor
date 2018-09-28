@@ -21,18 +21,18 @@ int main(int argc, char *argv[])
     QList<QTranslator*> enTranslatorList;
     QTranslator *enDesktopTranslator = new QTranslator(qApp);
     QTranslator *enLibTranslator = new QTranslator(qApp);
-    enDesktopTranslator->load(":/translations/InvestporDesktop_en.qm");
-    enLibTranslator->load(":/translations/InvestporLib_en.qm");
+    enDesktopTranslator->load(":/translations/InvestporDesktop_en_US.qm");
+    enLibTranslator->load(":/translations/InvestporLib_en_US.qm");
     enTranslatorList << enDesktopTranslator << enLibTranslator;
-    langTranslatorMap.insert(QStringLiteral("en"), enTranslatorList);
+    langTranslatorMap.insert(QStringLiteral("en_US"), enTranslatorList);
 
     QList<QTranslator*> trTranslatorList;
     QTranslator *trDesktopTranslator = new QTranslator(qApp);
     QTranslator *trLibTranslator = new QTranslator(qApp);
-    trDesktopTranslator->load(":/translations/InvestporDesktop_tr.qm");
-    trLibTranslator->load(":/translations/InvestporLib_tr.qm");
+    trDesktopTranslator->load(":/translations/InvestporDesktop_tr_TR.qm");
+    trLibTranslator->load(":/translations/InvestporLib_tr_TRqm");
     trTranslatorList << trDesktopTranslator << trLibTranslator;
-    langTranslatorMap.insert(QStringLiteral("tr"), trTranslatorList);
+    langTranslatorMap.insert(QStringLiteral("tr_TR"), trTranslatorList);
 
     MainWindow w(&langTranslatorMap);
     w.show();

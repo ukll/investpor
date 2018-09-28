@@ -85,8 +85,8 @@ FORMS += \
     src/com/investpor/desktop/portfoliodialog.ui
 
 TRANSLATIONS += \
-    resources/translations/$${TARGET}_en.ts \
-    resources/translations/$${TARGET}_tr.ts
+    resources/translations/$${TARGET}_en_US.ts \
+    resources/translations/$${TARGET}_tr_TR.ts
 
 RESOURCES += \
     resources/InvestporDesktop.qrc

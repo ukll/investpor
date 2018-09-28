@@ -1,7 +1,7 @@
 #ifndef CRYPTOCURRENCYDIALOG_H
 #define CRYPTOCURRENCYDIALOG_H
 
-#include "lib/cryptocurrencytransaction.h"
+#include "lib/cryptocurrencytreeitem.h"
 
 #include <QDialog>
 #include <QStatusBar>
@@ -10,7 +10,7 @@ namespace Ui {
     class CryptocurrencyDialog;
 }
 
-using lib::CryptocurrencyTransaction;
+using lib::CryptocurrencyTreeItem;
 
 namespace desktop {
 
@@ -22,14 +22,14 @@ namespace desktop {
         explicit CryptocurrencyDialog(QWidget *parent = 0);
         ~CryptocurrencyDialog();
 
-        CryptocurrencyTransaction getTransaction() const { return m_transaction; }
+        CryptocurrencyTreeItem getTransaction() const { return m_transaction; }
 
         virtual void accept() override;
 
     private:
         Ui::CryptocurrencyDialog *m_ui;
         QStatusBar m_statusBar;
-        CryptocurrencyTransaction m_transaction;
+        CryptocurrencyTreeItem m_transaction;
 
     private slots:
         void rearrangeDialog();
